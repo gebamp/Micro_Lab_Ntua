@@ -1,12 +1,11 @@
 
 ; Replace with your application code
-; ---- Αρχή τμήματος δεδομένων
 .nolist
 .include "m16def.inc"
 .list
 .DSEG
  _tmp_: .byte 2
-; ---- Τέλος τμήματος δεδομένων
+; ---- Code segment
 .CSEG
 .include "m16def.inc"
 
@@ -50,6 +49,8 @@ timer_loop:
       rcall print_time
       in  button,PINB
 	  rcall lcd_init
+      sbrs button,7
+	  jmp  main
       sbrs button,0
 	  jmp timer_loop
        
@@ -119,17 +120,17 @@ rcall lcd_data
 
 
 lcd_init:
-ldi r24 ,40       ; Όταν ο ελεγκτής της lcd τροφοδοτείται με
-ldi r25 ,0        ; ρεύμα εκτελεί την δική του αρχικοποίηση.
-rcall wait_msec   ; Αναμονή 40 msec μέχρι αυτή να ολοκληρωθεί.
-ldi r24 ,0x30     ; εντολή μετάβασης σε 8 bit mode
-out PORTD ,r24    ; επειδή δεν μπορούμε να είμαστε βέβαιοι
-sbi PORTD ,PD3    ; για τη διαμόρφωση εισόδου του ελεγκτή
-cbi PORTD ,PD3    ; της οθόνης, η εντολή αποστέλλεται δύο φορές
+ldi r24 ,40       ; Otan o elektis trofodotite me revma
+ldi r25 ,0        ; o elekths ektelei diki tou arxikopoihsh
+rcall wait_msec   ; wait 40msec until it is over
+ldi r24 ,0x30     ; go into 8 bit mode
+out PORTD ,r24    ; send instruction 2 times in order to make sure
+sbi PORTD ,PD3    ; 
+cbi PORTD ,PD3    ; 
 ldi r24 ,39
-ldi r25 ,0        ; εάν ο ελεγκτής της οθόνης βρίσκεται σε 8-bit mode
-rcall wait_usec   ; δεν θα συμβεί τίποτα, αλλά αν ο ελεγκτής έχει διαμόρφωση
-                  ; εισόδου 4 bit θα μεταβεί σε διαμόρφωση 8 bit
+ldi r25 ,0        ; an eimaste idi se 8 bit mode tote no change
+rcall wait_usec   ; an eimaste se 4bit mode tote change
+                  
 ldi r24 ,0x30
 out PORTD ,r24
 sbi PORTD ,PD3
@@ -137,25 +138,25 @@ cbi PORTD ,PD3
 ldi r24 ,39
 ldi r25 ,0
 rcall wait_usec
-ldi r24 ,0x20     ; αλλαγή σε 4-bit mode
+ldi r24 ,0x20     ; change to 4 bit mode
 out PORTD ,r24
 sbi PORTD ,PD3
 cbi PORTD ,PD3
 ldi r24 ,39
 ldi r25 ,0
 rcall wait_usec
-ldi r24 ,0x28     ; επιλογή χαρακτήρων μεγέθους 5x8 κουκίδων
-rcall lcd_command ; και εμφάνιση δύο γραμμών στην οθόνη
-ldi r24 ,0x0c     ; ενεργοποίηση της οθόνης, απόκρυψη του κέρσορα
+ldi r24 ,0x28     ; choose charcters 5*8 dots
+rcall lcd_command ; show 2 lines in screen
+ldi r24 ,0x0c     ; activate lcd hide cursor
 rcall lcd_command
-ldi r24 ,0x01     ; καθαρισμός της οθόνης
+ldi r24 ,0x01     ; clear lcd
 rcall lcd_command
 ldi r24 ,low(1530)
 ldi r25 ,high(1530)
 rcall wait_usec
-ldi r24 ,0x06     ; ενεργοποίηση αυτόματης αύξησης κατά 1 της διεύθυνσης
-rcall lcd_command ; που είναι αποθηκευμένη στον μετρητή διευθύνσεων και
-                  ; απενεργοποίηση της ολίσθησης ολόκληρης της οθόνης
+ldi r24 ,0x06     ; activate auto increment by one which is stored in
+rcall lcd_command ; address counter deactivate for entire shifting for 
+                  ; entire monitor
 ret
 
 
@@ -361,16 +362,16 @@ ret
 
 
 wait_msec:
- push r24           ; 2 κύκλοι (0.250 μsec)
- push r25           ; 2 κύκλοι
+ push r24           ; 2 cylcles (0.250 μsec)
+ push r25           ; 2 cycles
  ldi r24 , low(998) ; φόρτωσε τον καταχ. r25:r24 με 998 (1 κύκλος - 0.125 μsec)
- ldi r25 , high(998); 1 κύκλος (0.125 μsec)
- rcall wait_usec    ; 3 κύκλοι (0.375 μsec), προκαλεί συνολικά καθυστέρηση 998.375 μsec
- pop r25            ; 2 κύκλοι (0.250 μsec)
- pop r24            ; 2 κύκλοι
- sbiw r24 , 1       ; 2 κύκλοι
- brne wait_msec     ; 1 ή 2 κύκλοι (0.125 ή 0.250 μsec)
- ret                ; 4 κύκλοι (0.500 μsec)
+ ldi r25 , high(998); 1 cycle (0.125 μsec)
+ rcall wait_usec    ; 3 cycle (0.375 μsec), προκαλεί συνολικά καθυστέρηση 998.375 μsec
+ pop r25            ; 2 cycle (0.250 μsec)
+ pop r24            ; 2 cycle
+ sbiw r24 , 1       ; 2 cycle
+ brne wait_msec     ; 1 if succces  2 if fail (0.125 ή 0.250 μsec)
+ ret                ; 4 cycles (0.500 μsec)
 wait_usec:
 	sbiw r24 ,1     ; 2 cycles (0.250 µsec)
 	nop             ; 1 cycle (0.125 µsec)
