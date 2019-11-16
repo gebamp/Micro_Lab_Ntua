@@ -1,0 +1,82 @@
+START:
+
+IN 10H
+LXI B,03E8H
+
+BEGIN:
+Call Check_Input
+Call Down_Counting
+Call Up_Counting
+Call restore
+JMP  Begin
+
+
+check_input:
+  call check_lsb ;
+  call check_msb ;  
+ret
+
+Up_counting:
+ MOV D,A    ;Temp save A in D
+ call check_lsb ;check lsb to continue
+ MOV A,D    ;Restore A
+ INR A      ;Increment A
+ CMA        ;Reverse
+ STA 3000H  ;Print leds
+ call delb  ;Insert Delay
+ CMA        ;restore A
+ CMP E      ;compare to read vaue if yes cont else stop
+ JNZ up_counting
+ 
+ret
+
+Down_counting:
+init:
+  MOV A,E
+  CMA
+  STA 3000H
+  CALL DELB
+  CMA
+end_init:
+dcr:
+ MOV D,A   ;Temp save A in D
+ call check_lsb
+ MOV A,D   ;Restore A
+ DCR A     ;Decremenet A
+ CMA       ;reverse for leds
+ STA 3000H ;print leds
+ CALL DELB ;insert delay
+ CMA       ;restore 
+ CPI 00H   ;has it reached 0 if no then continue else stop
+ JNZ dcr
+ ret
+
+check_msb:
+  LDA 2000H 
+  ANI F0H        ;get 4 msb
+  CPI 00H        ;is it 0 then read again
+  JZ read_zero
+  RRC            ;move high nimble to low nimble
+  RRC            
+  RRC 
+  RRC
+  MOV E,A        ;move read value in A
+  ret
+read_zero: 
+  jmp check_msb
+
+check_lsb:
+ lda 2000h ;read input
+ ani 01h   ;get lsb
+ cpi 01h   ;is it on if no then continue reading else exit routine
+ jz  ok
+ jnz check_lsb
+ok:
+RET
+
+restore:
+ MVI A,FFH
+ STA 3000H
+ call delb
+ret
+end

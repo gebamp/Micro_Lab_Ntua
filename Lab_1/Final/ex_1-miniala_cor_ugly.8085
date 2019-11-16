@@ -1,0 +1,74 @@
+1START:
+
+IN 10H
+LXI B,03E8H
+
+BEGIN:
+
+LDA 2000H   ;Read input
+CPI 00H     ;If all zero continue reading
+JZ BEGIN
+
+MOV D,A     ;Save read input
+ANI F0H     ;Get the 4 MSb and move them to lsb
+RLC
+RLC
+RLC
+RLC
+
+CPI 00H      ;if input is zero  dont turn on the leds
+JZ BEGIN     ;read again
+MOV E,A      ;move shifted read value to e 
+
+trap_begin:  ;trap for initial value of lsb
+MOV A,D      ;if it 0 then it is stuck here 
+ANI 01H
+JZ begin
+
+
+MOV A,E      ;return the counter read
+
+CMA 
+STA 3000H    ;print counter
+CALL DELB    ;insert delay of 1 second
+
+MOV A,E      ;restore counter in a
+
+decrement:   ;decrements the counter
+   DCR A  
+   MOV D,A
+   CMA
+   STA 3000H ;print decremented
+CALL DELB
+trap_dec:    ;rechecks the lsb
+   LDA 2000H
+   ANI 01H
+   CPI 01H
+JNZ trap_dec
+MOV A,D     ;check if 0
+CPI 00H     ;if not 0 continue decrementing
+JNZ decrement
+
+increment:  ;increments the counter
+   INR A    ;increment counter
+   MOV D,A  ;prints counter
+   CMA
+   STA 3000H
+   CALL DELB
+
+trap_inc:  ;rechecks  the lsb
+   LDA 2000H
+   ANI 01H
+   CPI 01H
+   JNZ trap_inc
+
+MOV A,D   ;if it has reached the initial value 
+CMP E     ;end
+JNZ increment
+
+MVI A,00H ;Turn off all the leds
+CMA
+STA 3000H
+JMP BEGIN
+
+END

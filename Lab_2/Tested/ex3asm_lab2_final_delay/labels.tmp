@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>26</LINE></reset>
+  <ISR1><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>103</LINE></ISR1>
+  <ISR_TIMER1_OVF><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>178</LINE></ISR_TIMER1_OVF>
+  <main><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>50</LINE></main>
+  <restore><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>54</LINE></restore>
+  <found_it_on><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>79</LINE></found_it_on>
+  <delay_500ms><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>189</LINE></delay_500ms>
+  <debounce><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>106</LINE></debounce>
+  <delay><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>112</LINE></delay>
+  <found_it_on_inside_intr><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>144</LINE></found_it_on_inside_intr>
+  <delay_2><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>151</LINE></delay_2>
+  <L1><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex3asm_lab2_final_delay\ex3asm_lab2_final_delay.asm</FILE><LINE>194</LINE></L1>
+ </LABELS>
+</ASSEMBLER_INFO>

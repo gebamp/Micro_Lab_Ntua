@@ -1,0 +1,116 @@
+ORG 0800H
+
+IN 10H
+LXI B,00C8H
+
+LXI H,0B00H
+MVI M,01H
+INX H
+MVI A,00H
+
+SETTING_LIMITS:			
+	MVI M,10H			; Move10h(nothing) in the for leds from the left of the display			
+	INX H				; Go the the next memory cell 
+	INR A				; Increment the acc
+	CPI 06H			; This is the last empty
+JC SETTING_LIMITS			; Repeat until you get to th 7th led
+
+
+LOOP_MAIN:
+
+   MVI A,00H    
+   CMA
+   STA 3000H
+   CMA
+
+START_COUNT:
+
+   MOV E,A                       ; Move acc to E 
+check_interupt:   
+  
+   LDA 2000H                     ; Check LSB if on enable interupts
+   ANI 01H                       
+   CPI 01H
+   JZ  enable_intr 
+disable_intr:
+  
+   DI                            ; Disable Interupts 
+   JMP end_check_intr
+enable_intr:  
+
+   MVI A,0DH                     ; Enable interupt rst 6.5
+   SIM
+   EI
+end_check_intr:               
+   MOV A,E                        ; Move Counter back to acc
+   INR A                          ;Increment by 1 and shift to the 4 msb
+   RLC
+   RLC
+   RLC
+   RLC
+  
+   PUSH PSW                      ;Push acc and the flags in the stack
+ 
+   DI                            ;Disable interupts
+   CALL DELB                     ;Insert Delay
+check_interupt2:                 ;Checks if lsb was enabled in order to EI
+   LDA 2000H                     
+   ANI 01H
+   CPI 01H
+   JZ  enable_intr2
+   JMP end_check_intr2
+enable_intr2:  
+   MVI A,0DH
+   SIM
+   EI
+end_check_intr2:
+
+   POP PSW                       ;Restore counter
+   PUSH PSW                      ;Push it down the stack
+ 
+   ANI F0H                       ;Get the 4 msb
+   CMA                           ;Reverse for leds
+   STA 3000H                     ;Print
+   POP PSW                       ;Pop out of the stack
+   CPI 0FH                       ;Counter<15 if true then continue counting
+    
+   JNZ START_COUNT
+
+JMP LOOP_MAIN
+
+INTR_ROUTINE:                    ;Intr handler
+   PUSH PSW                      ;Save acc
+   INR A                         ;Interupt registered     
+   
+   LXI D,0B00H                   ;Load to print
+
+
+   DI                            ;Disable intr
+   CALL STDM                     
+   CALL DCD
+
+check_interupt3:                 ;Check to reinable intr
+   LDA 2000H                     ;Read lsb
+   ANI 01H
+   CPI 01H
+   JZ  enable_intr3              ;if on then enable
+   JMP end_check_intr3
+enable_intr3:  
+   MVI A,0DH                     ; Enable intr
+   SIM
+   EI
+end_check_intr3:
+  LXI H,0B00H                    ;restore counter from mem
+  MOV A,M
+  INR A                          ;Increment counter if (previous incr lost)counter=10 subtract 9
+  CPI 0AH                       
+  JNZ NOT_MOD
+MOD:
+  SUI 09H                        ;subtract 9
+NOT_MOD:
+  MOV M,A                        ;store counter in memory
+POP PSW 
+RET
+
+
+END

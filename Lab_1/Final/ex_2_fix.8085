@@ -1,0 +1,106 @@
+ORG 0800H
+
+IN 10H
+LXI B,00C8H
+
+LXI H,0B00H
+MVI M,01H
+INX H
+MVI A,00H
+
+SETTING_LIMITS:			
+	MVI M,10H			; Move10h(nothing) in the leds from the left of the display			
+	INX H				; Go the the next memory cell 
+	INR A				; Increment the acc
+	CPI 06H			; This is the last empty
+JC SETTING_LIMITS			; Repeat until you get to th 7th led
+
+
+LOOP_MAIN:
+
+   MVI A,00H    
+   CMA
+   STA 3000H
+   CMA
+   CALL DELB                     ;Insert Delay
+
+
+START_COUNT:
+
+   MOV E,A                       ; Move acc to E 
+enable_intr:  
+
+   MVI A,0DH                     ; Enable interupt rst 6.5
+   SIM
+   EI
+end_check_intr:               
+   MOV A,E                        ; Move Counter back to acc
+   INR A                          ;Increment by 1 and shift to the 4 msb
+   RLC
+   RLC
+   RLC
+   RLC
+  
+   PUSH PSW                      ;Push acc and the flags in the stack
+ 
+  
+
+
+   POP PSW                       ;Restore counter
+   PUSH PSW                      ;Push it down the stack
+ 
+   ANI F0H                       ;Get the 4 msb
+   CMA                           ;Reverse for leds
+   STA 3000H                     ;Print
+   CALL DELB                     ;Insert Delay
+
+   POP PSW                       ;Pop out of the stack
+   CPI 0FH                       ;Counter<15 if true then continue counting
+    
+   JNZ START_COUNT
+
+JMP LOOP_MAIN
+
+INTR_ROUTINE:                    ;Intr handler
+   PUSH PSW                      ;Save acc
+   LDA  2000H                    ;We keep the interupts enabled in the main program
+   ANI 01H                       ;once we get in the intr handler
+   CPI 00H                       ; we check if lsb is on
+   JZ dont_add                   ; if it is off then add it int the intr counter  else dont
+   POP PSW
+   PUSH PSW
+   INR A                         ;Interupt registered     
+   
+   LXI D,0B00H                   ;Load to print
+
+
+   DI                            ;Disable intr
+   CALL STDM                     
+   CALL DCD
+
+check_interupt3:                 ;Check to reinable intr
+   LDA 2000H                     ;Read lsb
+   ANI 01H
+   CPI 01H
+   JZ  enable_intr3              ;if on then enable
+   JMP end_check_intr3
+enable_intr3:  
+   MVI A,0DH                     ; Enable intr
+   SIM
+   EI
+end_check_intr3:
+  LXI H,0B00H                    ;restore counter from mem
+  MOV A,M
+  INR A                          ;Increment counter if (previous incr lost)counter=10 subtract 9
+  CPI 0AH                       
+  JNZ NOT_MOD
+MOD:
+  SUI 09H                        ;subtract 9
+NOT_MOD:
+  MOV M,A                        ;store counter in memory
+dont_add: 
+POP PSW 
+RET
+
+
+END

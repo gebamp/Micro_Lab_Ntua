@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>21</LINE></reset>
+  <ISR0><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>57</LINE></ISR0>
+  <main><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>47</LINE></main>
+  <wait_200ms><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>104</LINE></wait_200ms>
+  <debounce><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>59</LINE></debounce>
+  <delay><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>65</LINE></delay>
+  <get_one><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>81</LINE></get_one>
+  <print_output><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>95</LINE></print_output>
+  <put_one><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>89</LINE></put_one>
+  <L1><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex2_lab2\ex2_lab2.asm</FILE><LINE>108</LINE></L1>
+ </LABELS>
+</ASSEMBLER_INFO>

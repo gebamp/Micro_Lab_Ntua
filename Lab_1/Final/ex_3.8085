@@ -1,0 +1,90 @@
+BEGIN:
+
+
+LXI H,0B01H
+MVI A,00H
+
+;INITIALIZING AN EMPTY 7 SEGMENT DISPLAY
+
+SETTING_LIMITS:
+   MVI M,10H
+   INX H
+   INR A
+   CPI 07H
+JC Setting_limits
+
+   LXI D,0B01H
+   CALL STDM
+   CALL DCD
+
+;END OF INITIALIZING
+MAIN:
+
+   CALL KIND ;Read x
+   MOV B,A   ;Save x in B
+   CALL KIND ;Read Y
+   CMP B     ;Cmp X,Y
+   JZ equals
+   JNC second_bigger ; If Y>=X go to tag
+     
+     
+     ; Case of X>Y
+   
+   MOV C,A           
+   MOV A,B
+   SUB C            ;X-Y
+   DAA              ;Decimal Adjust
+   JMP print_blank  ;Print blank
+   
+     ;Case of Y>=X
+second_bigger:
+
+   SUB B            ; Y-X
+   DAA              ; Adjust Decimal
+   LXI H,0B03H      ;Store - in memory to print
+   MVI M,1CH        
+   JMP printed_minus
+
+
+
+print_blank:
+   LXI H,0B03H     ;Store blank in memory
+   MVI M,10H   
+
+printed_minus:
+   MOV B,A         ;save acc in b
+   ANI 0FH         ;get the lower nimble of the acc
+   LXI H,0B01H     ;Store the lower nimble in the LSB of the 7-segment 
+   MOV M,A         ; 
+   MOV A,B         ;Restore ACC
+   RRC             ;Move high nimble to low nimble
+   RRC
+   RRC
+   RRC
+   ANI 01H         ;Get the Lsb(10ths)
+   LXI H,0B02H     ;Store the high nimble in the second LSB of the 7-segment
+   MOV M,A
+
+   LXI D,0B01H     ;Move the memory space in d for STDM 
+   DI
+   CALL STDM
+   CALL DCD
+   EI
+  JMP MAIN
+
+equals:           ;IF x,y equal then just store 0 and print it
+  LXI H,0B01H
+  MVI M,00H
+  INX H
+  MVI M,00H
+  INX H
+  MVI M,10H
+  LXI D,0B01H
+  DI
+  CALL STDM
+  CALL DCD
+  EI
+  JMP MAIN
+
+
+END

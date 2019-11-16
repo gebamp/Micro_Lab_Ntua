@@ -1,0 +1,30 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>F:\Microlab\Lab2\Tested\ex1_lab2</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</FILE><LINE>17</LINE></reset>
+  <ISR1><FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</FILE><LINE>47</LINE></ISR1>
+  <main><FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</FILE><LINE>37</LINE></main>
+  <debounce><FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</FILE><LINE>48</LINE></debounce>
+  <delay><FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</FILE><LINE>54</LINE></delay>
+  <wait_200ms><FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</FILE><LINE>75</LINE></wait_200ms>
+  <L1><FILE>F:\Microlab\Lab2\Tested\ex1_lab2\ex1_lab2.asm</FILE><LINE>79</LINE></L1>
+ </LABELS>
+</ASSEMBLER_INFO>

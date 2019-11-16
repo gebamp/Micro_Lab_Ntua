@@ -1,0 +1,46 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>E:\Lab_3\ex2_lab3</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>E:\Lab_3\ex2_lab3\ex2_lab3.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>E:\Lab_3\ex2_lab3\ex2_lab3.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>E:\Lab_3\ex2_lab3\ex2_lab3.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <_tmp_><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>8</LINE></_tmp_>
+  <reset><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>21</LINE></reset>
+  <lcd_init><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>126</LINE></lcd_init>
+  <main><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>33</LINE></main>
+  <scan_keypad_rising_edge><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>201</LINE></scan_keypad_rising_edge>
+  <keypad_to_ascii><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>261</LINE></keypad_to_ascii>
+  <pressed_first><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>43</LINE></pressed_first>
+  <lcd_data><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>185</LINE></lcd_data>
+  <keypad_to_hex><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>314</LINE></keypad_to_hex>
+  <get_digits><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>93</LINE></get_digits>
+  <end><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>89</LINE></end>
+  <negative><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>117</LINE></negative>
+  <flag><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>102</LINE></flag>
+  <tenths><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>108</LINE></tenths>
+  <hund><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>105</LINE></hund>
+  <monads><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>114</LINE></monads>
+  <wait_msec><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>368</LINE></wait_msec>
+  <wait_usec><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>379</LINE></wait_usec>
+  <lcd_command><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>193</LINE></lcd_command>
+  <write_2_nibbles><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>167</LINE></write_2_nibbles>
+  <scan_keypad><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>242</LINE></scan_keypad>
+  <scan_row><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>227</LINE></scan_row>
+  <back><FILE>E:\Lab_3\ex2_lab3\ex2_lab3.asm</FILE><LINE>229</LINE></back>
+ </LABELS>
+</ASSEMBLER_INFO>
