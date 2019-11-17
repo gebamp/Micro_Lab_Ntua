@@ -39,33 +39,67 @@ reset:
   clr r24
   clr ascii_const
   ldi ascii_const,48
+  ;lcd_init
 main: 
-      clr seconds_first_digit
-      clr minutes_first_digit
-      clr seconds_second_digit
-      clr minutes_second_digit
-      rcall lcd_init
+    clr seconds_first_digit
+    clr minutes_first_digit
+    clr seconds_second_digit
+    clr minutes_second_digit
+    ;ldi r24,0x01
+    ;rcall lcd_commad
+    rcall lcd_init
+    rcall print_time
 timer_loop:
-      rcall print_time
-      in  button,PINB
-	  rcall lcd_init
-      sbrs button,7
+    ;ldi r24,0x01
+    ;rcall lcd_command
+    rcall lcd_init
+    rcall print_time
+    in  button,PINB
+    ;ldi r24,0x01
+    ;rcall lcd_command
+    sbrc button,7
 	  jmp  main
-      sbrs button,0
+    sbrs button,0
 	  jmp timer_loop
-       
-      rcall print_time
+  
+    ;rcall print_time
      
-      ldi r24,low(840)
+    ldi r24,low(840)
 	  ldi r25,high(840)
 	  rcall wait_msec
+    ;1st_Adition
+    ;ldi r24,low (950)
+	  ;ldi r25,high(950)
+	  ;rcall wait_msec
+    
+;     ldi  r28,0
+;     ldi  r29,249
+;     jmp  keep_checking
+; 250_ms:
+;     inc r28
+;     cpi r28,3
+;     breq 1_second_has_passed
+; keep_checking:
+;     in   r30,PINB
+;     sbrc r30,7
+;     jmp   main
+;     sbrs r30,0
+;     jmp timer_loop
+;     ldi r24,low(1)
+;     ldi r25,high(1)
+;     rcall wait_msec
+;     dec r29
+;     breq r29,250_ms
+;     jmp keep_checking
+; 1_second_has_passed:
+;     ;
 	  inc   seconds_second_digit
-      cpi   seconds_second_digit,10
+    cpi   seconds_second_digit,10
 	  brne  dont_increment_something
 	  clr   seconds_second_digit
-      inc   seconds_first_digit
+    inc   seconds_first_digit
 	  cpi   seconds_first_digit,6
-      brne  dont_increment_something
+    brne  dont_increment_something
 	  clr   seconds_first_digit
 	  inc   minutes_second_digit
 	  cpi   minutes_second_digit,10
@@ -73,312 +107,304 @@ timer_loop:
 	  clr   minutes_second_digit
 	  inc   minutes_first_digit
 dont_increment_something:
-	   rcall lcd_init
-
-
+    
 end:
 	  cpi   minutes_first_digit,6
 	  breq  main
-      jmp timer_loop
+    jmp timer_loop
 
 
 print_time:
-
-      mov   r24,minutes_first_digit
-      add   r24,ascii_const
+  mov   r24,minutes_first_digit
+  add   r24,ascii_const
 rcall lcd_data
-      mov   r24,minutes_second_digit
-      add   r24,ascii_const
+  mov   r24,minutes_second_digit
+  add   r24,ascii_const
 rcall lcd_data
-      ldi   r24,' '
+  ldi   r24,' '
 rcall lcd_data
-      ldi r24,'M'
+  ldi r24,'M'
 rcall lcd_data
-      ldi r24,'I'
+  ldi r24,'I'
 rcall lcd_data
-      ldi r24,'N'
+  ldi r24,'N'
 rcall lcd_data
-
-      ldi r24,':'
+  ldi r24,':'
 rcall lcd_data
-      mov   r24,seconds_first_digit
-      add   r24,ascii_const
+  mov   r24,seconds_first_digit
+  add   r24,ascii_const
 rcall lcd_data
-      mov   r24,seconds_second_digit
-      add   r24,ascii_const
+  mov   r24,seconds_second_digit
+  add   r24,ascii_const
 rcall lcd_data
-      ldi   r24,' '
+  ldi   r24,' '
 rcall lcd_data
-      ldi r24,'S'
+  ldi r24,'S'
 rcall lcd_data
-      ldi r24,'E'
+  ldi r24,'E'
 rcall lcd_data
-      ldi r24,'C'
-rcall lcd_data
-  
-  ret
+  ldi r24,'C'
+rcall lcd_data 
+ret
 
 
 lcd_init:
-ldi r24 ,40       ; Otan o elektis trofodotite me revma
-ldi r25 ,0        ; o elekths ektelei diki tou arxikopoihsh
-rcall wait_msec   ; wait 40msec until it is over
-ldi r24 ,0x30     ; go into 8 bit mode
-out PORTD ,r24    ; send instruction 2 times in order to make sure
-sbi PORTD ,PD3    ; 
-cbi PORTD ,PD3    ; 
-ldi r24 ,39
-ldi r25 ,0        ; an eimaste idi se 8 bit mode tote no change
-rcall wait_usec   ; an eimaste se 4bit mode tote change
+ ldi r24 ,40       ; Otan o elektis trofodotite me revma
+ ldi r25 ,0        ; o elekths ektelei diki tou arxikopoihsh
+ rcall wait_msec   ; wait 40msec until it is over
+ ldi r24 ,0x30     ; go into 8 bit mode
+ out PORTD ,r24    ; send instruction 2 times in order to make sure
+ sbi PORTD ,PD3    ; 
+ cbi PORTD ,PD3    ; 
+ ldi r24 ,39
+ ldi r25 ,0        ; an eimaste idi se 8 bit mode tote no change
+ rcall wait_usec   ; an eimaste se 4bit mode tote change
                   
-ldi r24 ,0x30
-out PORTD ,r24
-sbi PORTD ,PD3
-cbi PORTD ,PD3
-ldi r24 ,39
-ldi r25 ,0
-rcall wait_usec
-ldi r24 ,0x20     ; change to 4 bit mode
-out PORTD ,r24
-sbi PORTD ,PD3
-cbi PORTD ,PD3
-ldi r24 ,39
-ldi r25 ,0
-rcall wait_usec
-ldi r24 ,0x28     ; choose charcters 5*8 dots
-rcall lcd_command ; show 2 lines in screen
-ldi r24 ,0x0c     ; activate lcd hide cursor
-rcall lcd_command
-ldi r24 ,0x01     ; clear lcd
-rcall lcd_command
-ldi r24 ,low(1530)
-ldi r25 ,high(1530)
-rcall wait_usec
-ldi r24 ,0x06     ; activate auto increment by one which is stored in
-rcall lcd_command ; address counter deactivate for entire shifting for 
+ ldi r24 ,0x30
+ out PORTD ,r24
+ sbi PORTD ,PD3
+ cbi PORTD ,PD3
+ ldi r24 ,39
+ ldi r25 ,0
+ rcall wait_usec
+ ldi r24 ,0x20     ; change to 4 bit mode
+ out PORTD ,r24
+ sbi PORTD ,PD3
+ cbi PORTD ,PD3
+ ldi r24 ,39
+ ldi r25 ,0
+ rcall wait_usec
+ ldi r24 ,0x28     ; choose charcters 5*8 dots
+ rcall lcd_command ; show 2 lines in screen
+ ldi r24 ,0x0c     ; activate lcd hide cursor
+ rcall lcd_command
+ ldi r24 ,0x01     ; clear lcd
+ rcall lcd_command
+ ldi r24 ,low(1530)
+ ldi r25 ,high(1530)
+ rcall wait_usec
+ ldi r24 ,0x06     ; activate auto increment by one which is stored in
+ rcall lcd_command ; address counter deactivate for entire shifting for 
                   ; entire monitor
-ret
-
-
+ ret
 write_2_nibbles:
-push r24         ; στέλνει τα 4 MSB
-in r25 ,PIND     ; διαβάζονται τα 4 LSB και τα ξαναστέλνουμε
-andi r25 ,0x0f   ; για να μην χαλάσουμε την όποια προηγούμενη κατάσταση
-andi r24 ,0xf0   ; απομονώνονται τα 4 MSB και
-add r24 ,r25     ; συνδυάζονται με τα προϋπάρχοντα 4 LSB
-out PORTD ,r24   ; και δίνονται στην έξοδο
-sbi PORTD ,PD3   ; δημιουργείται παλμός Enable στον ακροδέκτη PD3
-cbi PORTD ,PD3   ; PD3=1 και μετά PD3=0
-pop r24          ; στέλνει τα 4 LSB. Ανακτάται το byte.
-swap r24         ; εναλλάσσονται τα 4 MSB με τα 4 LSB
-andi r24 ,0xf0   ; που με την σειρά τους αποστέλλονται
-add r24 ,r25
-out PORTD ,r24
-sbi PORTD ,PD3   ; Νέος παλμός Enable
-cbi PORTD ,PD3
-ret
+ push r24         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ 4 MSB
+ in r25 ,PIND     ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ 4 LSB οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ andi r25 ,0x0f   ; οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ andi r24 ,0xf0   ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ 4 MSB οΏ½οΏ½οΏ½
+ add r24 ,r25     ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ 4 LSB
+ out PORTD ,r24   ; οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½
+ sbi PORTD ,PD3   ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ Enable οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ PD3
+ cbi PORTD ,PD3   ; PD3=1 οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ PD3=0
+ pop r24          ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ 4 LSB. οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ byte.
+ swap r24         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ 4 MSB οΏ½οΏ½ οΏ½οΏ½ 4 LSB
+ andi r24 ,0xf0   ; οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ add r24 ,r25
+ out PORTD ,r24
+ sbi PORTD ,PD3   ; οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ Enable
+ cbi PORTD ,PD3
+ ret
 
 lcd_data:
-sbi PORTD ,PD2   ; επιλογή του καταχωρητή δεδομένων (PD2=1)
-rcall write_2_nibbles ; αποστολή του byte
-ldi r24 ,43      ; αναμονή 43μsec μέχρι να ολοκληρωθεί η λήψη
-ldi r25 ,0       ; των δεδομένων από τον ελεγκτή της lcd
-rcall wait_usec
-ret
-
+ sbi PORTD ,PD2   ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ (PD2=1)
+ rcall write_2_nibbles ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ byte
+ ldi r24 ,43      ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ 43οΏ½sec οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½ οΏ½οΏ½οΏ½οΏ½
+ ldi r25 ,0       ; οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ lcd
+ rcall wait_usec
+ ret
+ 
 lcd_command:
-cbi PORTD ,PD2         ; επιλογή του καταχωρητή εντολών (PD2=1)
-rcall write_2_nibbles  ; αποστολή της εντολής και αναμονή 39μsec
-ldi r24 ,39            ; για την ολοκλήρωση της εκτέλεσης της από τον ελεγκτή της lcd.
-ldi r25 ,0             ; ΣΗΜ.: υπάρχουν δύο εντολές, οι clear display και return home,
-rcall wait_usec        ; που απαιτούν σημαντικά μεγαλύτερο χρονικό διάστημα.
-ret
+ cbi PORTD ,PD2         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ (PD2=1)
+ rcall write_2_nibbles  ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ 39οΏ½sec
+ ldi r24 ,39            ; οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ lcd.
+ ldi r25 ,0             ; οΏ½οΏ½οΏ½.: οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½, οΏ½οΏ½ clear display οΏ½οΏ½οΏ½ return home,
+ rcall wait_usec        ; οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.
+ ret
 
 scan_keypad_rising_edge:
-  mov r22 ,r24         ; αποθήκευσε το χρόνο σπινθηρισμού στον r22
-  rcall scan_keypad    ; έλεγξε το πληκτρολόγιο για πιεσμένους διακόπτες
-  push r24             ; και αποθήκευσε το αποτέλεσμα
+  mov r22 ,r24         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ r22
+  rcall scan_keypad    ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+  push r24             ; οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
   push r25
-  mov r24 ,r22         ; καθυστέρησε r22 ms (τυπικές τιμές 10-20 msec που καθορίζεται από τον
-  ldi r25 ,0           ; κατασκευαστή του πληκτρολογίου – χρονοδιάρκεια σπινθηρισμών)
+  mov r24 ,r22         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r22 ms (οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ 10-20 msec οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½
+  ldi r25 ,0           ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½)
   rcall wait_msec
-  rcall scan_keypad    ; έλεγξε το πληκτρολόγιο ξανά και απόρριψε
-  pop r23              ; όσα πλήκτρα εμφανίζουν σπινθηρισμό
+  rcall scan_keypad    ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+  pop r23              ; οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
   pop r22
   and r24 ,r22
   and r25 ,r23
-  ldi r26 ,low(_tmp_)  ; φόρτωσε την κατάσταση των διακοπτών στην
-  ldi r27 ,high(_tmp_) ; προηγούμενη κλήση της ρουτίνας στους r27:r26
+  ldi r26 ,low(_tmp_)  ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½
+  ldi r27 ,high(_tmp_) ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ r27:r26
   ld r23 ,X+
   ld r22 ,X
-  st X ,r24            ; αποθήκευσε στη RAM τη νέα κατάσταση
-  st -X ,r25           ; των διακοπτών
+  st X ,r24            ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ RAM οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+  st -X ,r25           ; οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
   com r23
-  com r22              ; βρες τους διακόπτες που έχουν «μόλις» πατηθεί
+  com r22              ; οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
   and r24 ,r22
   and r25 ,r23
   ret
 
 
 scan_row:
-  ldi r25 , 0x08       ; αρχικοποίηση με ‘0000 1000’
-  back: lsl r25        ; αριστερή ολίσθηση του ‘1’ τόσες θέσεις
-  dec r24              ; όσος είναι ο αριθμός της γραμμής
+  ldi r25 , 0x08       ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½0000 1000οΏ½
+  back: lsl r25        ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½1οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+  dec r24              ; οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
   brne back
-  out PORTC , r25      ; η αντίστοιχη γραμμή τίθεται στο λογικό ‘1’
+  out PORTC , r25      ; οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½
   nop
-  nop                  ; καθυστέρηση για να προλάβει να γίνει η αλλαγή κατάστασης
-  in r24 , PINC        ; επιστρέφουν οι θέσεις (στήλες) των διακοπτών που είναι πιεσμένοι
-  andi r24 ,0x0f       ; απομονώνονται τα 4 LSB όπου τα ‘1’ δείχνουν που είναι πατημένοι
-  ret                  ; οι διακόπτες.
-
+  nop                  ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+  in r24 , PINC        ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ (οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½) οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+  andi r24 ,0x0f       ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ 4 LSB οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½1οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+  ret                  ; οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.
 
 
 
 scan_keypad:
-ldi r24 , 0x01         ; έλεγξε την πρώτη γραμμή του πληκτρολογίου
-rcall scan_row
-swap r24               ; αποθήκευσε το αποτέλεσμα
-mov r27 , r24          ; στα 4 msb του r27
-ldi r24 ,0x02          ; έλεγξε τη δεύτερη γραμμή του πληκτρολογίου
-rcall scan_row
-add r27 , r24          ; αποθήκευσε το αποτέλεσμα στα 4 lsb του r27
-ldi r24 , 0x03         ; έλεγξε την τρίτη γραμμή του πληκτρολογίου
-rcall scan_row
-swap r24               ; αποθήκευσε το αποτέλεσμα
-mov r26 , r24          ; στα 4 msb του r26
-ldi r24 ,0x04          ; έλεγξε την τέταρτη γραμμή του πληκτρολογίου
-rcall scan_row
-add r26 , r24          ; αποθήκευσε το αποτέλεσμα στα 4 lsb του r26
-movw r24 , r26         ; μετέφερε το αποτέλεσμα στους καταχωρητές r25:r24
-ret
+ ldi r24 , 0x01         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ rcall scan_row
+ swap r24               ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ mov r27 , r24          ; οΏ½οΏ½οΏ½ 4 msb οΏ½οΏ½οΏ½ r27
+ ldi r24 ,0x02          ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ rcall scan_row
+ add r27 , r24          ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ 4 lsb οΏ½οΏ½οΏ½ r27
+ ldi r24 , 0x03         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ rcall scan_row
+ swap r24               ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ mov r26 , r24          ; οΏ½οΏ½οΏ½ 4 msb οΏ½οΏ½οΏ½ r26
+ ldi r24 ,0x04          ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ rcall scan_row
+ add r26 , r24          ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ 4 lsb οΏ½οΏ½οΏ½ r26
+ movw r24 , r26         ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r25:r24
+ ret
+ 
+  
+keypad_to_ascii:        ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r26 οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ movw r26 ,r24          ; οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ ldi r24 ,'E'           ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ ascii value οΏ½οΏ½οΏ½ e anti gia to *
+ sbrc r26 ,0
+ ret
+ ldi r24 ,'0'
+ sbrc r26 ,1
+ ret
+ ldi r24 ,'F'           ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ F οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ #
+ sbrc r26 ,2       
+ ret                
+ ldi r24 ,'D'
+ sbrc r26 ,3            ; οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ ret, οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ (οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½)
+ ret                    ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r24 οΏ½οΏ½οΏ½ ASCII οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ D.
+ ldi r24 ,'7'
+ sbrc r26 ,4
+ ret
+ ldi r24 ,'8'
+ sbrc r26 ,5
+ ret
+ ldi r24 ,'9'
+ sbrc r26 ,6
+ ret
+ ldi r24 ,'C'
+ sbrc r26 ,7
+ ret    
+ ldi r24 ,'4'          ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r27 οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ sbrc r27 ,0           ; οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ ret
+ ldi r24 ,'5'
+ sbrc r27 ,1
+ ret 
+ ldi r24 ,'6'
+ sbrc r27 ,2
+ ret
+ ldi r24 ,'B'
+ sbrc r27 ,3
+ ret
+ ldi r24 ,'1'
+ sbrc r27 ,4
+ ret
+ ldi r24 ,'2'
+ sbrc r27 ,5
+ ret
+ ldi r24 ,'3'
+ sbrc r27 ,6
+ ret
+ ldi r24 ,'A'
+ sbrc r27 ,7
+ ret
+ clr r24
+ ret
 
-
-keypad_to_ascii:       ; λογικό ‘1’ στις θέσεις του καταχωρητή r26 δηλώνουν
-movw r26 ,r24          ; τα παρακάτω σύμβολα και αριθμούς
-ldi r24 ,'E'           ; Επέστρεψε το ascii value του e anti gia to *
-sbrc r26 ,0
-ret
-ldi r24 ,'0'
-sbrc r26 ,1
-ret
-ldi r24 ,'F'           ; Επέστρεψε την τιμή F αυτή αντι για την #
-sbrc r26 ,2       
-ret                
-ldi r24 ,'D'
-sbrc r26 ,3            ; αν δεν είναι ‘1’παρακάμπτει την ret, αλλιώς (αν είναι ‘1’)
-ret                    ; επιστρέφει με τον καταχωρητή r24 την ASCII τιμή του D.
-ldi r24 ,'7'
-sbrc r26 ,4
-ret
-ldi r24 ,'8'
-sbrc r26 ,5
-ret
-ldi r24 ,'9'
-sbrc r26 ,6
-ret
-ldi r24 ,'C'
-sbrc r26 ,7
-ret    
-ldi r24 ,'4'          ; λογικό ‘1’ στις θέσεις του καταχωρητή r27 δηλώνουν
-sbrc r27 ,0           ; τα παρακάτω σύμβολα και αριθμούς
-ret
-ldi r24 ,'5'
-sbrc r27 ,1
-ret
-ldi r24 ,'6'
-sbrc r27 ,2
-ret
-ldi r24 ,'B'
-sbrc r27 ,3
-ret
-ldi r24 ,'1'
-sbrc r27 ,4
-ret
-ldi r24 ,'2'
-sbrc r27 ,5
-ret
-ldi r24 ,'3'
-sbrc r27 ,6
-ret
-ldi r24 ,'A'
-sbrc r27 ,7
-ret
-clr r24
-ret
-
-keypad_to_hex:       ; λογικό ‘1’ στις θέσεις του καταχωρητή r26 δηλώνουν
-movw r26 ,r24        ; τα παρακάτω σύμβολα και αριθμούς
-ldi r24 ,0x0E        ; Επέστρεψε το ascii value του e anti gia to *  
-sbrc r26 ,0
-ret
-ldi r24 ,0x00
-sbrc r26 ,1
-ret
-ldi r24 ,0x0F        ; Επέστρεψε την τιμή F αυτή αντι για την #
-sbrc r26 ,2
-ret
-ldi r24 ,0x0D
-sbrc r26 ,3          ; αν δεν είναι ‘1’παρακάμπτει την ret, αλλιώς (αν είναι ‘1’)
-ret                  ; επιστρέφει με τον καταχωρητή r24 την HEX τιμή του D.
-ldi r24 ,0x07
-sbrc r26 ,4
-ret
-ldi r24 ,0x08
-sbrc r26 ,5
-ret
-ldi r24 ,0x09
-sbrc r26 ,6
-ret
-ldi r24 ,0x0C
-sbrc r26 ,7
-ret
-ldi r24 ,0x04        ; λογικό ‘1’ στις θέσεις του καταχωρητή r27 δηλώνουν
-sbrc r27 ,0          ; τα παρακάτω σύμβολα και αριθμούς
-ret
-ldi r24 ,0x05
-sbrc r27 ,1
-ret
-ldi r24 ,0x06
-sbrc r27 ,2
-ret
-ldi r24 ,0x0B
-sbrc r27 ,3
-ret
-ldi r24 ,0x01
-sbrc r27 ,4
-ret
-ldi r24 ,0x02
-sbrc r27 ,5
-ret
-ldi r24 ,0x03
-sbrc r27 ,6
-ret
-ldi r24 ,0x0A
-sbrc r27 ,7
-ret
-clr r24
-ret
+keypad_to_hex:       ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r26 οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ movw r26 ,r24        ; οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ ldi r24 ,0x0E        ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ ascii value οΏ½οΏ½οΏ½ e anti gia to *  
+ sbrc r26 ,0
+ ret
+ ldi r24 ,0x00
+ sbrc r26 ,1
+ ret
+ ldi r24 ,0x0F        ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ F οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ #
+ sbrc r26 ,2
+ ret
+ ldi r24 ,0x0D
+ sbrc r26 ,3          ; οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ ret, οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ (οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½)
+ ret                  ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r24 οΏ½οΏ½οΏ½ HEX οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ D.
+ ldi r24 ,0x07
+ sbrc r26 ,4
+ ret
+ ldi r24 ,0x08
+ sbrc r26 ,5
+ ret
+ ldi r24 ,0x09
+ sbrc r26 ,6
+ ret
+ ldi r24 ,0x0C
+ sbrc r26 ,7
+ ret
+ ldi r24 ,0x04        ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½1οΏ½ οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ r27 οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ sbrc r27 ,0          ; οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
+ ret
+ ldi r24 ,0x05
+ sbrc r27 ,1
+ ret
+ ldi r24 ,0x06
+ sbrc r27 ,2
+ ret
+ ldi r24 ,0x0B
+ sbrc r27 ,3
+ ret
+ ldi r24 ,0x01
+ sbrc r27 ,4
+ ret
+ ldi r24 ,0x02
+ sbrc r27 ,5
+ ret
+ ldi r24 ,0x03
+ sbrc r27 ,6
+ ret
+ ldi r24 ,0x0A
+ sbrc r27 ,7
+ ret
+ clr r24
+ ret
 
 
 wait_msec:
- push r24           ; 2 cylcles (0.250 μsec)
+ push r24           ; 2 cylcles (0.250 οΏ½sec)
  push r25           ; 2 cycles
- ldi r24 , low(998) ; φόρτωσε τον καταχ. r25:r24 με 998 (1 κύκλος - 0.125 μsec)
- ldi r25 , high(998); 1 cycle (0.125 μsec)
- rcall wait_usec    ; 3 cycle (0.375 μsec), προκαλεί συνολικά καθυστέρηση 998.375 μsec
- pop r25            ; 2 cycle (0.250 μsec)
+ ldi r24 , low(998) ; οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½. r25:r24 οΏ½οΏ½ 998 (1 οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ - 0.125 οΏ½sec)
+ ldi r25 , high(998); 1 cycle (0.125 οΏ½sec)
+ rcall wait_usec    ; 3 cycle (0.375 οΏ½sec), οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ 998.375 οΏ½sec
+ pop r25            ; 2 cycle (0.250 οΏ½sec)
  pop r24            ; 2 cycle
  sbiw r24 , 1       ; 2 cycle
- brne wait_msec     ; 1 if succces  2 if fail (0.125 ή 0.250 μsec)
- ret                ; 4 cycles (0.500 μsec)
+ brne wait_msec     ; 1 if succces  2 if fail (0.125 οΏ½ 0.250 οΏ½sec)
+ ret                ; 4 cycles (0.500 οΏ½sec)
 wait_usec:
-	sbiw r24 ,1     ; 2 cycles (0.250 µsec)
-	nop             ; 1 cycle (0.125 µsec)
+	sbiw r24 ,1     ; 2 cycles (0.250 οΏ½sec)
+	nop             ; 1 cycle (0.125 οΏ½sec)
 	nop
-	nop             ; 1 cycle (0.125 µsec)
-	nop             ; 1 cycle (0.125 µsec)
-	nop             ; 1 cycle (0.125 µsec)
-	brne wait_usec  ; 1 cycle if false 2 if true (0.125 ? 0.250 µsec)
-	ret             ; 4 cycles (0.500 µsec)
+	nop             ; 1 cycle (0.125 οΏ½sec)
+	nop             ; 1 cycle (0.125 οΏ½sec)
+	nop             ; 1 cycle (0.125 οΏ½sec)
+	brne wait_usec  ; 1 cycle if false 2 if true (0.125 ? 0.250 οΏ½sec)
+	ret             ; 4 cycles (0.500 οΏ½sec)
 

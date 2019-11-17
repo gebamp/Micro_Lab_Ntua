@@ -6,7 +6,7 @@
 PROJECT = ex3c_lab2
 MCU = atmega16
 TARGET = ex3c_lab2.elf
-CC = avr-gcc
+CC = 
 
 CPP = avr-g++
 
@@ -43,9 +43,7 @@ OBJECTS = ex3c_lab2.o
 LINKONLYOBJECTS = 
 
 ## Build
-all: $(TARGET) ex3c_lab2.hex ex3c_lab2.eep ex3c_lab2.lss size
-
-## Compile
+all: $(TARGET) ex3c_lab2.hex ex3c_lab2.eep ex3c_lab2.lss## Compile
 ex3c_lab2.o: ../ex3c_lab2.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
@@ -62,10 +60,6 @@ $(TARGET): $(OBJECTS)
 %.lss: $(TARGET)
 	avr-objdump -h -S $< > $@
 
-size: ${TARGET}
-	@echo
-	@avr-size -C --mcu=${MCU} ${TARGET}
-
 ## Clean target
 .PHONY: clean
 clean:
@@ -73,5 +67,5 @@ clean:
 
 
 ## Other dependencies
--include $(shell mkdir dep 2>/dev/null) $(wildcard dep/*)
+-include $(shell mkdir dep 2>NUL) $(wildcard dep/*)
 
