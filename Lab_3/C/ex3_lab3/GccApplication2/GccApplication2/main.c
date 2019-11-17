@@ -74,6 +74,18 @@ int main(void){
  	lcd_init();
 change_of_mind:
     	while(1){
+                lcd_command(0x01);
+		lcd_data(minutes_high+48);
+		lcd_data(minutes_low+48);
+		lcd_data('M');
+		lcd_data('I');
+		lcd_data('N');
+		lcd_data(':');
+		lcd_data(seconds_high+48);
+		lcd_data(seconds_low+48);
+		lcd_data('S');
+		lcd_data('E');
+		lcd_data('C');
 		if((PINB & 0x80) == 0x80){
 reset:	
 		while((PINB & 0x80)== 0x80);
