@@ -1,6 +1,0 @@
-
-AVRASM ver. 2.2.7  C:\Users\superminiala\Desktop\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm Sat Nov 30 21:29:54 2019
-
-[builtin](2): Including file 'C:/Program Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc\m16def.inc'
-C:\Users\superminiala\Desktop\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm(8): Including file 'C:/Program Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc\m16def.inc'
-C:\Users\superminiala\Desktop\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm(9): error: Invalid directive: '.define'
