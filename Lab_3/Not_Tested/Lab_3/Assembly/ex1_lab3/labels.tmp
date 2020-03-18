@@ -1,0 +1,42 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <_tmp_><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>8</LINE></_tmp_>
+  <reset><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>18</LINE></reset>
+  <main><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>29</LINE></main>
+  <scan_keypad_rising_edge><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>97</LINE></scan_keypad_rising_edge>
+  <keypad_to_ascii><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>158</LINE></keypad_to_ascii>
+  <pressed_first><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>36</LINE></pressed_first>
+  <check_first><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>43</LINE></check_first>
+  <first_was_ok><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>49</LINE></first_was_ok>
+  <not_okay><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>46</LINE></not_okay>
+  <wrong_pass><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>60</LINE></wrong_pass>
+  <end><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>56</LINE></end>
+  <second_was_ok><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>53</LINE></second_was_ok>
+  <correct_pass><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>82</LINE></correct_pass>
+  <rep><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>62</LINE></rep>
+  <wait_msec><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>212</LINE></wait_msec>
+  <scan_keypad><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>138</LINE></scan_keypad>
+  <scan_row><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>123</LINE></scan_row>
+  <back_><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>125</LINE></back_>
+  <wait_usec><FILE>Z:\Micro_Lab\Lab_3\Assembly\ex1_lab3\lab3_ex1_asm.asm</FILE><LINE>223</LINE></wait_usec>
+ </LABELS>
+</ASSEMBLER_INFO>

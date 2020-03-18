@@ -1,0 +1,553 @@
+
+ex1c_lab4.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000244  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .debug_aranges 00000020  00000000  00000000  00000298  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  2 .debug_pubnames 000000e4  00000000  00000000  000002b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   00000729  00000000  00000000  0000039c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 00000177  00000000  00000000  00000ac5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   000004aa  00000000  00000000  00000c3c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  000000c0  00000000  00000000  000010e8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    000001f7  00000000  00000000  000011a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00000219  00000000  00000000  0000139f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 1a 01 	call	0x234	; 0x234 <main>
+  64:	0c 94 20 01 	jmp	0x240	; 0x240 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <write_2_nibbles>:
+#include <avr/io.h>
+#include <util/delay.h>
+
+void write_2_nibbles(char data)
+{
+	char previous_state = PIND;
+  6c:	20 b3       	in	r18, 0x10	; 16
+	PORTD = (data&0xf0) | (previous_state&0x0f);
+  6e:	2f 70       	andi	r18, 0x0F	; 15
+  70:	98 2f       	mov	r25, r24
+  72:	90 7f       	andi	r25, 0xF0	; 240
+  74:	92 2b       	or	r25, r18
+  76:	92 bb       	out	0x12, r25	; 18
+	
+	PORTD |= (1<<PD3);
+  78:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+  7a:	93 98       	cbi	0x12, 3	; 18
+	
+	PORTD = ((data&0x0f)<<4) | (previous_state&0x0f);
+  7c:	82 95       	swap	r24
+  7e:	80 7f       	andi	r24, 0xF0	; 240
+  80:	28 2b       	or	r18, r24
+  82:	22 bb       	out	0x12, r18	; 18
+	
+	PORTD |= (1<<PD3);
+  84:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+  86:	93 98       	cbi	0x12, 3	; 18
+	
+	return;
+}
+  88:	08 95       	ret
+
+0000008a <lcd_data>:
+
+void lcd_data(char data)
+{
+	PORTD |= (1<<PD2);
+  8a:	92 9a       	sbi	0x12, 2	; 18
+	write_2_nibbles(data);
+  8c:	0e 94 36 00 	call	0x6c	; 0x6c <write_2_nibbles>
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+  90:	82 e7       	ldi	r24, 0x72	; 114
+  92:	8a 95       	dec	r24
+  94:	f1 f7       	brne	.-4      	; 0x92 <lcd_data+0x8>
+	
+	_delay_us(43);
+	
+	return;
+}
+  96:	08 95       	ret
+
+00000098 <lcd_command>:
+
+
+void lcd_command(char command)
+{
+	PORTD &= ~(1<<PD2);
+  98:	92 98       	cbi	0x12, 2	; 18
+	write_2_nibbles(command);
+  9a:	0e 94 36 00 	call	0x6c	; 0x6c <write_2_nibbles>
+  9e:	88 e6       	ldi	r24, 0x68	; 104
+  a0:	8a 95       	dec	r24
+  a2:	f1 f7       	brne	.-4      	; 0xa0 <lcd_command+0x8>
+	
+	_delay_us(39);
+	
+	return;
+}
+  a4:	08 95       	ret
+
+000000a6 <lcd_init>:
+
+
+void lcd_init()
+{
+  a6:	80 e9       	ldi	r24, 0x90	; 144
+  a8:	91 e0       	ldi	r25, 0x01	; 1
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  aa:	28 ec       	ldi	r18, 0xC8	; 200
+  ac:	30 e0       	ldi	r19, 0x00	; 0
+  ae:	f9 01       	movw	r30, r18
+  b0:	31 97       	sbiw	r30, 0x01	; 1
+  b2:	f1 f7       	brne	.-4      	; 0xb0 <lcd_init+0xa>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+  b4:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+  b6:	d9 f7       	brne	.-10     	; 0xae <lcd_init+0x8>
+	_delay_ms(40);
+	PORTD = 0x30;
+  b8:	80 e3       	ldi	r24, 0x30	; 48
+  ba:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+  bc:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+  be:	93 98       	cbi	0x12, 3	; 18
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+  c0:	98 e6       	ldi	r25, 0x68	; 104
+  c2:	29 2f       	mov	r18, r25
+  c4:	2a 95       	dec	r18
+  c6:	f1 f7       	brne	.-4      	; 0xc4 <lcd_init+0x1e>
+	_delay_us(39);
+	
+	PORTD = 0x30;
+  c8:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+  ca:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+  cc:	93 98       	cbi	0x12, 3	; 18
+  ce:	85 e3       	ldi	r24, 0x35	; 53
+  d0:	8a 95       	dec	r24
+  d2:	f1 f7       	brne	.-4      	; 0xd0 <lcd_init+0x2a>
+	_delay_us(20);
+	
+	PORTD = 0x20;
+  d4:	80 e2       	ldi	r24, 0x20	; 32
+  d6:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+  d8:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+  da:	93 98       	cbi	0x12, 3	; 18
+  dc:	9a 95       	dec	r25
+  de:	f1 f7       	brne	.-4      	; 0xdc <lcd_init+0x36>
+	_delay_us(39);
+	
+	lcd_command(0x28);
+  e0:	88 e2       	ldi	r24, 0x28	; 40
+  e2:	0e 94 4c 00 	call	0x98	; 0x98 <lcd_command>
+	lcd_command(0x0c);
+  e6:	8c e0       	ldi	r24, 0x0C	; 12
+  e8:	0e 94 4c 00 	call	0x98	; 0x98 <lcd_command>
+	lcd_command(0x01);
+  ec:	81 e0       	ldi	r24, 0x01	; 1
+  ee:	0e 94 4c 00 	call	0x98	; 0x98 <lcd_command>
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  f2:	84 ef       	ldi	r24, 0xF4	; 244
+  f4:	9b e0       	ldi	r25, 0x0B	; 11
+  f6:	01 97       	sbiw	r24, 0x01	; 1
+  f8:	f1 f7       	brne	.-4      	; 0xf6 <lcd_init+0x50>
+	
+	_delay_us(1530);
+	
+	lcd_command(0x06);
+  fa:	86 e0       	ldi	r24, 0x06	; 6
+  fc:	0e 94 4c 00 	call	0x98	; 0x98 <lcd_command>
+	
+	return;
+}
+ 100:	08 95       	ret
+
+00000102 <one_wire_reset>:
+unsigned char one_wire_reset(){
+	unsigned char crc;
+	DDRA  |=  (1 << PA4);
+ 102:	d4 9a       	sbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 104:	dc 98       	cbi	0x1b, 4	; 27
+ 106:	80 ec       	ldi	r24, 0xC0	; 192
+ 108:	93 e0       	ldi	r25, 0x03	; 3
+ 10a:	01 97       	sbiw	r24, 0x01	; 1
+ 10c:	f1 f7       	brne	.-4      	; 0x10a <one_wire_reset+0x8>
+	_delay_us(480);
+	// mb DDRA= (0<<PA4)
+	DDRA  &= ~(1 << PA4);
+ 10e:	d4 98       	cbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 110:	dc 98       	cbi	0x1b, 4	; 27
+ 112:	88 ec       	ldi	r24, 0xC8	; 200
+ 114:	90 e0       	ldi	r25, 0x00	; 0
+ 116:	01 97       	sbiw	r24, 0x01	; 1
+ 118:	f1 f7       	brne	.-4      	; 0x116 <one_wire_reset+0x14>
+	_delay_us(100);
+	crc = PINA ;
+ 11a:	89 b3       	in	r24, 0x19	; 25
+ 11c:	e8 ef       	ldi	r30, 0xF8	; 248
+ 11e:	f2 e0       	ldi	r31, 0x02	; 2
+ 120:	31 97       	sbiw	r30, 0x01	; 1
+ 122:	f1 f7       	brne	.-4      	; 0x120 <one_wire_reset+0x1e>
+ 124:	82 95       	swap	r24
+ 126:	8f 70       	andi	r24, 0x0F	; 15
+ 128:	80 95       	com	r24
+	}
+	else{
+		return 1;
+	}	
+	return -1;
+}
+ 12a:	81 70       	andi	r24, 0x01	; 1
+ 12c:	08 95       	ret
+
+0000012e <one_wire_transmit_bit>:
+
+void one_wire_transmit_bit(unsigned char bit){
+	DDRA  |=   (1<<PA4);
+ 12e:	d4 9a       	sbi	0x1a, 4	; 26
+	PORTA &= ~(1<<PA4);
+ 130:	dc 98       	cbi	0x1b, 4	; 27
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 132:	95 e0       	ldi	r25, 0x05	; 5
+ 134:	9a 95       	dec	r25
+ 136:	f1 f7       	brne	.-4      	; 0x134 <one_wire_transmit_bit+0x6>
+	_delay_us(2);
+	if((bit & 0x01)==0x01){
+ 138:	80 ff       	sbrs	r24, 0
+ 13a:	02 c0       	rjmp	.+4      	; 0x140 <one_wire_transmit_bit+0x12>
+		PORTA |= (1<<PA4);
+ 13c:	dc 9a       	sbi	0x1b, 4	; 27
+ 13e:	03 c0       	rjmp	.+6      	; 0x146 <one_wire_transmit_bit+0x18>
+	}
+	if((bit & 0x01)==0x00){
+		PORTA &= (1<<PA4);
+ 140:	8b b3       	in	r24, 0x1b	; 27
+ 142:	80 71       	andi	r24, 0x10	; 16
+ 144:	8b bb       	out	0x1b, r24	; 27
+ 146:	8a e9       	ldi	r24, 0x9A	; 154
+ 148:	8a 95       	dec	r24
+ 14a:	f1 f7       	brne	.-4      	; 0x148 <one_wire_transmit_bit+0x1a>
+	}
+	_delay_us(58);
+	DDRA  &= ~(1<<PA4);
+ 14c:	d4 98       	cbi	0x1a, 4	; 26
+	PORTA &= ~(1<<PA4);
+ 14e:	dc 98       	cbi	0x1b, 4	; 27
+ 150:	82 e0       	ldi	r24, 0x02	; 2
+ 152:	8a 95       	dec	r24
+ 154:	f1 f7       	brne	.-4      	; 0x152 <one_wire_transmit_bit+0x24>
+	_delay_us(1);
+} 
+ 156:	08 95       	ret
+
+00000158 <one_wire_transmit_byte>:
+
+void one_wire_transmit_byte(unsigned char byte){
+ 158:	1f 93       	push	r17
+ 15a:	cf 93       	push	r28
+ 15c:	df 93       	push	r29
+ 15e:	18 2f       	mov	r17, r24
+ 160:	c0 e0       	ldi	r28, 0x00	; 0
+ 162:	d0 e0       	ldi	r29, 0x00	; 0
+	unsigned char bit_to_send;
+	for(int i=0; i<8; i++){
+		bit_to_send = byte & 0x01;
+		if(bit_to_send == 0){
+ 164:	10 fd       	sbrc	r17, 0
+ 166:	02 c0       	rjmp	.+4      	; 0x16c <one_wire_transmit_byte+0x14>
+		one_wire_transmit_bit(0);
+ 168:	80 e0       	ldi	r24, 0x00	; 0
+ 16a:	01 c0       	rjmp	.+2      	; 0x16e <one_wire_transmit_byte+0x16>
+		}
+		else if(bit_to_send == 1){
+		one_wire_transmit_bit(1);
+ 16c:	81 e0       	ldi	r24, 0x01	; 1
+ 16e:	0e 94 97 00 	call	0x12e	; 0x12e <one_wire_transmit_bit>
+	_delay_us(1);
+} 
+
+void one_wire_transmit_byte(unsigned char byte){
+	unsigned char bit_to_send;
+	for(int i=0; i<8; i++){
+ 172:	21 96       	adiw	r28, 0x01	; 1
+ 174:	c8 30       	cpi	r28, 0x08	; 8
+ 176:	d1 05       	cpc	r29, r1
+ 178:	11 f0       	breq	.+4      	; 0x17e <one_wire_transmit_byte+0x26>
+		one_wire_transmit_bit(0);
+		}
+		else if(bit_to_send == 1){
+		one_wire_transmit_bit(1);
+		}
+		byte = byte >> 1;
+ 17a:	16 95       	lsr	r17
+ 17c:	f3 cf       	rjmp	.-26     	; 0x164 <one_wire_transmit_byte+0xc>
+	}	
+}
+ 17e:	df 91       	pop	r29
+ 180:	cf 91       	pop	r28
+ 182:	1f 91       	pop	r17
+ 184:	08 95       	ret
+
+00000186 <one_wire_receive_bit>:
+unsigned char one_wire_receive_bit(){
+	unsigned char bit_to_return = 0;
+	DDRA  |=  (1 << PA4);
+ 186:	d4 9a       	sbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 188:	dc 98       	cbi	0x1b, 4	; 27
+ 18a:	85 e0       	ldi	r24, 0x05	; 5
+ 18c:	8a 95       	dec	r24
+ 18e:	f1 f7       	brne	.-4      	; 0x18c <one_wire_receive_bit+0x6>
+	_delay_us(2);
+	DDRA  &= ~(1 << PA4);
+ 190:	d4 98       	cbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 192:	dc 98       	cbi	0x1b, 4	; 27
+ 194:	8a e1       	ldi	r24, 0x1A	; 26
+ 196:	8a 95       	dec	r24
+ 198:	f1 f7       	brne	.-4      	; 0x196 <one_wire_receive_bit+0x10>
+	_delay_us(10);
+	if( (PINA & 0X10) == 0x10 ){
+ 19a:	89 b3       	in	r24, 0x19	; 25
+ 19c:	92 e8       	ldi	r25, 0x82	; 130
+ 19e:	9a 95       	dec	r25
+ 1a0:	f1 f7       	brne	.-4      	; 0x19e <one_wire_receive_bit+0x18>
+ 1a2:	90 e0       	ldi	r25, 0x00	; 0
+ 1a4:	24 e0       	ldi	r18, 0x04	; 4
+ 1a6:	96 95       	lsr	r25
+ 1a8:	87 95       	ror	r24
+ 1aa:	2a 95       	dec	r18
+ 1ac:	e1 f7       	brne	.-8      	; 0x1a6 <one_wire_receive_bit+0x20>
+		bit_to_return = 1;
+	}
+	_delay_us(49);
+	return bit_to_return;
+}
+ 1ae:	81 70       	andi	r24, 0x01	; 1
+ 1b0:	08 95       	ret
+
+000001b2 <one_wire_receive_byte>:
+unsigned char one_wire_receive_byte(){
+ 1b2:	1f 93       	push	r17
+ 1b4:	cf 93       	push	r28
+ 1b6:	df 93       	push	r29
+ 1b8:	10 e0       	ldi	r17, 0x00	; 0
+ 1ba:	c0 e0       	ldi	r28, 0x00	; 0
+ 1bc:	d0 e0       	ldi	r29, 0x00	; 0
+	unsigned char bit_received,byte_to_return=0;
+	for(int i =0 ; i<8 ; i++){
+		byte_to_return = byte_to_return >> 1;
+		bit_received = one_wire_receive_bit();
+ 1be:	0e 94 c3 00 	call	0x186	; 0x186 <one_wire_receive_bit>
+		if(bit_received == 1){
+ 1c2:	81 30       	cpi	r24, 0x01	; 1
+ 1c4:	09 f4       	brne	.+2      	; 0x1c8 <one_wire_receive_byte+0x16>
+ 1c6:	80 e8       	ldi	r24, 0x80	; 128
+	return bit_to_return;
+}
+unsigned char one_wire_receive_byte(){
+	unsigned char bit_received,byte_to_return=0;
+	for(int i =0 ; i<8 ; i++){
+		byte_to_return = byte_to_return >> 1;
+ 1c8:	16 95       	lsr	r17
+		bit_received = one_wire_receive_bit();
+		if(bit_received == 1){
+			bit_received = 0x80;	
+		}
+		byte_to_return= byte_to_return | bit_received ;
+ 1ca:	18 2b       	or	r17, r24
+	_delay_us(49);
+	return bit_to_return;
+}
+unsigned char one_wire_receive_byte(){
+	unsigned char bit_received,byte_to_return=0;
+	for(int i =0 ; i<8 ; i++){
+ 1cc:	21 96       	adiw	r28, 0x01	; 1
+ 1ce:	c8 30       	cpi	r28, 0x08	; 8
+ 1d0:	d1 05       	cpc	r29, r1
+ 1d2:	a9 f7       	brne	.-22     	; 0x1be <one_wire_receive_byte+0xc>
+			bit_received = 0x80;	
+		}
+		byte_to_return= byte_to_return | bit_received ;
+	}
+	return byte_to_return;
+}
+ 1d4:	81 2f       	mov	r24, r17
+ 1d6:	df 91       	pop	r29
+ 1d8:	cf 91       	pop	r28
+ 1da:	1f 91       	pop	r17
+ 1dc:	08 95       	ret
+
+000001de <return_temp>:
+unsigned int return_temp(){
+ 1de:	1f 93       	push	r17
+	unsigned char crc,finished,temp,temp_sign;
+	int sign;
+	crc = one_wire_reset();
+ 1e0:	0e 94 81 00 	call	0x102	; 0x102 <one_wire_reset>
+    if(crc == 0x00){
+ 1e4:	88 23       	and	r24, r24
+ 1e6:	09 f1       	breq	.+66     	; 0x22a <return_temp+0x4c>
+	   return 0x8000;
+	}
+	one_wire_transmit_byte(0xCC);
+ 1e8:	8c ec       	ldi	r24, 0xCC	; 204
+ 1ea:	0e 94 ac 00 	call	0x158	; 0x158 <one_wire_transmit_byte>
+	one_wire_transmit_byte(0x44);
+ 1ee:	84 e4       	ldi	r24, 0x44	; 68
+ 1f0:	0e 94 ac 00 	call	0x158	; 0x158 <one_wire_transmit_byte>
+	while(1){
+		finished = one_wire_receive_bit();
+ 1f4:	0e 94 c3 00 	call	0x186	; 0x186 <one_wire_receive_bit>
+		if((finished & 0x01) == 0x01){
+ 1f8:	80 ff       	sbrs	r24, 0
+ 1fa:	fc cf       	rjmp	.-8      	; 0x1f4 <return_temp+0x16>
+			break;
+		}
+	}
+	crc = one_wire_reset();
+ 1fc:	0e 94 81 00 	call	0x102	; 0x102 <one_wire_reset>
+	if(crc == 0x00){
+ 200:	88 23       	and	r24, r24
+ 202:	99 f0       	breq	.+38     	; 0x22a <return_temp+0x4c>
+		return 0x8000;
+	}
+	one_wire_transmit_byte(0xCC);
+ 204:	8c ec       	ldi	r24, 0xCC	; 204
+ 206:	0e 94 ac 00 	call	0x158	; 0x158 <one_wire_transmit_byte>
+	one_wire_transmit_byte(0xBE);
+ 20a:	8e eb       	ldi	r24, 0xBE	; 190
+ 20c:	0e 94 ac 00 	call	0x158	; 0x158 <one_wire_transmit_byte>
+	temp = one_wire_receive_byte();
+ 210:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <one_wire_receive_byte>
+ 214:	18 2f       	mov	r17, r24
+	temp = temp >> 1 ;
+	temp_sign = one_wire_receive_byte();
+ 216:	0e 94 d9 00 	call	0x1b2	; 0x1b2 <one_wire_receive_byte>
+	sign =  temp_sign;
+	sign = sign <<  8;
+	sign = sign & 0xFF00;
+	return  (sign | temp);
+ 21a:	16 95       	lsr	r17
+ 21c:	41 2f       	mov	r20, r17
+ 21e:	50 e0       	ldi	r21, 0x00	; 0
+ 220:	38 2f       	mov	r19, r24
+ 222:	20 e0       	ldi	r18, 0x00	; 0
+ 224:	42 2b       	or	r20, r18
+ 226:	53 2b       	or	r21, r19
+ 228:	02 c0       	rjmp	.+4      	; 0x22e <return_temp+0x50>
+ 22a:	40 e0       	ldi	r20, 0x00	; 0
+ 22c:	50 e8       	ldi	r21, 0x80	; 128
+	
+		
+}
+ 22e:	ca 01       	movw	r24, r20
+ 230:	1f 91       	pop	r17
+ 232:	08 95       	ret
+
+00000234 <main>:
+int main(void)
+{   int temp;
+    DDRB = 0xFF;
+ 234:	8f ef       	ldi	r24, 0xFF	; 255
+ 236:	87 bb       	out	0x17, r24	; 23
+    while (1) 
+    {
+		temp = return_temp();
+ 238:	0e 94 ef 00 	call	0x1de	; 0x1de <return_temp>
+		PORTB = temp;
+ 23c:	88 bb       	out	0x18, r24	; 24
+ 23e:	fc cf       	rjmp	.-8      	; 0x238 <main+0x4>
+
+00000240 <_exit>:
+ 240:	f8 94       	cli
+
+00000242 <__stop_program>:
+ 242:	ff cf       	rjmp	.-2      	; 0x242 <__stop_program>

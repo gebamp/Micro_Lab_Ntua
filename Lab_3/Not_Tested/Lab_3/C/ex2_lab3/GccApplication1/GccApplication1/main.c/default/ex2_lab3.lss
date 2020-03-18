@@ -1,0 +1,856 @@
+
+ex2_lab3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000003fa  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000004  00800060  000003fa  0000048e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000003  00800064  00800064  00000492  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  00000492  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000115  00000000  00000000  000004b2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000066a  00000000  00000000  000005c7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000019f  00000000  00000000  00000c31  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000005c2  00000000  00000000  00000dd0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000c0  00000000  00000000  00001394  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000025b  00000000  00000000  00001454  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000003d2  00000000  00000000  000016af  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ea ef       	ldi	r30, 0xFA	; 250
+  68:	f3 e0       	ldi	r31, 0x03	; 3
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a4 36       	cpi	r26, 0x64	; 100
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a4 e6       	ldi	r26, 0x64	; 100
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a7 36       	cpi	r26, 0x67	; 103
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 90 01 	call	0x320	; 0x320 <main>
+  8a:	0c 94 fb 01 	jmp	0x3f6	; 0x3f6 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <hex_to_decimal>:
+	
+	
+}
+
+void hex_to_decimal(char number)
+{
+  92:	28 2f       	mov	r18, r24
+	first_decimal=0x00;
+	second_decimal=0x00;
+	third_decimal=0x00;
+  94:	10 92 62 00 	sts	0x0062, r1
+	
+	if( number>=100 )
+  98:	84 36       	cpi	r24, 0x64	; 100
+  9a:	20 f0       	brcs	.+8      	; 0xa4 <hex_to_decimal+0x12>
+	{
+		third_decimal++;
+  9c:	81 e0       	ldi	r24, 0x01	; 1
+  9e:	80 93 62 00 	sts	0x0062, r24
+		number-=100;
+  a2:	24 56       	subi	r18, 0x64	; 100
+  a4:	82 2f       	mov	r24, r18
+  a6:	6a e0       	ldi	r22, 0x0A	; 10
+  a8:	0e 94 ef 01 	call	0x3de	; 0x3de <__udivmodqi4>
+  ac:	80 93 61 00 	sts	0x0061, r24
+	while(number>=10)
+	{
+		second_decimal++;
+		number-=10;
+	}
+	first_decimal=number;
+  b0:	82 2f       	mov	r24, r18
+  b2:	0e 94 ef 01 	call	0x3de	; 0x3de <__udivmodqi4>
+  b6:	90 93 60 00 	sts	0x0060, r25
+	
+	return;
+	
+}
+  ba:	08 95       	ret
+
+000000bc <scan_row>:
+
+
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+  bc:	28 e0       	ldi	r18, 0x08	; 8
+  be:	30 e0       	ldi	r19, 0x00	; 0
+  c0:	02 c0       	rjmp	.+4      	; 0xc6 <scan_row+0xa>
+  c2:	22 0f       	add	r18, r18
+  c4:	33 1f       	adc	r19, r19
+  c6:	8a 95       	dec	r24
+  c8:	e2 f7       	brpl	.-8      	; 0xc2 <scan_row+0x6>
+	PORTC = row;
+  ca:	25 bb       	out	0x15, r18	; 21
+	asm volatile ("nop");
+  cc:	00 00       	nop
+	asm volatile ("nop");
+  ce:	00 00       	nop
+	return (PINC & 0x0f);
+  d0:	23 b3       	in	r18, 0x13	; 19
+  d2:	30 e0       	ldi	r19, 0x00	; 0
+  d4:	2f 70       	andi	r18, 0x0F	; 15
+  d6:	30 70       	andi	r19, 0x00	; 0
+}
+  d8:	c9 01       	movw	r24, r18
+  da:	08 95       	ret
+
+000000dc <scan_keypad>:
+
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  dc:	80 e8       	ldi	r24, 0x80	; 128
+  de:	85 bb       	out	0x15, r24	; 21
+	asm volatile ("nop");
+  e0:	00 00       	nop
+	asm volatile ("nop");
+  e2:	00 00       	nop
+	return (PINC & 0x0f);
+  e4:	63 b3       	in	r22, 0x13	; 19
+
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  e6:	80 e4       	ldi	r24, 0x40	; 64
+  e8:	85 bb       	out	0x15, r24	; 21
+	asm volatile ("nop");
+  ea:	00 00       	nop
+	asm volatile ("nop");
+  ec:	00 00       	nop
+	return (PINC & 0x0f);
+  ee:	23 b3       	in	r18, 0x13	; 19
+
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  f0:	80 e2       	ldi	r24, 0x20	; 32
+  f2:	85 bb       	out	0x15, r24	; 21
+	asm volatile ("nop");
+  f4:	00 00       	nop
+	asm volatile ("nop");
+  f6:	00 00       	nop
+	return (PINC & 0x0f);
+  f8:	83 b3       	in	r24, 0x13	; 19
+
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  fa:	40 e1       	ldi	r20, 0x10	; 16
+  fc:	45 bb       	out	0x15, r20	; 21
+	asm volatile ("nop");
+  fe:	00 00       	nop
+	asm volatile ("nop");
+ 100:	00 00       	nop
+	return (PINC & 0x0f);
+ 102:	43 b3       	in	r20, 0x13	; 19
+ 104:	30 e0       	ldi	r19, 0x00	; 0
+ 106:	2f 70       	andi	r18, 0x0F	; 15
+ 108:	30 70       	andi	r19, 0x00	; 0
+ 10a:	74 e0       	ldi	r23, 0x04	; 4
+ 10c:	22 0f       	add	r18, r18
+ 10e:	33 1f       	adc	r19, r19
+ 110:	7a 95       	dec	r23
+ 112:	e1 f7       	brne	.-8      	; 0x10c <scan_keypad+0x30>
+ 114:	90 e0       	ldi	r25, 0x00	; 0
+ 116:	8f 70       	andi	r24, 0x0F	; 15
+ 118:	90 70       	andi	r25, 0x00	; 0
+ 11a:	98 2f       	mov	r25, r24
+ 11c:	88 27       	eor	r24, r24
+ 11e:	28 2b       	or	r18, r24
+ 120:	39 2b       	or	r19, r25
+ 122:	70 e0       	ldi	r23, 0x00	; 0
+ 124:	6f 70       	andi	r22, 0x0F	; 15
+ 126:	70 70       	andi	r23, 0x00	; 0
+ 128:	26 2b       	or	r18, r22
+ 12a:	37 2b       	or	r19, r23
+ 12c:	50 e0       	ldi	r21, 0x00	; 0
+ 12e:	54 2f       	mov	r21, r20
+ 130:	44 27       	eor	r20, r20
+ 132:	52 95       	swap	r21
+ 134:	50 7f       	andi	r21, 0xF0	; 240
+ 136:	24 2b       	or	r18, r20
+ 138:	35 2b       	or	r19, r21
+
+int scan_keypad()
+{
+	int temp = scan_row(4) | (scan_row(3)<<4) | (scan_row(2)<<8) | (scan_row(1)<<12);
+	return temp; 
+}
+ 13a:	c9 01       	movw	r24, r18
+ 13c:	08 95       	ret
+
+0000013e <scan_keypad_rising_edge>:
+
+int scan_keypad_rising_edge()
+{
+ 13e:	cf 93       	push	r28
+ 140:	df 93       	push	r29
+	int first_scan = scan_keypad();
+ 142:	0e 94 6e 00 	call	0xdc	; 0xdc <scan_keypad>
+ 146:	ec 01       	movw	r28, r24
+ 148:	84 ef       	ldi	r24, 0xF4	; 244
+ 14a:	91 e0       	ldi	r25, 0x01	; 1
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 14c:	28 ec       	ldi	r18, 0xC8	; 200
+ 14e:	30 e0       	ldi	r19, 0x00	; 0
+ 150:	f9 01       	movw	r30, r18
+ 152:	31 97       	sbiw	r30, 0x01	; 1
+ 154:	f1 f7       	brne	.-4      	; 0x152 <scan_keypad_rising_edge+0x14>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 156:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 158:	d9 f7       	brne	.-10     	; 0x150 <scan_keypad_rising_edge+0x12>
+	_delay_ms(50);
+	
+	int second_scan = scan_keypad();
+ 15a:	0e 94 6e 00 	call	0xdc	; 0xdc <scan_keypad>
+	
+	int next_tmp_state = first_scan & second_scan;
+ 15e:	8c 23       	and	r24, r28
+ 160:	9d 23       	and	r25, r29
+	
+	int final_result = next_tmp_state & ~(_tmp_);
+ 162:	20 91 64 00 	lds	r18, 0x0064
+ 166:	30 91 65 00 	lds	r19, 0x0065
+ 16a:	20 95       	com	r18
+ 16c:	30 95       	com	r19
+ 16e:	28 23       	and	r18, r24
+ 170:	39 23       	and	r19, r25
+	
+	_tmp_=next_tmp_state;
+ 172:	90 93 65 00 	sts	0x0065, r25
+ 176:	80 93 64 00 	sts	0x0064, r24
+
+	
+	
+	return final_result;
+	
+}
+ 17a:	c9 01       	movw	r24, r18
+ 17c:	df 91       	pop	r29
+ 17e:	cf 91       	pop	r28
+ 180:	08 95       	ret
+
+00000182 <keypad_to_ascii>:
+
+char keypad_to_ascii(int keypad)
+{
+	if((keypad&0x0001)==0x0001) return 'E';
+ 182:	80 ff       	sbrs	r24, 0
+ 184:	02 c0       	rjmp	.+4      	; 0x18a <keypad_to_ascii+0x8>
+ 186:	85 e4       	ldi	r24, 0x45	; 69
+ 188:	08 95       	ret
+	if((keypad&0x0002)==0x0002) return '0';
+ 18a:	81 ff       	sbrs	r24, 1
+ 18c:	02 c0       	rjmp	.+4      	; 0x192 <keypad_to_ascii+0x10>
+ 18e:	80 e3       	ldi	r24, 0x30	; 48
+ 190:	08 95       	ret
+	if((keypad&0x0004)==0x0004) return 'F';
+ 192:	82 ff       	sbrs	r24, 2
+ 194:	02 c0       	rjmp	.+4      	; 0x19a <keypad_to_ascii+0x18>
+ 196:	86 e4       	ldi	r24, 0x46	; 70
+ 198:	08 95       	ret
+	if((keypad&0x0008)==0x0008) return 'D';
+ 19a:	83 ff       	sbrs	r24, 3
+ 19c:	02 c0       	rjmp	.+4      	; 0x1a2 <keypad_to_ascii+0x20>
+ 19e:	84 e4       	ldi	r24, 0x44	; 68
+ 1a0:	08 95       	ret
+	if((keypad&0x0010)==0x0010) return '7';
+ 1a2:	84 ff       	sbrs	r24, 4
+ 1a4:	02 c0       	rjmp	.+4      	; 0x1aa <keypad_to_ascii+0x28>
+ 1a6:	87 e3       	ldi	r24, 0x37	; 55
+ 1a8:	08 95       	ret
+	if((keypad&0x0020)==0x0020) return '8';
+ 1aa:	85 ff       	sbrs	r24, 5
+ 1ac:	02 c0       	rjmp	.+4      	; 0x1b2 <keypad_to_ascii+0x30>
+ 1ae:	88 e3       	ldi	r24, 0x38	; 56
+ 1b0:	08 95       	ret
+	if((keypad&0x0040)==0x0040) return '9';
+ 1b2:	86 ff       	sbrs	r24, 6
+ 1b4:	02 c0       	rjmp	.+4      	; 0x1ba <keypad_to_ascii+0x38>
+ 1b6:	89 e3       	ldi	r24, 0x39	; 57
+ 1b8:	08 95       	ret
+	if((keypad&0x0080)==0x0080) return 'C';
+ 1ba:	87 ff       	sbrs	r24, 7
+ 1bc:	02 c0       	rjmp	.+4      	; 0x1c2 <keypad_to_ascii+0x40>
+ 1be:	83 e4       	ldi	r24, 0x43	; 67
+ 1c0:	08 95       	ret
+	if((keypad&0x0100)==0x0100) return '4';
+ 1c2:	90 ff       	sbrs	r25, 0
+ 1c4:	02 c0       	rjmp	.+4      	; 0x1ca <keypad_to_ascii+0x48>
+ 1c6:	84 e3       	ldi	r24, 0x34	; 52
+ 1c8:	08 95       	ret
+	if((keypad&0x0200)==0x0200) return '5';
+ 1ca:	91 ff       	sbrs	r25, 1
+ 1cc:	02 c0       	rjmp	.+4      	; 0x1d2 <keypad_to_ascii+0x50>
+ 1ce:	85 e3       	ldi	r24, 0x35	; 53
+ 1d0:	08 95       	ret
+	if((keypad&0x0400)==0x0400) return '6';
+ 1d2:	92 ff       	sbrs	r25, 2
+ 1d4:	02 c0       	rjmp	.+4      	; 0x1da <keypad_to_ascii+0x58>
+ 1d6:	86 e3       	ldi	r24, 0x36	; 54
+ 1d8:	08 95       	ret
+	if((keypad&0x0800)==0x0800) return 'B';
+ 1da:	93 ff       	sbrs	r25, 3
+ 1dc:	02 c0       	rjmp	.+4      	; 0x1e2 <keypad_to_ascii+0x60>
+ 1de:	82 e4       	ldi	r24, 0x42	; 66
+ 1e0:	08 95       	ret
+	if((keypad&0x1000)==0x1000) return '1';
+ 1e2:	94 ff       	sbrs	r25, 4
+ 1e4:	02 c0       	rjmp	.+4      	; 0x1ea <keypad_to_ascii+0x68>
+ 1e6:	81 e3       	ldi	r24, 0x31	; 49
+ 1e8:	08 95       	ret
+	if((keypad&0x2000)==0x2000) return '2';
+ 1ea:	95 ff       	sbrs	r25, 5
+ 1ec:	02 c0       	rjmp	.+4      	; 0x1f2 <keypad_to_ascii+0x70>
+ 1ee:	82 e3       	ldi	r24, 0x32	; 50
+ 1f0:	08 95       	ret
+	if((keypad&0x4000)==0x4000) return '3';
+ 1f2:	96 ff       	sbrs	r25, 6
+ 1f4:	02 c0       	rjmp	.+4      	; 0x1fa <keypad_to_ascii+0x78>
+ 1f6:	83 e3       	ldi	r24, 0x33	; 51
+ 1f8:	08 95       	ret
+	if((keypad&0x8000)==0x8000) return 'A';
+ 1fa:	97 fd       	sbrc	r25, 7
+ 1fc:	02 c0       	rjmp	.+4      	; 0x202 <keypad_to_ascii+0x80>
+ 1fe:	80 e0       	ldi	r24, 0x00	; 0
+ 200:	08 95       	ret
+ 202:	81 e4       	ldi	r24, 0x41	; 65
+	return 0x00;
+	
+}
+ 204:	08 95       	ret
+
+00000206 <keypad_to_hex>:
+
+char keypad_to_hex(int keypad)
+{
+	if((keypad&0x0001)==0x0001) return 0x0E;
+ 206:	80 ff       	sbrs	r24, 0
+ 208:	02 c0       	rjmp	.+4      	; 0x20e <keypad_to_hex+0x8>
+ 20a:	8e e0       	ldi	r24, 0x0E	; 14
+ 20c:	08 95       	ret
+	if((keypad&0x0002)==0x0002) return 0x00;
+ 20e:	81 ff       	sbrs	r24, 1
+ 210:	02 c0       	rjmp	.+4      	; 0x216 <keypad_to_hex+0x10>
+ 212:	80 e0       	ldi	r24, 0x00	; 0
+ 214:	08 95       	ret
+	if((keypad&0x0004)==0x0004) return 0x0F;
+ 216:	82 ff       	sbrs	r24, 2
+ 218:	02 c0       	rjmp	.+4      	; 0x21e <keypad_to_hex+0x18>
+ 21a:	8f e0       	ldi	r24, 0x0F	; 15
+ 21c:	08 95       	ret
+	if((keypad&0x0008)==0x0008) return 0x0D;
+ 21e:	83 ff       	sbrs	r24, 3
+ 220:	02 c0       	rjmp	.+4      	; 0x226 <keypad_to_hex+0x20>
+ 222:	8d e0       	ldi	r24, 0x0D	; 13
+ 224:	08 95       	ret
+	if((keypad&0x0010)==0x0010) return 0x07;
+ 226:	84 ff       	sbrs	r24, 4
+ 228:	02 c0       	rjmp	.+4      	; 0x22e <keypad_to_hex+0x28>
+ 22a:	87 e0       	ldi	r24, 0x07	; 7
+ 22c:	08 95       	ret
+	if((keypad&0x0020)==0x0020) return 0x08;
+ 22e:	85 ff       	sbrs	r24, 5
+ 230:	02 c0       	rjmp	.+4      	; 0x236 <keypad_to_hex+0x30>
+ 232:	88 e0       	ldi	r24, 0x08	; 8
+ 234:	08 95       	ret
+	if((keypad&0x0040)==0x0040) return 0x09;
+ 236:	86 ff       	sbrs	r24, 6
+ 238:	02 c0       	rjmp	.+4      	; 0x23e <keypad_to_hex+0x38>
+ 23a:	89 e0       	ldi	r24, 0x09	; 9
+ 23c:	08 95       	ret
+	if((keypad&0x0080)==0x0080) return 0x0C;
+ 23e:	87 ff       	sbrs	r24, 7
+ 240:	02 c0       	rjmp	.+4      	; 0x246 <keypad_to_hex+0x40>
+ 242:	8c e0       	ldi	r24, 0x0C	; 12
+ 244:	08 95       	ret
+	if((keypad&0x0100)==0x0100) return 0x04;
+ 246:	90 ff       	sbrs	r25, 0
+ 248:	02 c0       	rjmp	.+4      	; 0x24e <keypad_to_hex+0x48>
+ 24a:	84 e0       	ldi	r24, 0x04	; 4
+ 24c:	08 95       	ret
+	if((keypad&0x0200)==0x0200) return 0x05;
+ 24e:	91 ff       	sbrs	r25, 1
+ 250:	02 c0       	rjmp	.+4      	; 0x256 <keypad_to_hex+0x50>
+ 252:	85 e0       	ldi	r24, 0x05	; 5
+ 254:	08 95       	ret
+	if((keypad&0x0400)==0x0400) return 0x06;
+ 256:	92 ff       	sbrs	r25, 2
+ 258:	02 c0       	rjmp	.+4      	; 0x25e <keypad_to_hex+0x58>
+ 25a:	86 e0       	ldi	r24, 0x06	; 6
+ 25c:	08 95       	ret
+	if((keypad&0x0800)==0x0800) return 0x0B;
+ 25e:	93 ff       	sbrs	r25, 3
+ 260:	02 c0       	rjmp	.+4      	; 0x266 <keypad_to_hex+0x60>
+ 262:	8b e0       	ldi	r24, 0x0B	; 11
+ 264:	08 95       	ret
+	if((keypad&0x1000)==0x1000) return 0x01;
+ 266:	94 ff       	sbrs	r25, 4
+ 268:	02 c0       	rjmp	.+4      	; 0x26e <keypad_to_hex+0x68>
+ 26a:	81 e0       	ldi	r24, 0x01	; 1
+ 26c:	08 95       	ret
+	if((keypad&0x2000)==0x2000) return 0x02;
+ 26e:	95 ff       	sbrs	r25, 5
+ 270:	02 c0       	rjmp	.+4      	; 0x276 <keypad_to_hex+0x70>
+ 272:	82 e0       	ldi	r24, 0x02	; 2
+ 274:	08 95       	ret
+	if((keypad&0x4000)==0x4000) return 0x03;
+ 276:	96 ff       	sbrs	r25, 6
+ 278:	02 c0       	rjmp	.+4      	; 0x27e <keypad_to_hex+0x78>
+ 27a:	83 e0       	ldi	r24, 0x03	; 3
+ 27c:	08 95       	ret
+	if((keypad&0x8000)==0x8000) return 0x0A;
+ 27e:	97 fd       	sbrc	r25, 7
+ 280:	02 c0       	rjmp	.+4      	; 0x286 <keypad_to_hex+0x80>
+ 282:	8f ef       	ldi	r24, 0xFF	; 255
+ 284:	08 95       	ret
+ 286:	8a e0       	ldi	r24, 0x0A	; 10
+	return 0xFF;
+	
+}
+ 288:	08 95       	ret
+
+0000028a <write_2_nibbles>:
+
+void write_2_nibbles(char data)
+{
+	char previous_state = PIND;
+ 28a:	20 b3       	in	r18, 0x10	; 16
+	PORTD = (data&0xf0) | (previous_state&0x0f);
+ 28c:	2f 70       	andi	r18, 0x0F	; 15
+ 28e:	98 2f       	mov	r25, r24
+ 290:	90 7f       	andi	r25, 0xF0	; 240
+ 292:	92 2b       	or	r25, r18
+ 294:	92 bb       	out	0x12, r25	; 18
+	
+	PORTD |= (1<<PD3);
+ 296:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 298:	93 98       	cbi	0x12, 3	; 18
+	
+	PORTD = ((data&0x0f)<<4) | (previous_state&0x0f);
+ 29a:	82 95       	swap	r24
+ 29c:	80 7f       	andi	r24, 0xF0	; 240
+ 29e:	28 2b       	or	r18, r24
+ 2a0:	22 bb       	out	0x12, r18	; 18
+	
+	PORTD |= (1<<PD3);
+ 2a2:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 2a4:	93 98       	cbi	0x12, 3	; 18
+	
+	return;
+}
+ 2a6:	08 95       	ret
+
+000002a8 <lcd_data>:
+
+void lcd_data(char data)
+{
+	PORTD |= (1<<PD2);
+ 2a8:	92 9a       	sbi	0x12, 2	; 18
+	write_2_nibbles(data);
+ 2aa:	0e 94 45 01 	call	0x28a	; 0x28a <write_2_nibbles>
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 2ae:	82 e7       	ldi	r24, 0x72	; 114
+ 2b0:	8a 95       	dec	r24
+ 2b2:	f1 f7       	brne	.-4      	; 0x2b0 <lcd_data+0x8>
+	
+	_delay_us(43);
+	
+	return;
+}
+ 2b4:	08 95       	ret
+
+000002b6 <lcd_command>:
+
+
+void lcd_command(char command)
+{
+	PORTD &= ~(1<<PD2);
+ 2b6:	92 98       	cbi	0x12, 2	; 18
+	write_2_nibbles(command);
+ 2b8:	0e 94 45 01 	call	0x28a	; 0x28a <write_2_nibbles>
+ 2bc:	88 e6       	ldi	r24, 0x68	; 104
+ 2be:	8a 95       	dec	r24
+ 2c0:	f1 f7       	brne	.-4      	; 0x2be <lcd_command+0x8>
+	
+	_delay_us(39);
+	
+	return;
+}
+ 2c2:	08 95       	ret
+
+000002c4 <lcd_init>:
+
+
+void lcd_init()
+{
+ 2c4:	80 e9       	ldi	r24, 0x90	; 144
+ 2c6:	91 e0       	ldi	r25, 0x01	; 1
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 2c8:	28 ec       	ldi	r18, 0xC8	; 200
+ 2ca:	30 e0       	ldi	r19, 0x00	; 0
+ 2cc:	f9 01       	movw	r30, r18
+ 2ce:	31 97       	sbiw	r30, 0x01	; 1
+ 2d0:	f1 f7       	brne	.-4      	; 0x2ce <lcd_init+0xa>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 2d2:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 2d4:	d9 f7       	brne	.-10     	; 0x2cc <lcd_init+0x8>
+	_delay_ms(40);
+	PORTD = 0x30;
+ 2d6:	80 e3       	ldi	r24, 0x30	; 48
+ 2d8:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+ 2da:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 2dc:	93 98       	cbi	0x12, 3	; 18
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 2de:	98 e6       	ldi	r25, 0x68	; 104
+ 2e0:	29 2f       	mov	r18, r25
+ 2e2:	2a 95       	dec	r18
+ 2e4:	f1 f7       	brne	.-4      	; 0x2e2 <lcd_init+0x1e>
+	_delay_us(39);
+	
+	PORTD = 0x30;
+ 2e6:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+ 2e8:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 2ea:	93 98       	cbi	0x12, 3	; 18
+ 2ec:	85 e3       	ldi	r24, 0x35	; 53
+ 2ee:	8a 95       	dec	r24
+ 2f0:	f1 f7       	brne	.-4      	; 0x2ee <lcd_init+0x2a>
+	_delay_us(20);
+	
+	PORTD = 0x20;
+ 2f2:	80 e2       	ldi	r24, 0x20	; 32
+ 2f4:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+ 2f6:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 2f8:	93 98       	cbi	0x12, 3	; 18
+ 2fa:	9a 95       	dec	r25
+ 2fc:	f1 f7       	brne	.-4      	; 0x2fa <lcd_init+0x36>
+	_delay_us(39);
+	
+	lcd_command(0x28);
+ 2fe:	88 e2       	ldi	r24, 0x28	; 40
+ 300:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <lcd_command>
+	lcd_command(0x0c);
+ 304:	8c e0       	ldi	r24, 0x0C	; 12
+ 306:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <lcd_command>
+	lcd_command(0x01);
+ 30a:	81 e0       	ldi	r24, 0x01	; 1
+ 30c:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <lcd_command>
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 310:	84 ef       	ldi	r24, 0xF4	; 244
+ 312:	9b e0       	ldi	r25, 0x0B	; 11
+ 314:	01 97       	sbiw	r24, 0x01	; 1
+ 316:	f1 f7       	brne	.-4      	; 0x314 <lcd_init+0x50>
+	
+	_delay_us(1530);
+	
+	lcd_command(0x06);
+ 318:	86 e0       	ldi	r24, 0x06	; 6
+ 31a:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <lcd_command>
+	
+	return;
+}
+ 31e:	08 95       	ret
+
+00000320 <main>:
+
+int _tmp_=0;
+char sign,first_decimal=0x30,second_decimal=0x30,third_decimal=0x30;
+
+int main(void)
+{
+ 320:	df 92       	push	r13
+ 322:	ef 92       	push	r14
+ 324:	ff 92       	push	r15
+ 326:	0f 93       	push	r16
+ 328:	1f 93       	push	r17
+ 32a:	cf 93       	push	r28
+ 32c:	df 93       	push	r29
+	DDRC = 0xf0;
+ 32e:	80 ef       	ldi	r24, 0xF0	; 240
+ 330:	84 bb       	out	0x14, r24	; 20
+	DDRD = 0xff;
+ 332:	8f ef       	ldi	r24, 0xFF	; 255
+ 334:	81 bb       	out	0x11, r24	; 17
+	DDRA = 0xff;
+ 336:	8a bb       	out	0x1a, r24	; 26
+	lcd_init();
+ 338:	0e 94 62 01 	call	0x2c4	; 0x2c4 <lcd_init>
+		if( (number&0x80)==0x80 )
+		{
+			number=-number;
+			sign = '-';
+		}
+		else sign = '+';
+ 33c:	eb e2       	ldi	r30, 0x2B	; 43
+ 33e:	de 2e       	mov	r13, r30
+		
+		
+		if( (number&0x80)==0x80 )
+		{
+			number=-number;
+			sign = '-';
+ 340:	0d e2       	ldi	r16, 0x2D	; 45
+	int  first_num_t,sec_num_t;
+	char number,first_num,second_num;
+	 
+    while(1)
+	{
+		while( (second_hex_digit =keypad_to_hex(first_num_t=scan_keypad_rising_edge()) ) == 0xff );
+ 342:	0e 94 9f 00 	call	0x13e	; 0x13e <scan_keypad_rising_edge>
+ 346:	7c 01       	movw	r14, r24
+ 348:	0e 94 03 01 	call	0x206	; 0x206 <keypad_to_hex>
+ 34c:	18 2f       	mov	r17, r24
+ 34e:	8f 3f       	cpi	r24, 0xFF	; 255
+ 350:	c1 f3       	breq	.-16     	; 0x342 <main+0x22>
+		
+		while( (first_hex_digit =keypad_to_hex(sec_num_t=scan_keypad_rising_edge()) ) == 0xff );	
+ 352:	0e 94 9f 00 	call	0x13e	; 0x13e <scan_keypad_rising_edge>
+ 356:	ec 01       	movw	r28, r24
+ 358:	0e 94 03 01 	call	0x206	; 0x206 <keypad_to_hex>
+ 35c:	98 2f       	mov	r25, r24
+ 35e:	8f 3f       	cpi	r24, 0xFF	; 255
+ 360:	c1 f3       	breq	.-16     	; 0x352 <main+0x32>
+        first_num = keypad_to_ascii(first_num_t);
+		second_num = keypad_to_ascii(sec_num_t);
+		number = (second_hex_digit << 4) | first_hex_digit ;
+ 362:	81 2f       	mov	r24, r17
+ 364:	82 95       	swap	r24
+ 366:	80 7f       	andi	r24, 0xF0	; 240
+ 368:	89 2b       	or	r24, r25
+		
+		
+		if( (number&0x80)==0x80 )
+ 36a:	87 ff       	sbrs	r24, 7
+ 36c:	04 c0       	rjmp	.+8      	; 0x376 <main+0x56>
+		{
+			number=-number;
+ 36e:	81 95       	neg	r24
+			sign = '-';
+ 370:	00 93 66 00 	sts	0x0066, r16
+ 374:	02 c0       	rjmp	.+4      	; 0x37a <main+0x5a>
+		}
+		else sign = '+';
+ 376:	d0 92 66 00 	sts	0x0066, r13
+		
+		hex_to_decimal(number);
+ 37a:	0e 94 49 00 	call	0x92	; 0x92 <hex_to_decimal>
+
+		first_decimal=first_decimal + 0x30;
+ 37e:	80 91 60 00 	lds	r24, 0x0060
+ 382:	80 5d       	subi	r24, 0xD0	; 208
+ 384:	80 93 60 00 	sts	0x0060, r24
+		second_decimal=second_decimal + 0x30;
+ 388:	80 91 61 00 	lds	r24, 0x0061
+ 38c:	80 5d       	subi	r24, 0xD0	; 208
+ 38e:	80 93 61 00 	sts	0x0061, r24
+		third_decimal=third_decimal + 0x30;
+ 392:	80 91 62 00 	lds	r24, 0x0062
+ 396:	80 5d       	subi	r24, 0xD0	; 208
+ 398:	80 93 62 00 	sts	0x0062, r24
+
+		
+		lcd_command(0x02);
+ 39c:	82 e0       	ldi	r24, 0x02	; 2
+ 39e:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <lcd_command>
+    while(1)
+	{
+		while( (second_hex_digit =keypad_to_hex(first_num_t=scan_keypad_rising_edge()) ) == 0xff );
+		
+		while( (first_hex_digit =keypad_to_hex(sec_num_t=scan_keypad_rising_edge()) ) == 0xff );	
+        first_num = keypad_to_ascii(first_num_t);
+ 3a2:	c7 01       	movw	r24, r14
+ 3a4:	0e 94 c1 00 	call	0x182	; 0x182 <keypad_to_ascii>
+		second_decimal=second_decimal + 0x30;
+		third_decimal=third_decimal + 0x30;
+
+		
+		lcd_command(0x02);
+		lcd_data(first_num);
+ 3a8:	0e 94 54 01 	call	0x2a8	; 0x2a8 <lcd_data>
+	{
+		while( (second_hex_digit =keypad_to_hex(first_num_t=scan_keypad_rising_edge()) ) == 0xff );
+		
+		while( (first_hex_digit =keypad_to_hex(sec_num_t=scan_keypad_rising_edge()) ) == 0xff );	
+        first_num = keypad_to_ascii(first_num_t);
+		second_num = keypad_to_ascii(sec_num_t);
+ 3ac:	ce 01       	movw	r24, r28
+ 3ae:	0e 94 c1 00 	call	0x182	; 0x182 <keypad_to_ascii>
+		third_decimal=third_decimal + 0x30;
+
+		
+		lcd_command(0x02);
+		lcd_data(first_num);
+		lcd_data(second_num);
+ 3b2:	0e 94 54 01 	call	0x2a8	; 0x2a8 <lcd_data>
+		lcd_data('=');
+ 3b6:	8d e3       	ldi	r24, 0x3D	; 61
+ 3b8:	0e 94 54 01 	call	0x2a8	; 0x2a8 <lcd_data>
+		lcd_data(sign);
+ 3bc:	80 91 66 00 	lds	r24, 0x0066
+ 3c0:	0e 94 54 01 	call	0x2a8	; 0x2a8 <lcd_data>
+		lcd_data(third_decimal);
+ 3c4:	80 91 62 00 	lds	r24, 0x0062
+ 3c8:	0e 94 54 01 	call	0x2a8	; 0x2a8 <lcd_data>
+		lcd_data(second_decimal);
+ 3cc:	80 91 61 00 	lds	r24, 0x0061
+ 3d0:	0e 94 54 01 	call	0x2a8	; 0x2a8 <lcd_data>
+		lcd_data(first_decimal);
+ 3d4:	80 91 60 00 	lds	r24, 0x0060
+ 3d8:	0e 94 54 01 	call	0x2a8	; 0x2a8 <lcd_data>
+ 3dc:	b2 cf       	rjmp	.-156    	; 0x342 <main+0x22>
+
+000003de <__udivmodqi4>:
+ 3de:	99 1b       	sub	r25, r25
+ 3e0:	79 e0       	ldi	r23, 0x09	; 9
+ 3e2:	04 c0       	rjmp	.+8      	; 0x3ec <__udivmodqi4_ep>
+
+000003e4 <__udivmodqi4_loop>:
+ 3e4:	99 1f       	adc	r25, r25
+ 3e6:	96 17       	cp	r25, r22
+ 3e8:	08 f0       	brcs	.+2      	; 0x3ec <__udivmodqi4_ep>
+ 3ea:	96 1b       	sub	r25, r22
+
+000003ec <__udivmodqi4_ep>:
+ 3ec:	88 1f       	adc	r24, r24
+ 3ee:	7a 95       	dec	r23
+ 3f0:	c9 f7       	brne	.-14     	; 0x3e4 <__udivmodqi4_loop>
+ 3f2:	80 95       	com	r24
+ 3f4:	08 95       	ret
+
+000003f6 <_exit>:
+ 3f6:	f8 94       	cli
+
+000003f8 <__stop_program>:
+ 3f8:	ff cf       	rjmp	.-2      	; 0x3f8 <__stop_program>

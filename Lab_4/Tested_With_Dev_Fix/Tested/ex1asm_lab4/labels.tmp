@@ -1,0 +1,37 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>12</LINE></reset>
+  <main><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>21</LINE></main>
+  <return_temp><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>26</LINE></return_temp>
+  <one_wire_reset><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>128</LINE></one_wire_reset>
+  <no_device><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>53</LINE></no_device>
+  <one_wire_transmit_byte><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>93</LINE></one_wire_transmit_byte>
+  <not_finished><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>34</LINE></not_finished>
+  <one_wire_receive_bit><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>72</LINE></one_wire_receive_bit>
+  <one_wire_receive_byte><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>58</LINE></one_wire_receive_byte>
+  <loop_><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>61</LINE></loop_>
+  <wait_usec><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>161</LINE></wait_usec>
+  <_one_more_><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>96</LINE></_one_more_>
+  <one_wire_transmit_bit><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>106</LINE></one_wire_transmit_bit>
+  <wait_msec><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\ex1asm_lab4\ex1asm_lab4.asm</FILE><LINE>150</LINE></wait_msec>
+ </LABELS>
+</ASSEMBLER_INFO>

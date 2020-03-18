@@ -1,0 +1,2566 @@
+
+Lab_6_Tested.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000aaa  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000e  00800060  00000aaa  00000b3e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000006  0080006e  0080006e  00000b4c  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  00000b4c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000256  00000000  00000000  00000b6c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00001518  00000000  00000000  00000dc2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000343  00000000  00000000  000022da  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000010cd  00000000  00000000  0000261d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000001e0  00000000  00000000  000036ec  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000386  00000000  00000000  000038cc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000005e3  00000000  00000000  00003c52  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000048  00000000  00000000  00004235  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 d5 04 	jmp	0x9aa	; 0x9aa <__vector_8>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ea ea       	ldi	r30, 0xAA	; 170
+  68:	fa e0       	ldi	r31, 0x0A	; 10
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	ae 36       	cpi	r26, 0x6E	; 110
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	ae e6       	ldi	r26, 0x6E	; 110
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a4 37       	cpi	r26, 0x74	; 116
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 dd 03 	call	0x7ba	; 0x7ba <main>
+  8a:	0c 94 53 05 	jmp	0xaa6	; 0xaa6 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <scan_row>:
+char hun,dec,mon,sign;
+int _tmp_=0x0000;
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+  92:	28 e0       	ldi	r18, 0x08	; 8
+  94:	30 e0       	ldi	r19, 0x00	; 0
+  96:	02 c0       	rjmp	.+4      	; 0x9c <scan_row+0xa>
+  98:	22 0f       	add	r18, r18
+  9a:	33 1f       	adc	r19, r19
+  9c:	8a 95       	dec	r24
+  9e:	e2 f7       	brpl	.-8      	; 0x98 <scan_row+0x6>
+	PORTC = row;
+  a0:	25 bb       	out	0x15, r18	; 21
+	asm volatile ("nop");
+  a2:	00 00       	nop
+	asm volatile ("nop");
+  a4:	00 00       	nop
+	return (PINC & 0x0f);
+  a6:	23 b3       	in	r18, 0x13	; 19
+  a8:	30 e0       	ldi	r19, 0x00	; 0
+  aa:	2f 70       	andi	r18, 0x0F	; 15
+  ac:	30 70       	andi	r19, 0x00	; 0
+}
+  ae:	c9 01       	movw	r24, r18
+  b0:	08 95       	ret
+
+000000b2 <scan_keypad>:
+int _tmp_=0x0000;
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  b2:	80 e8       	ldi	r24, 0x80	; 128
+  b4:	85 bb       	out	0x15, r24	; 21
+	asm volatile ("nop");
+  b6:	00 00       	nop
+	asm volatile ("nop");
+  b8:	00 00       	nop
+	return (PINC & 0x0f);
+  ba:	63 b3       	in	r22, 0x13	; 19
+int _tmp_=0x0000;
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  bc:	80 e4       	ldi	r24, 0x40	; 64
+  be:	85 bb       	out	0x15, r24	; 21
+	asm volatile ("nop");
+  c0:	00 00       	nop
+	asm volatile ("nop");
+  c2:	00 00       	nop
+	return (PINC & 0x0f);
+  c4:	23 b3       	in	r18, 0x13	; 19
+int _tmp_=0x0000;
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  c6:	80 e2       	ldi	r24, 0x20	; 32
+  c8:	85 bb       	out	0x15, r24	; 21
+	asm volatile ("nop");
+  ca:	00 00       	nop
+	asm volatile ("nop");
+  cc:	00 00       	nop
+	return (PINC & 0x0f);
+  ce:	83 b3       	in	r24, 0x13	; 19
+int _tmp_=0x0000;
+
+int scan_row(char row_nr)
+{
+	char row = 0x08 << row_nr;
+	PORTC = row;
+  d0:	40 e1       	ldi	r20, 0x10	; 16
+  d2:	45 bb       	out	0x15, r20	; 21
+	asm volatile ("nop");
+  d4:	00 00       	nop
+	asm volatile ("nop");
+  d6:	00 00       	nop
+	return (PINC & 0x0f);
+  d8:	43 b3       	in	r20, 0x13	; 19
+  da:	30 e0       	ldi	r19, 0x00	; 0
+  dc:	2f 70       	andi	r18, 0x0F	; 15
+  de:	30 70       	andi	r19, 0x00	; 0
+  e0:	74 e0       	ldi	r23, 0x04	; 4
+  e2:	22 0f       	add	r18, r18
+  e4:	33 1f       	adc	r19, r19
+  e6:	7a 95       	dec	r23
+  e8:	e1 f7       	brne	.-8      	; 0xe2 <scan_keypad+0x30>
+  ea:	90 e0       	ldi	r25, 0x00	; 0
+  ec:	8f 70       	andi	r24, 0x0F	; 15
+  ee:	90 70       	andi	r25, 0x00	; 0
+  f0:	98 2f       	mov	r25, r24
+  f2:	88 27       	eor	r24, r24
+  f4:	28 2b       	or	r18, r24
+  f6:	39 2b       	or	r19, r25
+  f8:	70 e0       	ldi	r23, 0x00	; 0
+  fa:	6f 70       	andi	r22, 0x0F	; 15
+  fc:	70 70       	andi	r23, 0x00	; 0
+  fe:	26 2b       	or	r18, r22
+ 100:	37 2b       	or	r19, r23
+ 102:	50 e0       	ldi	r21, 0x00	; 0
+ 104:	54 2f       	mov	r21, r20
+ 106:	44 27       	eor	r20, r20
+ 108:	52 95       	swap	r21
+ 10a:	50 7f       	andi	r21, 0xF0	; 240
+ 10c:	24 2b       	or	r18, r20
+ 10e:	35 2b       	or	r19, r21
+
+int scan_keypad()
+{
+	int temp = scan_row(4) | (scan_row(3)<<4) | (scan_row(2)<<8) | (scan_row(1)<<12);
+	return temp;
+}
+ 110:	c9 01       	movw	r24, r18
+ 112:	08 95       	ret
+
+00000114 <scan_keypad_rising_edge>:
+
+int scan_keypad_rising_edge()
+{
+ 114:	cf 93       	push	r28
+ 116:	df 93       	push	r29
+	int first_scan = scan_keypad();
+ 118:	0e 94 59 00 	call	0xb2	; 0xb2 <scan_keypad>
+ 11c:	ec 01       	movw	r28, r24
+ 11e:	84 ef       	ldi	r24, 0xF4	; 244
+ 120:	91 e0       	ldi	r25, 0x01	; 1
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 122:	28 ec       	ldi	r18, 0xC8	; 200
+ 124:	30 e0       	ldi	r19, 0x00	; 0
+ 126:	f9 01       	movw	r30, r18
+ 128:	31 97       	sbiw	r30, 0x01	; 1
+ 12a:	f1 f7       	brne	.-4      	; 0x128 <scan_keypad_rising_edge+0x14>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 12c:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 12e:	d9 f7       	brne	.-10     	; 0x126 <scan_keypad_rising_edge+0x12>
+	_delay_ms(50);
+	
+	int second_scan = scan_keypad();
+ 130:	0e 94 59 00 	call	0xb2	; 0xb2 <scan_keypad>
+	
+	int next_tmp_state = first_scan & second_scan;
+ 134:	8c 23       	and	r24, r28
+ 136:	9d 23       	and	r25, r29
+	
+	int final_result = next_tmp_state & ~(_tmp_);
+ 138:	20 91 6e 00 	lds	r18, 0x006E
+ 13c:	30 91 6f 00 	lds	r19, 0x006F
+ 140:	20 95       	com	r18
+ 142:	30 95       	com	r19
+ 144:	28 23       	and	r18, r24
+ 146:	39 23       	and	r19, r25
+	
+	_tmp_=next_tmp_state;
+ 148:	90 93 6f 00 	sts	0x006F, r25
+ 14c:	80 93 6e 00 	sts	0x006E, r24
+
+	return final_result;
+}
+ 150:	c9 01       	movw	r24, r18
+ 152:	df 91       	pop	r29
+ 154:	cf 91       	pop	r28
+ 156:	08 95       	ret
+
+00000158 <keypad_to_ascii>:
+
+char keypad_to_ascii(int keypad)
+{
+	if((keypad&0x0001)==0x0001) return '*';
+ 158:	80 ff       	sbrs	r24, 0
+ 15a:	02 c0       	rjmp	.+4      	; 0x160 <keypad_to_ascii+0x8>
+ 15c:	8a e2       	ldi	r24, 0x2A	; 42
+ 15e:	08 95       	ret
+	if((keypad&0x0002)==0x0002) return '0';
+ 160:	81 ff       	sbrs	r24, 1
+ 162:	02 c0       	rjmp	.+4      	; 0x168 <keypad_to_ascii+0x10>
+ 164:	80 e3       	ldi	r24, 0x30	; 48
+ 166:	08 95       	ret
+	if((keypad&0x0004)==0x0004) return '#';
+ 168:	82 ff       	sbrs	r24, 2
+ 16a:	02 c0       	rjmp	.+4      	; 0x170 <keypad_to_ascii+0x18>
+ 16c:	83 e2       	ldi	r24, 0x23	; 35
+ 16e:	08 95       	ret
+	if((keypad&0x0008)==0x0008) return 'D';
+ 170:	83 ff       	sbrs	r24, 3
+ 172:	02 c0       	rjmp	.+4      	; 0x178 <keypad_to_ascii+0x20>
+ 174:	84 e4       	ldi	r24, 0x44	; 68
+ 176:	08 95       	ret
+	if((keypad&0x0010)==0x0010) return '7';
+ 178:	84 ff       	sbrs	r24, 4
+ 17a:	02 c0       	rjmp	.+4      	; 0x180 <keypad_to_ascii+0x28>
+ 17c:	87 e3       	ldi	r24, 0x37	; 55
+ 17e:	08 95       	ret
+	if((keypad&0x0020)==0x0020) return '8';
+ 180:	85 ff       	sbrs	r24, 5
+ 182:	02 c0       	rjmp	.+4      	; 0x188 <keypad_to_ascii+0x30>
+ 184:	88 e3       	ldi	r24, 0x38	; 56
+ 186:	08 95       	ret
+	if((keypad&0x0040)==0x0040) return '9';
+ 188:	86 ff       	sbrs	r24, 6
+ 18a:	02 c0       	rjmp	.+4      	; 0x190 <keypad_to_ascii+0x38>
+ 18c:	89 e3       	ldi	r24, 0x39	; 57
+ 18e:	08 95       	ret
+	if((keypad&0x0080)==0x0080) return 'C';
+ 190:	87 ff       	sbrs	r24, 7
+ 192:	02 c0       	rjmp	.+4      	; 0x198 <keypad_to_ascii+0x40>
+ 194:	83 e4       	ldi	r24, 0x43	; 67
+ 196:	08 95       	ret
+	if((keypad&0x0100)==0x0100) return '4';
+ 198:	90 ff       	sbrs	r25, 0
+ 19a:	02 c0       	rjmp	.+4      	; 0x1a0 <keypad_to_ascii+0x48>
+ 19c:	84 e3       	ldi	r24, 0x34	; 52
+ 19e:	08 95       	ret
+	if((keypad&0x0200)==0x0200) return '5';
+ 1a0:	91 ff       	sbrs	r25, 1
+ 1a2:	02 c0       	rjmp	.+4      	; 0x1a8 <keypad_to_ascii+0x50>
+ 1a4:	85 e3       	ldi	r24, 0x35	; 53
+ 1a6:	08 95       	ret
+	if((keypad&0x0400)==0x0400) return '6';
+ 1a8:	92 ff       	sbrs	r25, 2
+ 1aa:	02 c0       	rjmp	.+4      	; 0x1b0 <keypad_to_ascii+0x58>
+ 1ac:	86 e3       	ldi	r24, 0x36	; 54
+ 1ae:	08 95       	ret
+	if((keypad&0x0800)==0x0800) return 'B';
+ 1b0:	93 ff       	sbrs	r25, 3
+ 1b2:	02 c0       	rjmp	.+4      	; 0x1b8 <keypad_to_ascii+0x60>
+ 1b4:	82 e4       	ldi	r24, 0x42	; 66
+ 1b6:	08 95       	ret
+	if((keypad&0x1000)==0x1000) return '1';
+ 1b8:	94 ff       	sbrs	r25, 4
+ 1ba:	02 c0       	rjmp	.+4      	; 0x1c0 <keypad_to_ascii+0x68>
+ 1bc:	81 e3       	ldi	r24, 0x31	; 49
+ 1be:	08 95       	ret
+	if((keypad&0x2000)==0x2000) return '2';
+ 1c0:	95 ff       	sbrs	r25, 5
+ 1c2:	02 c0       	rjmp	.+4      	; 0x1c8 <keypad_to_ascii+0x70>
+ 1c4:	82 e3       	ldi	r24, 0x32	; 50
+ 1c6:	08 95       	ret
+	if((keypad&0x4000)==0x4000) return '3';
+ 1c8:	96 ff       	sbrs	r25, 6
+ 1ca:	02 c0       	rjmp	.+4      	; 0x1d0 <keypad_to_ascii+0x78>
+ 1cc:	83 e3       	ldi	r24, 0x33	; 51
+ 1ce:	08 95       	ret
+	if((keypad&0x8000)==0x8000) return 'A';
+ 1d0:	97 fd       	sbrc	r25, 7
+ 1d2:	02 c0       	rjmp	.+4      	; 0x1d8 <keypad_to_ascii+0x80>
+ 1d4:	80 e0       	ldi	r24, 0x00	; 0
+ 1d6:	08 95       	ret
+ 1d8:	81 e4       	ldi	r24, 0x41	; 65
+	return 0x00;
+	
+}
+ 1da:	08 95       	ret
+
+000001dc <usart_init>:
+
+void usart_init(void){
+	UCSRA = 0; //Initialize USCRA as 0
+ 1dc:	1b b8       	out	0x0b, r1	; 11
+	// Activate transmitter receiver
+	UCSRB = (1 << RXEN) | (1<< TXEN);
+ 1de:	88 e1       	ldi	r24, 0x18	; 24
+ 1e0:	8a b9       	out	0x0a, r24	; 10
+	//Baud rate = 9600
+	UBRRH = 0;
+ 1e2:	10 bc       	out	0x20, r1	; 32
+	UBRRL = 51;
+ 1e4:	83 e3       	ldi	r24, 0x33	; 51
+ 1e6:	89 b9       	out	0x09, r24	; 9
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+ 1e8:	86 e8       	ldi	r24, 0x86	; 134
+ 1ea:	80 bd       	out	0x20, r24	; 32
+}
+ 1ec:	08 95       	ret
+
+000001ee <usart_transmit>:
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 1ee:	5d 9b       	sbis	0x0b, 5	; 11
+ 1f0:	fe cf       	rjmp	.-4      	; 0x1ee <usart_transmit>
+	UDR = byte;
+ 1f2:	8c b9       	out	0x0c, r24	; 12
+}
+ 1f4:	08 95       	ret
+
+000001f6 <usart_receive>:
+unsigned char  usart_receive(void ){
+	while(!(UCSRA &(1 << RXC)));
+ 1f6:	5f 9b       	sbis	0x0b, 7	; 11
+ 1f8:	fe cf       	rjmp	.-4      	; 0x1f6 <usart_receive>
+	return  UDR;
+ 1fa:	8c b1       	in	r24, 0x0c	; 12
+}
+ 1fc:	08 95       	ret
+
+000001fe <write_2_nibbles>:
+
+
+void write_2_nibbles(char data)
+{
+	char previous_state = PIND;
+ 1fe:	20 b3       	in	r18, 0x10	; 16
+	PORTD = (data&0xf0) | (previous_state&0x0f);
+ 200:	2f 70       	andi	r18, 0x0F	; 15
+ 202:	98 2f       	mov	r25, r24
+ 204:	90 7f       	andi	r25, 0xF0	; 240
+ 206:	92 2b       	or	r25, r18
+ 208:	92 bb       	out	0x12, r25	; 18
+	
+	PORTD |= (1<<PD3);
+ 20a:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 20c:	93 98       	cbi	0x12, 3	; 18
+	
+	PORTD = ((data&0x0f)<<4) | (previous_state&0x0f);
+ 20e:	82 95       	swap	r24
+ 210:	80 7f       	andi	r24, 0xF0	; 240
+ 212:	28 2b       	or	r18, r24
+ 214:	22 bb       	out	0x12, r18	; 18
+	
+	PORTD |= (1<<PD3);
+ 216:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 218:	93 98       	cbi	0x12, 3	; 18
+	
+	return;
+}
+ 21a:	08 95       	ret
+
+0000021c <lcd_data>:
+
+void lcd_data(char data)
+{
+	PORTD |= (1<<PD2);
+ 21c:	92 9a       	sbi	0x12, 2	; 18
+	write_2_nibbles(data);
+ 21e:	0e 94 ff 00 	call	0x1fe	; 0x1fe <write_2_nibbles>
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 222:	82 e7       	ldi	r24, 0x72	; 114
+ 224:	8a 95       	dec	r24
+ 226:	f1 f7       	brne	.-4      	; 0x224 <lcd_data+0x8>
+	
+	_delay_us(43);
+	
+	return;
+}
+ 228:	08 95       	ret
+
+0000022a <lcd_command>:
+
+
+void lcd_command(char command)
+{
+	PORTD &= ~(1<<PD2);
+ 22a:	92 98       	cbi	0x12, 2	; 18
+	write_2_nibbles(command);
+ 22c:	0e 94 ff 00 	call	0x1fe	; 0x1fe <write_2_nibbles>
+ 230:	88 e6       	ldi	r24, 0x68	; 104
+ 232:	8a 95       	dec	r24
+ 234:	f1 f7       	brne	.-4      	; 0x232 <lcd_command+0x8>
+	
+	_delay_us(39);
+	
+	return;
+}
+ 236:	08 95       	ret
+
+00000238 <lcd_init>:
+void lcd_init()
+{
+ 238:	80 e9       	ldi	r24, 0x90	; 144
+ 23a:	91 e0       	ldi	r25, 0x01	; 1
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 23c:	28 ec       	ldi	r18, 0xC8	; 200
+ 23e:	30 e0       	ldi	r19, 0x00	; 0
+ 240:	f9 01       	movw	r30, r18
+ 242:	31 97       	sbiw	r30, 0x01	; 1
+ 244:	f1 f7       	brne	.-4      	; 0x242 <lcd_init+0xa>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 246:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 248:	d9 f7       	brne	.-10     	; 0x240 <lcd_init+0x8>
+	_delay_ms(40);
+	PORTD = 0x30;
+ 24a:	80 e3       	ldi	r24, 0x30	; 48
+ 24c:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+ 24e:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 250:	93 98       	cbi	0x12, 3	; 18
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 252:	98 e6       	ldi	r25, 0x68	; 104
+ 254:	29 2f       	mov	r18, r25
+ 256:	2a 95       	dec	r18
+ 258:	f1 f7       	brne	.-4      	; 0x256 <lcd_init+0x1e>
+	_delay_us(39);
+	
+	PORTD = 0x30;
+ 25a:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+ 25c:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 25e:	93 98       	cbi	0x12, 3	; 18
+ 260:	85 e3       	ldi	r24, 0x35	; 53
+ 262:	8a 95       	dec	r24
+ 264:	f1 f7       	brne	.-4      	; 0x262 <lcd_init+0x2a>
+	_delay_us(20);
+	
+	PORTD = 0x20;
+ 266:	80 e2       	ldi	r24, 0x20	; 32
+ 268:	82 bb       	out	0x12, r24	; 18
+	PORTD |= (1<<PD3);
+ 26a:	93 9a       	sbi	0x12, 3	; 18
+	PORTD &= ~(1<<PD3);
+ 26c:	93 98       	cbi	0x12, 3	; 18
+ 26e:	9a 95       	dec	r25
+ 270:	f1 f7       	brne	.-4      	; 0x26e <lcd_init+0x36>
+	_delay_us(39);
+	
+	lcd_command(0x28);
+ 272:	88 e2       	ldi	r24, 0x28	; 40
+ 274:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+	lcd_command(0x0c);
+ 278:	8c e0       	ldi	r24, 0x0C	; 12
+ 27a:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+	lcd_command(0x01);
+ 27e:	81 e0       	ldi	r24, 0x01	; 1
+ 280:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 284:	84 ef       	ldi	r24, 0xF4	; 244
+ 286:	9b e0       	ldi	r25, 0x0B	; 11
+ 288:	01 97       	sbiw	r24, 0x01	; 1
+ 28a:	f1 f7       	brne	.-4      	; 0x288 <lcd_init+0x50>
+	
+	_delay_us(1530);
+	
+	lcd_command(0x06);
+ 28c:	86 e0       	ldi	r24, 0x06	; 6
+ 28e:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+	
+	return;
+}
+ 292:	08 95       	ret
+
+00000294 <one_wire_reset>:
+
+
+unsigned char one_wire_reset(){
+	unsigned char crc;
+	DDRA  |=  (1 << PA4);
+ 294:	d4 9a       	sbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 296:	dc 98       	cbi	0x1b, 4	; 27
+ 298:	80 ec       	ldi	r24, 0xC0	; 192
+ 29a:	93 e0       	ldi	r25, 0x03	; 3
+ 29c:	01 97       	sbiw	r24, 0x01	; 1
+ 29e:	f1 f7       	brne	.-4      	; 0x29c <one_wire_reset+0x8>
+	_delay_us(480);
+	// mb DDRA= (0<<PA4)
+	DDRA  &= ~(1 << PA4);
+ 2a0:	d4 98       	cbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 2a2:	dc 98       	cbi	0x1b, 4	; 27
+ 2a4:	88 ec       	ldi	r24, 0xC8	; 200
+ 2a6:	90 e0       	ldi	r25, 0x00	; 0
+ 2a8:	01 97       	sbiw	r24, 0x01	; 1
+ 2aa:	f1 f7       	brne	.-4      	; 0x2a8 <one_wire_reset+0x14>
+	_delay_us(100);
+	crc = PINA ;
+ 2ac:	89 b3       	in	r24, 0x19	; 25
+ 2ae:	e8 ef       	ldi	r30, 0xF8	; 248
+ 2b0:	f2 e0       	ldi	r31, 0x02	; 2
+ 2b2:	31 97       	sbiw	r30, 0x01	; 1
+ 2b4:	f1 f7       	brne	.-4      	; 0x2b2 <one_wire_reset+0x1e>
+ 2b6:	82 95       	swap	r24
+ 2b8:	8f 70       	andi	r24, 0x0F	; 15
+ 2ba:	80 95       	com	r24
+	}
+	else{
+		return 1;
+	}
+	return -1;
+}
+ 2bc:	81 70       	andi	r24, 0x01	; 1
+ 2be:	08 95       	ret
+
+000002c0 <one_wire_transmit_bit>:
+
+void one_wire_transmit_bit(unsigned char bit){
+	DDRA  |=   (1<<PA4);
+ 2c0:	d4 9a       	sbi	0x1a, 4	; 26
+	PORTA &= ~(1<<PA4);
+ 2c2:	dc 98       	cbi	0x1b, 4	; 27
+    can be achieved.
+*/
+void
+_delay_loop_1(uint8_t __count)
+{
+	__asm__ volatile (
+ 2c4:	95 e0       	ldi	r25, 0x05	; 5
+ 2c6:	9a 95       	dec	r25
+ 2c8:	f1 f7       	brne	.-4      	; 0x2c6 <one_wire_transmit_bit+0x6>
+	_delay_us(2);
+	if((bit & 0x01)==0x01){
+ 2ca:	80 ff       	sbrs	r24, 0
+ 2cc:	02 c0       	rjmp	.+4      	; 0x2d2 <one_wire_transmit_bit+0x12>
+		PORTA |= (1<<PA4);
+ 2ce:	dc 9a       	sbi	0x1b, 4	; 27
+ 2d0:	03 c0       	rjmp	.+6      	; 0x2d8 <one_wire_transmit_bit+0x18>
+	}
+	if((bit & 0x01)==0x00){
+		PORTA &= (1<<PA4);
+ 2d2:	8b b3       	in	r24, 0x1b	; 27
+ 2d4:	80 71       	andi	r24, 0x10	; 16
+ 2d6:	8b bb       	out	0x1b, r24	; 27
+ 2d8:	8a e9       	ldi	r24, 0x9A	; 154
+ 2da:	8a 95       	dec	r24
+ 2dc:	f1 f7       	brne	.-4      	; 0x2da <one_wire_transmit_bit+0x1a>
+	}
+	_delay_us(58);
+	DDRA  &= ~(1<<PA4);
+ 2de:	d4 98       	cbi	0x1a, 4	; 26
+	PORTA &= ~(1<<PA4);
+ 2e0:	dc 98       	cbi	0x1b, 4	; 27
+ 2e2:	82 e0       	ldi	r24, 0x02	; 2
+ 2e4:	8a 95       	dec	r24
+ 2e6:	f1 f7       	brne	.-4      	; 0x2e4 <one_wire_transmit_bit+0x24>
+	_delay_us(1);
+}
+ 2e8:	08 95       	ret
+
+000002ea <one_wire_transmit_byte>:
+
+void one_wire_transmit_byte(unsigned char byte){
+ 2ea:	1f 93       	push	r17
+ 2ec:	cf 93       	push	r28
+ 2ee:	df 93       	push	r29
+ 2f0:	18 2f       	mov	r17, r24
+ 2f2:	c0 e0       	ldi	r28, 0x00	; 0
+ 2f4:	d0 e0       	ldi	r29, 0x00	; 0
+	unsigned char bit_to_send;
+	for(int i=0; i<8; i++){
+		bit_to_send = byte & 0x01;
+		if(bit_to_send == 0){
+ 2f6:	10 fd       	sbrc	r17, 0
+ 2f8:	02 c0       	rjmp	.+4      	; 0x2fe <one_wire_transmit_byte+0x14>
+			one_wire_transmit_bit(0);
+ 2fa:	80 e0       	ldi	r24, 0x00	; 0
+ 2fc:	01 c0       	rjmp	.+2      	; 0x300 <one_wire_transmit_byte+0x16>
+		}
+		else if(bit_to_send == 1){
+			one_wire_transmit_bit(1);
+ 2fe:	81 e0       	ldi	r24, 0x01	; 1
+ 300:	0e 94 60 01 	call	0x2c0	; 0x2c0 <one_wire_transmit_bit>
+	_delay_us(1);
+}
+
+void one_wire_transmit_byte(unsigned char byte){
+	unsigned char bit_to_send;
+	for(int i=0; i<8; i++){
+ 304:	21 96       	adiw	r28, 0x01	; 1
+ 306:	c8 30       	cpi	r28, 0x08	; 8
+ 308:	d1 05       	cpc	r29, r1
+ 30a:	11 f0       	breq	.+4      	; 0x310 <one_wire_transmit_byte+0x26>
+			one_wire_transmit_bit(0);
+		}
+		else if(bit_to_send == 1){
+			one_wire_transmit_bit(1);
+		}
+		byte = byte >> 1;
+ 30c:	16 95       	lsr	r17
+ 30e:	f3 cf       	rjmp	.-26     	; 0x2f6 <one_wire_transmit_byte+0xc>
+	}
+}
+ 310:	df 91       	pop	r29
+ 312:	cf 91       	pop	r28
+ 314:	1f 91       	pop	r17
+ 316:	08 95       	ret
+
+00000318 <one_wire_receive_bit>:
+unsigned char one_wire_receive_bit(){
+	unsigned char bit_to_return = 0;
+	DDRA  |=  (1 << PA4);
+ 318:	d4 9a       	sbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 31a:	dc 98       	cbi	0x1b, 4	; 27
+ 31c:	85 e0       	ldi	r24, 0x05	; 5
+ 31e:	8a 95       	dec	r24
+ 320:	f1 f7       	brne	.-4      	; 0x31e <one_wire_receive_bit+0x6>
+	_delay_us(2);
+	DDRA  &= ~(1 << PA4);
+ 322:	d4 98       	cbi	0x1a, 4	; 26
+	PORTA &= ~(1 << PA4);
+ 324:	dc 98       	cbi	0x1b, 4	; 27
+ 326:	8a e1       	ldi	r24, 0x1A	; 26
+ 328:	8a 95       	dec	r24
+ 32a:	f1 f7       	brne	.-4      	; 0x328 <one_wire_receive_bit+0x10>
+	_delay_us(10);
+	if( (PINA & 0X10) == 0x10 ){
+ 32c:	89 b3       	in	r24, 0x19	; 25
+ 32e:	92 e8       	ldi	r25, 0x82	; 130
+ 330:	9a 95       	dec	r25
+ 332:	f1 f7       	brne	.-4      	; 0x330 <one_wire_receive_bit+0x18>
+ 334:	90 e0       	ldi	r25, 0x00	; 0
+ 336:	e4 e0       	ldi	r30, 0x04	; 4
+ 338:	96 95       	lsr	r25
+ 33a:	87 95       	ror	r24
+ 33c:	ea 95       	dec	r30
+ 33e:	e1 f7       	brne	.-8      	; 0x338 <one_wire_receive_bit+0x20>
+		bit_to_return = 1;
+	}
+	_delay_us(49);
+	return bit_to_return;
+}
+ 340:	81 70       	andi	r24, 0x01	; 1
+ 342:	08 95       	ret
+
+00000344 <one_wire_receive_byte>:
+unsigned char one_wire_receive_byte(){
+ 344:	1f 93       	push	r17
+ 346:	cf 93       	push	r28
+ 348:	df 93       	push	r29
+ 34a:	10 e0       	ldi	r17, 0x00	; 0
+ 34c:	c0 e0       	ldi	r28, 0x00	; 0
+ 34e:	d0 e0       	ldi	r29, 0x00	; 0
+	unsigned char bit_received,byte_to_return=0;
+	for(int i =0 ; i<8 ; i++){
+		byte_to_return = byte_to_return >> 1;
+		bit_received = one_wire_receive_bit();
+ 350:	0e 94 8c 01 	call	0x318	; 0x318 <one_wire_receive_bit>
+		if(bit_received == 1){
+ 354:	81 30       	cpi	r24, 0x01	; 1
+ 356:	09 f4       	brne	.+2      	; 0x35a <one_wire_receive_byte+0x16>
+ 358:	80 e8       	ldi	r24, 0x80	; 128
+	return bit_to_return;
+}
+unsigned char one_wire_receive_byte(){
+	unsigned char bit_received,byte_to_return=0;
+	for(int i =0 ; i<8 ; i++){
+		byte_to_return = byte_to_return >> 1;
+ 35a:	16 95       	lsr	r17
+		bit_received = one_wire_receive_bit();
+		if(bit_received == 1){
+			bit_received = 0x80;
+		}
+		byte_to_return= byte_to_return | bit_received ;
+ 35c:	18 2b       	or	r17, r24
+	_delay_us(49);
+	return bit_to_return;
+}
+unsigned char one_wire_receive_byte(){
+	unsigned char bit_received,byte_to_return=0;
+	for(int i =0 ; i<8 ; i++){
+ 35e:	21 96       	adiw	r28, 0x01	; 1
+ 360:	c8 30       	cpi	r28, 0x08	; 8
+ 362:	d1 05       	cpc	r29, r1
+ 364:	a9 f7       	brne	.-22     	; 0x350 <one_wire_receive_byte+0xc>
+			bit_received = 0x80;
+		}
+		byte_to_return= byte_to_return | bit_received ;
+	}
+	return byte_to_return;
+}
+ 366:	81 2f       	mov	r24, r17
+ 368:	df 91       	pop	r29
+ 36a:	cf 91       	pop	r28
+ 36c:	1f 91       	pop	r17
+ 36e:	08 95       	ret
+
+00000370 <return_temp>:
+unsigned int return_temp(){
+ 370:	1f 93       	push	r17
+	unsigned char crc,finished,temp,temp_sign;
+	int sign;
+	crc = one_wire_reset();
+ 372:	0e 94 4a 01 	call	0x294	; 0x294 <one_wire_reset>
+	if(crc == 0x00){
+ 376:	88 23       	and	r24, r24
+ 378:	09 f1       	breq	.+66     	; 0x3bc <return_temp+0x4c>
+		return 0x8000;
+	}
+	one_wire_transmit_byte(0xCC);
+ 37a:	8c ec       	ldi	r24, 0xCC	; 204
+ 37c:	0e 94 75 01 	call	0x2ea	; 0x2ea <one_wire_transmit_byte>
+	one_wire_transmit_byte(0x44);
+ 380:	84 e4       	ldi	r24, 0x44	; 68
+ 382:	0e 94 75 01 	call	0x2ea	; 0x2ea <one_wire_transmit_byte>
+	while(1){
+		finished = one_wire_receive_bit();
+ 386:	0e 94 8c 01 	call	0x318	; 0x318 <one_wire_receive_bit>
+		if((finished & 0x01) == 0x01){
+ 38a:	80 ff       	sbrs	r24, 0
+ 38c:	fc cf       	rjmp	.-8      	; 0x386 <return_temp+0x16>
+			break;
+		}
+	}
+	crc = one_wire_reset();
+ 38e:	0e 94 4a 01 	call	0x294	; 0x294 <one_wire_reset>
+	if(crc == 0x00){
+ 392:	88 23       	and	r24, r24
+ 394:	99 f0       	breq	.+38     	; 0x3bc <return_temp+0x4c>
+		return 0x8000;
+	}
+	one_wire_transmit_byte(0xCC);
+ 396:	8c ec       	ldi	r24, 0xCC	; 204
+ 398:	0e 94 75 01 	call	0x2ea	; 0x2ea <one_wire_transmit_byte>
+	one_wire_transmit_byte(0xBE);
+ 39c:	8e eb       	ldi	r24, 0xBE	; 190
+ 39e:	0e 94 75 01 	call	0x2ea	; 0x2ea <one_wire_transmit_byte>
+	temp = one_wire_receive_byte();
+ 3a2:	0e 94 a2 01 	call	0x344	; 0x344 <one_wire_receive_byte>
+ 3a6:	18 2f       	mov	r17, r24
+	temp = temp >> 1 ;
+	temp_sign = one_wire_receive_byte();
+ 3a8:	0e 94 a2 01 	call	0x344	; 0x344 <one_wire_receive_byte>
+	sign =  temp_sign;
+	sign = sign <<  8;
+	sign = sign & 0xFF00;
+	return  (sign | temp);
+ 3ac:	16 95       	lsr	r17
+ 3ae:	41 2f       	mov	r20, r17
+ 3b0:	50 e0       	ldi	r21, 0x00	; 0
+ 3b2:	38 2f       	mov	r19, r24
+ 3b4:	20 e0       	ldi	r18, 0x00	; 0
+ 3b6:	42 2b       	or	r20, r18
+ 3b8:	53 2b       	or	r21, r19
+ 3ba:	02 c0       	rjmp	.+4      	; 0x3c0 <return_temp+0x50>
+ 3bc:	40 e0       	ldi	r20, 0x00	; 0
+ 3be:	50 e8       	ldi	r21, 0x80	; 128
+	
+	
+}
+ 3c0:	ca 01       	movw	r24, r20
+ 3c2:	1f 91       	pop	r17
+ 3c4:	08 95       	ret
+
+000003c6 <no_device>:
+void no_device(){
+	lcd_command(0x02);
+ 3c6:	82 e0       	ldi	r24, 0x02	; 2
+ 3c8:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+	lcd_data('N');
+ 3cc:	8e e4       	ldi	r24, 0x4E	; 78
+ 3ce:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('O');
+ 3d2:	8f e4       	ldi	r24, 0x4F	; 79
+ 3d4:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data(' ');
+ 3d8:	80 e2       	ldi	r24, 0x20	; 32
+ 3da:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('D');
+ 3de:	84 e4       	ldi	r24, 0x44	; 68
+ 3e0:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('E');
+ 3e4:	85 e4       	ldi	r24, 0x45	; 69
+ 3e6:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('V');
+ 3ea:	86 e5       	ldi	r24, 0x56	; 86
+ 3ec:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('I');
+ 3f0:	89 e4       	ldi	r24, 0x49	; 73
+ 3f2:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('C');
+ 3f6:	83 e4       	ldi	r24, 0x43	; 67
+ 3f8:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('E');
+ 3fc:	85 e4       	ldi	r24, 0x45	; 69
+ 3fe:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	return;
+}
+ 402:	08 95       	ret
+
+00000404 <print_temp>:
+void print_temp(unsigned char hun,unsigned char dec,unsigned char mon,unsigned char sign){
+ 404:	ef 92       	push	r14
+ 406:	ff 92       	push	r15
+ 408:	0f 93       	push	r16
+ 40a:	1f 93       	push	r17
+ 40c:	cf 93       	push	r28
+ 40e:	df 93       	push	r29
+ 410:	08 2f       	mov	r16, r24
+ 412:	f6 2e       	mov	r15, r22
+ 414:	e4 2e       	mov	r14, r20
+ 416:	12 2f       	mov	r17, r18
+	lcd_command(0x02);
+ 418:	82 e0       	ldi	r24, 0x02	; 2
+ 41a:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+	lcd_data(sign);
+ 41e:	81 2f       	mov	r24, r17
+ 420:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	if(hun>0){
+ 424:	00 23       	and	r16, r16
+ 426:	21 f0       	breq	.+8      	; 0x430 <print_temp+0x2c>
+		lcd_data(hun+0x30);
+ 428:	80 2f       	mov	r24, r16
+ 42a:	80 5d       	subi	r24, 0xD0	; 208
+ 42c:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	}
+	lcd_data(dec+0x30);
+ 430:	8f 2d       	mov	r24, r15
+ 432:	80 5d       	subi	r24, 0xD0	; 208
+ 434:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data(mon+0x30);
+ 438:	8e 2d       	mov	r24, r14
+ 43a:	80 5d       	subi	r24, 0xD0	; 208
+ 43c:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data(0xb2);
+ 440:	82 eb       	ldi	r24, 0xB2	; 178
+ 442:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('C');
+ 446:	83 e4       	ldi	r24, 0x43	; 67
+ 448:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+ 44c:	c0 e0       	ldi	r28, 0x00	; 0
+ 44e:	d0 e0       	ldi	r29, 0x00	; 0
+	for(int i=0; i<4; i++){
+		lcd_data(' ');
+ 450:	80 e2       	ldi	r24, 0x20	; 32
+ 452:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	}
+	lcd_data(dec+0x30);
+	lcd_data(mon+0x30);
+	lcd_data(0xb2);
+	lcd_data('C');
+	for(int i=0; i<4; i++){
+ 456:	21 96       	adiw	r28, 0x01	; 1
+ 458:	c4 30       	cpi	r28, 0x04	; 4
+ 45a:	d1 05       	cpc	r29, r1
+ 45c:	c9 f7       	brne	.-14     	; 0x450 <print_temp+0x4c>
+		lcd_data(' ');
+	}
+	return;
+}
+ 45e:	df 91       	pop	r29
+ 460:	cf 91       	pop	r28
+ 462:	1f 91       	pop	r17
+ 464:	0f 91       	pop	r16
+ 466:	ff 90       	pop	r15
+ 468:	ef 90       	pop	r14
+ 46a:	08 95       	ret
+
+0000046c <get_digits>:
+void get_digits(char number){
+ 46c:	38 2f       	mov	r19, r24
+	if(number>=100){
+ 46e:	84 36       	cpi	r24, 0x64	; 100
+ 470:	30 f0       	brcs	.+12     	; 0x47e <get_digits+0x12>
+		hun++;
+ 472:	80 91 71 00 	lds	r24, 0x0071
+ 476:	8f 5f       	subi	r24, 0xFF	; 255
+ 478:	80 93 71 00 	sts	0x0071, r24
+		number = number -100;
+ 47c:	34 56       	subi	r19, 0x64	; 100
+ 47e:	20 91 73 00 	lds	r18, 0x0073
+ 482:	83 2f       	mov	r24, r19
+ 484:	6a e0       	ldi	r22, 0x0A	; 10
+ 486:	0e 94 3e 05 	call	0xa7c	; 0xa7c <__udivmodqi4>
+ 48a:	28 0f       	add	r18, r24
+ 48c:	20 93 73 00 	sts	0x0073, r18
+	}
+	while(number >=10){
+		dec++;
+		number = number -10;
+	}
+	mon = number;
+ 490:	83 2f       	mov	r24, r19
+ 492:	0e 94 3e 05 	call	0xa7c	; 0xa7c <__udivmodqi4>
+ 496:	90 93 72 00 	sts	0x0072, r25
+	return;
+}
+ 49a:	08 95       	ret
+
+0000049c <usart_receive_string>:
+void usart_receive_string(char  *input_buffer){
+ 49c:	fc 01       	movw	r30, r24
+ 49e:	df 01       	movw	r26, r30
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+	UDR = byte;
+}
+unsigned char  usart_receive(void ){
+	while(!(UCSRA &(1 << RXC)));
+ 4a0:	5f 9b       	sbis	0x0b, 7	; 11
+ 4a2:	fe cf       	rjmp	.-4      	; 0x4a0 <usart_receive_string+0x4>
+	return  UDR;
+ 4a4:	8c b1       	in	r24, 0x0c	; 12
+	
+	while(1){
+	/*
+	Mb check if first is S or F and then 
+	determine how many bits you should read	*/	
+		input_buffer[i] = usart_receive();
+ 4a6:	81 93       	st	Z+, r24
+		// mb change '\n' to '\0'
+		if(input_buffer[i] != '\n'){
+ 4a8:	8a 30       	cpi	r24, 0x0A	; 10
+ 4aa:	c9 f7       	brne	.-14     	; 0x49e <usart_receive_string+0x2>
+			i++;
+		}
+		else{
+			input_buffer[i] = '\0';
+ 4ac:	1c 92       	st	X, r1
+			break;
+		}
+	}
+}
+ 4ae:	08 95       	ret
+
+000004b0 <setup_teamname>:
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4b0:	5d 9b       	sbis	0x0b, 5	; 11
+ 4b2:	fe cf       	rjmp	.-4      	; 0x4b0 <setup_teamname>
+	UDR = byte;
+ 4b4:	84 e7       	ldi	r24, 0x74	; 116
+ 4b6:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4b8:	5d 9b       	sbis	0x0b, 5	; 11
+ 4ba:	fe cf       	rjmp	.-4      	; 0x4b8 <setup_teamname+0x8>
+	UDR = byte;
+ 4bc:	85 e6       	ldi	r24, 0x65	; 101
+ 4be:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4c0:	5d 9b       	sbis	0x0b, 5	; 11
+ 4c2:	fe cf       	rjmp	.-4      	; 0x4c0 <setup_teamname+0x10>
+	UDR = byte;
+ 4c4:	81 e6       	ldi	r24, 0x61	; 97
+ 4c6:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4c8:	5d 9b       	sbis	0x0b, 5	; 11
+ 4ca:	fe cf       	rjmp	.-4      	; 0x4c8 <setup_teamname+0x18>
+	UDR = byte;
+ 4cc:	8d e6       	ldi	r24, 0x6D	; 109
+ 4ce:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4d0:	5d 9b       	sbis	0x0b, 5	; 11
+ 4d2:	fe cf       	rjmp	.-4      	; 0x4d0 <setup_teamname+0x20>
+	UDR = byte;
+ 4d4:	8e e6       	ldi	r24, 0x6E	; 110
+ 4d6:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4d8:	5d 9b       	sbis	0x0b, 5	; 11
+ 4da:	fe cf       	rjmp	.-4      	; 0x4d8 <setup_teamname+0x28>
+	UDR = byte;
+ 4dc:	81 e6       	ldi	r24, 0x61	; 97
+ 4de:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4e0:	5d 9b       	sbis	0x0b, 5	; 11
+ 4e2:	fe cf       	rjmp	.-4      	; 0x4e0 <setup_teamname+0x30>
+	UDR = byte;
+ 4e4:	8d e6       	ldi	r24, 0x6D	; 109
+ 4e6:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4e8:	5d 9b       	sbis	0x0b, 5	; 11
+ 4ea:	fe cf       	rjmp	.-4      	; 0x4e8 <setup_teamname+0x38>
+	UDR = byte;
+ 4ec:	85 e6       	ldi	r24, 0x65	; 101
+ 4ee:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4f0:	5d 9b       	sbis	0x0b, 5	; 11
+ 4f2:	fe cf       	rjmp	.-4      	; 0x4f0 <setup_teamname+0x40>
+	UDR = byte;
+ 4f4:	8a e3       	ldi	r24, 0x3A	; 58
+ 4f6:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 4f8:	5d 9b       	sbis	0x0b, 5	; 11
+ 4fa:	fe cf       	rjmp	.-4      	; 0x4f8 <setup_teamname+0x48>
+	UDR = byte;
+ 4fc:	87 e4       	ldi	r24, 0x47	; 71
+ 4fe:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 500:	5d 9b       	sbis	0x0b, 5	; 11
+ 502:	fe cf       	rjmp	.-4      	; 0x500 <setup_teamname+0x50>
+	UDR = byte;
+ 504:	89 e3       	ldi	r24, 0x39	; 57
+ 506:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 508:	5d 9b       	sbis	0x0b, 5	; 11
+ 50a:	fe cf       	rjmp	.-4      	; 0x508 <setup_teamname+0x58>
+	UDR = byte;
+ 50c:	8a e0       	ldi	r24, 0x0A	; 10
+ 50e:	8c b9       	out	0x0c, r24	; 12
+	usart_transmit('e');
+	usart_transmit(':');
+	usart_transmit('G');
+	usart_transmit('9');
+	usart_transmit('\n');
+}
+ 510:	08 95       	ret
+
+00000512 <setup_connection>:
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 512:	5d 9b       	sbis	0x0b, 5	; 11
+ 514:	fe cf       	rjmp	.-4      	; 0x512 <setup_connection>
+	UDR = byte;
+ 516:	83 e6       	ldi	r24, 0x63	; 99
+ 518:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 51a:	5d 9b       	sbis	0x0b, 5	; 11
+ 51c:	fe cf       	rjmp	.-4      	; 0x51a <setup_connection+0x8>
+	UDR = byte;
+ 51e:	8f e6       	ldi	r24, 0x6F	; 111
+ 520:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 522:	5d 9b       	sbis	0x0b, 5	; 11
+ 524:	fe cf       	rjmp	.-4      	; 0x522 <setup_connection+0x10>
+	UDR = byte;
+ 526:	8e e6       	ldi	r24, 0x6E	; 110
+ 528:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 52a:	5d 9b       	sbis	0x0b, 5	; 11
+ 52c:	fe cf       	rjmp	.-4      	; 0x52a <setup_connection+0x18>
+	UDR = byte;
+ 52e:	8e e6       	ldi	r24, 0x6E	; 110
+ 530:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 532:	5d 9b       	sbis	0x0b, 5	; 11
+ 534:	fe cf       	rjmp	.-4      	; 0x532 <setup_connection+0x20>
+	UDR = byte;
+ 536:	85 e6       	ldi	r24, 0x65	; 101
+ 538:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 53a:	5d 9b       	sbis	0x0b, 5	; 11
+ 53c:	fe cf       	rjmp	.-4      	; 0x53a <setup_connection+0x28>
+	UDR = byte;
+ 53e:	83 e6       	ldi	r24, 0x63	; 99
+ 540:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 542:	5d 9b       	sbis	0x0b, 5	; 11
+ 544:	fe cf       	rjmp	.-4      	; 0x542 <setup_connection+0x30>
+	UDR = byte;
+ 546:	84 e7       	ldi	r24, 0x74	; 116
+ 548:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 54a:	5d 9b       	sbis	0x0b, 5	; 11
+ 54c:	fe cf       	rjmp	.-4      	; 0x54a <setup_connection+0x38>
+	UDR = byte;
+ 54e:	8a e0       	ldi	r24, 0x0A	; 10
+ 550:	8c b9       	out	0x0c, r24	; 12
+	usart_transmit('n');
+	usart_transmit('e');
+	usart_transmit('c');
+	usart_transmit('t');
+	usart_transmit('\n');	
+}
+ 552:	08 95       	ret
+
+00000554 <lcd_success>:
+void lcd_success(char number){
+ 554:	1f 93       	push	r17
+ 556:	18 2f       	mov	r17, r24
+	lcd_command(0x02);
+ 558:	82 e0       	ldi	r24, 0x02	; 2
+ 55a:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+	lcd_data(number);
+ 55e:	81 2f       	mov	r24, r17
+ 560:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('.');
+ 564:	8e e2       	ldi	r24, 0x2E	; 46
+ 566:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('S');
+ 56a:	83 e5       	ldi	r24, 0x53	; 83
+ 56c:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('u');
+ 570:	85 e7       	ldi	r24, 0x75	; 117
+ 572:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('c');
+ 576:	83 e6       	ldi	r24, 0x63	; 99
+ 578:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('c');
+ 57c:	83 e6       	ldi	r24, 0x63	; 99
+ 57e:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('e');
+ 582:	85 e6       	ldi	r24, 0x65	; 101
+ 584:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('s');
+ 588:	83 e7       	ldi	r24, 0x73	; 115
+ 58a:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('s');
+ 58e:	83 e7       	ldi	r24, 0x73	; 115
+ 590:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+}
+ 594:	1f 91       	pop	r17
+ 596:	08 95       	ret
+
+00000598 <lcd_fail>:
+void lcd_fail(char number){
+ 598:	1f 93       	push	r17
+ 59a:	18 2f       	mov	r17, r24
+	lcd_command(0x02);
+ 59c:	82 e0       	ldi	r24, 0x02	; 2
+ 59e:	0e 94 15 01 	call	0x22a	; 0x22a <lcd_command>
+	lcd_data(number);
+ 5a2:	81 2f       	mov	r24, r17
+ 5a4:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('.');
+ 5a8:	8e e2       	ldi	r24, 0x2E	; 46
+ 5aa:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('F');
+ 5ae:	86 e4       	ldi	r24, 0x46	; 70
+ 5b0:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('a');
+ 5b4:	81 e6       	ldi	r24, 0x61	; 97
+ 5b6:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('i');
+ 5ba:	89 e6       	ldi	r24, 0x69	; 105
+ 5bc:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data('l');
+ 5c0:	8c e6       	ldi	r24, 0x6C	; 108
+ 5c2:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data(' ');
+ 5c6:	80 e2       	ldi	r24, 0x20	; 32
+ 5c8:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data(' ');
+ 5cc:	80 e2       	ldi	r24, 0x20	; 32
+ 5ce:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+	lcd_data(' ');
+ 5d2:	80 e2       	ldi	r24, 0x20	; 32
+ 5d4:	0e 94 0e 01 	call	0x21c	; 0x21c <lcd_data>
+}
+ 5d8:	1f 91       	pop	r17
+ 5da:	08 95       	ret
+
+000005dc <trasmit_temp_usart>:
+void trasmit_temp_usart(char first_digit,char second_digit){
+ 5dc:	98 2f       	mov	r25, r24
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 5de:	5d 9b       	sbis	0x0b, 5	; 11
+ 5e0:	fe cf       	rjmp	.-4      	; 0x5de <trasmit_temp_usart+0x2>
+	UDR = byte;
+ 5e2:	80 e7       	ldi	r24, 0x70	; 112
+ 5e4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 5e6:	5d 9b       	sbis	0x0b, 5	; 11
+ 5e8:	fe cf       	rjmp	.-4      	; 0x5e6 <trasmit_temp_usart+0xa>
+	UDR = byte;
+ 5ea:	81 e6       	ldi	r24, 0x61	; 97
+ 5ec:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 5ee:	5d 9b       	sbis	0x0b, 5	; 11
+ 5f0:	fe cf       	rjmp	.-4      	; 0x5ee <trasmit_temp_usart+0x12>
+	UDR = byte;
+ 5f2:	89 e7       	ldi	r24, 0x79	; 121
+ 5f4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 5f6:	5d 9b       	sbis	0x0b, 5	; 11
+ 5f8:	fe cf       	rjmp	.-4      	; 0x5f6 <trasmit_temp_usart+0x1a>
+	UDR = byte;
+ 5fa:	8c e6       	ldi	r24, 0x6C	; 108
+ 5fc:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 5fe:	5d 9b       	sbis	0x0b, 5	; 11
+ 600:	fe cf       	rjmp	.-4      	; 0x5fe <trasmit_temp_usart+0x22>
+	UDR = byte;
+ 602:	8f e6       	ldi	r24, 0x6F	; 111
+ 604:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 606:	5d 9b       	sbis	0x0b, 5	; 11
+ 608:	fe cf       	rjmp	.-4      	; 0x606 <trasmit_temp_usart+0x2a>
+	UDR = byte;
+ 60a:	81 e6       	ldi	r24, 0x61	; 97
+ 60c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 60e:	5d 9b       	sbis	0x0b, 5	; 11
+ 610:	fe cf       	rjmp	.-4      	; 0x60e <trasmit_temp_usart+0x32>
+	UDR = byte;
+ 612:	84 e6       	ldi	r24, 0x64	; 100
+ 614:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 616:	5d 9b       	sbis	0x0b, 5	; 11
+ 618:	fe cf       	rjmp	.-4      	; 0x616 <trasmit_temp_usart+0x3a>
+	UDR = byte;
+ 61a:	8b e5       	ldi	r24, 0x5B	; 91
+ 61c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 61e:	5d 9b       	sbis	0x0b, 5	; 11
+ 620:	fe cf       	rjmp	.-4      	; 0x61e <trasmit_temp_usart+0x42>
+	UDR = byte;
+ 622:	8b e7       	ldi	r24, 0x7B	; 123
+ 624:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 626:	5d 9b       	sbis	0x0b, 5	; 11
+ 628:	fe cf       	rjmp	.-4      	; 0x626 <trasmit_temp_usart+0x4a>
+	UDR = byte;
+ 62a:	82 e2       	ldi	r24, 0x22	; 34
+ 62c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 62e:	5d 9b       	sbis	0x0b, 5	; 11
+ 630:	fe cf       	rjmp	.-4      	; 0x62e <trasmit_temp_usart+0x52>
+	UDR = byte;
+ 632:	8e e6       	ldi	r24, 0x6E	; 110
+ 634:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 636:	5d 9b       	sbis	0x0b, 5	; 11
+ 638:	fe cf       	rjmp	.-4      	; 0x636 <trasmit_temp_usart+0x5a>
+	UDR = byte;
+ 63a:	81 e6       	ldi	r24, 0x61	; 97
+ 63c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 63e:	5d 9b       	sbis	0x0b, 5	; 11
+ 640:	fe cf       	rjmp	.-4      	; 0x63e <trasmit_temp_usart+0x62>
+	UDR = byte;
+ 642:	8d e6       	ldi	r24, 0x6D	; 109
+ 644:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 646:	5d 9b       	sbis	0x0b, 5	; 11
+ 648:	fe cf       	rjmp	.-4      	; 0x646 <trasmit_temp_usart+0x6a>
+	UDR = byte;
+ 64a:	85 e6       	ldi	r24, 0x65	; 101
+ 64c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 64e:	5d 9b       	sbis	0x0b, 5	; 11
+ 650:	fe cf       	rjmp	.-4      	; 0x64e <trasmit_temp_usart+0x72>
+	UDR = byte;
+ 652:	82 e2       	ldi	r24, 0x22	; 34
+ 654:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 656:	5d 9b       	sbis	0x0b, 5	; 11
+ 658:	fe cf       	rjmp	.-4      	; 0x656 <trasmit_temp_usart+0x7a>
+	UDR = byte;
+ 65a:	8a e3       	ldi	r24, 0x3A	; 58
+ 65c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 65e:	5d 9b       	sbis	0x0b, 5	; 11
+ 660:	fe cf       	rjmp	.-4      	; 0x65e <trasmit_temp_usart+0x82>
+	UDR = byte;
+ 662:	82 e2       	ldi	r24, 0x22	; 34
+ 664:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 666:	5d 9b       	sbis	0x0b, 5	; 11
+ 668:	fe cf       	rjmp	.-4      	; 0x666 <trasmit_temp_usart+0x8a>
+	UDR = byte;
+ 66a:	84 e5       	ldi	r24, 0x54	; 84
+ 66c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 66e:	5d 9b       	sbis	0x0b, 5	; 11
+ 670:	fe cf       	rjmp	.-4      	; 0x66e <trasmit_temp_usart+0x92>
+	UDR = byte;
+ 672:	85 e6       	ldi	r24, 0x65	; 101
+ 674:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 676:	5d 9b       	sbis	0x0b, 5	; 11
+ 678:	fe cf       	rjmp	.-4      	; 0x676 <trasmit_temp_usart+0x9a>
+	UDR = byte;
+ 67a:	8d e6       	ldi	r24, 0x6D	; 109
+ 67c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 67e:	5d 9b       	sbis	0x0b, 5	; 11
+ 680:	fe cf       	rjmp	.-4      	; 0x67e <trasmit_temp_usart+0xa2>
+	UDR = byte;
+ 682:	80 e7       	ldi	r24, 0x70	; 112
+ 684:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 686:	5d 9b       	sbis	0x0b, 5	; 11
+ 688:	fe cf       	rjmp	.-4      	; 0x686 <trasmit_temp_usart+0xaa>
+	UDR = byte;
+ 68a:	85 e6       	ldi	r24, 0x65	; 101
+ 68c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 68e:	5d 9b       	sbis	0x0b, 5	; 11
+ 690:	fe cf       	rjmp	.-4      	; 0x68e <trasmit_temp_usart+0xb2>
+	UDR = byte;
+ 692:	82 e7       	ldi	r24, 0x72	; 114
+ 694:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 696:	5d 9b       	sbis	0x0b, 5	; 11
+ 698:	fe cf       	rjmp	.-4      	; 0x696 <trasmit_temp_usart+0xba>
+	UDR = byte;
+ 69a:	81 e6       	ldi	r24, 0x61	; 97
+ 69c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 69e:	5d 9b       	sbis	0x0b, 5	; 11
+ 6a0:	fe cf       	rjmp	.-4      	; 0x69e <trasmit_temp_usart+0xc2>
+	UDR = byte;
+ 6a2:	84 e7       	ldi	r24, 0x74	; 116
+ 6a4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6a6:	5d 9b       	sbis	0x0b, 5	; 11
+ 6a8:	fe cf       	rjmp	.-4      	; 0x6a6 <trasmit_temp_usart+0xca>
+	UDR = byte;
+ 6aa:	85 e7       	ldi	r24, 0x75	; 117
+ 6ac:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6ae:	5d 9b       	sbis	0x0b, 5	; 11
+ 6b0:	fe cf       	rjmp	.-4      	; 0x6ae <trasmit_temp_usart+0xd2>
+	UDR = byte;
+ 6b2:	82 e7       	ldi	r24, 0x72	; 114
+ 6b4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6b6:	5d 9b       	sbis	0x0b, 5	; 11
+ 6b8:	fe cf       	rjmp	.-4      	; 0x6b6 <trasmit_temp_usart+0xda>
+	UDR = byte;
+ 6ba:	85 e6       	ldi	r24, 0x65	; 101
+ 6bc:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6be:	5d 9b       	sbis	0x0b, 5	; 11
+ 6c0:	fe cf       	rjmp	.-4      	; 0x6be <trasmit_temp_usart+0xe2>
+	UDR = byte;
+ 6c2:	82 e2       	ldi	r24, 0x22	; 34
+ 6c4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6c6:	5d 9b       	sbis	0x0b, 5	; 11
+ 6c8:	fe cf       	rjmp	.-4      	; 0x6c6 <trasmit_temp_usart+0xea>
+	UDR = byte;
+ 6ca:	8c e2       	ldi	r24, 0x2C	; 44
+ 6cc:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6ce:	5d 9b       	sbis	0x0b, 5	; 11
+ 6d0:	fe cf       	rjmp	.-4      	; 0x6ce <trasmit_temp_usart+0xf2>
+	UDR = byte;
+ 6d2:	82 e2       	ldi	r24, 0x22	; 34
+ 6d4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6d6:	5d 9b       	sbis	0x0b, 5	; 11
+ 6d8:	fe cf       	rjmp	.-4      	; 0x6d6 <trasmit_temp_usart+0xfa>
+	UDR = byte;
+ 6da:	86 e7       	ldi	r24, 0x76	; 118
+ 6dc:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6de:	5d 9b       	sbis	0x0b, 5	; 11
+ 6e0:	fe cf       	rjmp	.-4      	; 0x6de <trasmit_temp_usart+0x102>
+	UDR = byte;
+ 6e2:	81 e6       	ldi	r24, 0x61	; 97
+ 6e4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6e6:	5d 9b       	sbis	0x0b, 5	; 11
+ 6e8:	fe cf       	rjmp	.-4      	; 0x6e6 <trasmit_temp_usart+0x10a>
+	UDR = byte;
+ 6ea:	8c e6       	ldi	r24, 0x6C	; 108
+ 6ec:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6ee:	5d 9b       	sbis	0x0b, 5	; 11
+ 6f0:	fe cf       	rjmp	.-4      	; 0x6ee <trasmit_temp_usart+0x112>
+	UDR = byte;
+ 6f2:	85 e7       	ldi	r24, 0x75	; 117
+ 6f4:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6f6:	5d 9b       	sbis	0x0b, 5	; 11
+ 6f8:	fe cf       	rjmp	.-4      	; 0x6f6 <trasmit_temp_usart+0x11a>
+	UDR = byte;
+ 6fa:	85 e6       	ldi	r24, 0x65	; 101
+ 6fc:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 6fe:	5d 9b       	sbis	0x0b, 5	; 11
+ 700:	fe cf       	rjmp	.-4      	; 0x6fe <trasmit_temp_usart+0x122>
+	UDR = byte;
+ 702:	82 e2       	ldi	r24, 0x22	; 34
+ 704:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 706:	5d 9b       	sbis	0x0b, 5	; 11
+ 708:	fe cf       	rjmp	.-4      	; 0x706 <trasmit_temp_usart+0x12a>
+	UDR = byte;
+ 70a:	8a e3       	ldi	r24, 0x3A	; 58
+ 70c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 70e:	5d 9b       	sbis	0x0b, 5	; 11
+ 710:	fe cf       	rjmp	.-4      	; 0x70e <trasmit_temp_usart+0x132>
+	UDR = byte;
+ 712:	9c b9       	out	0x0c, r25	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 714:	5d 9b       	sbis	0x0b, 5	; 11
+ 716:	fe cf       	rjmp	.-4      	; 0x714 <trasmit_temp_usart+0x138>
+	UDR = byte;
+ 718:	6c b9       	out	0x0c, r22	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 71a:	5d 9b       	sbis	0x0b, 5	; 11
+ 71c:	fe cf       	rjmp	.-4      	; 0x71a <trasmit_temp_usart+0x13e>
+	UDR = byte;
+ 71e:	8d e7       	ldi	r24, 0x7D	; 125
+ 720:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 722:	5d 9b       	sbis	0x0b, 5	; 11
+ 724:	fe cf       	rjmp	.-4      	; 0x722 <trasmit_temp_usart+0x146>
+	UDR = byte;
+ 726:	8d e5       	ldi	r24, 0x5D	; 93
+ 728:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 72a:	5d 9b       	sbis	0x0b, 5	; 11
+ 72c:	fe cf       	rjmp	.-4      	; 0x72a <trasmit_temp_usart+0x14e>
+	UDR = byte;
+ 72e:	8a e0       	ldi	r24, 0x0A	; 10
+ 730:	8c b9       	out	0x0c, r24	; 12
+	usart_transmit(first_digit);
+	usart_transmit(second_digit);
+	usart_transmit('}');
+	usart_transmit(']');
+	usart_transmit('\n');
+}
+ 732:	08 95       	ret
+
+00000734 <setup_team_status>:
+void setup_team_status(char flag){
+ 734:	98 2f       	mov	r25, r24
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 736:	5d 9b       	sbis	0x0b, 5	; 11
+ 738:	fe cf       	rjmp	.-4      	; 0x736 <setup_team_status+0x2>
+	UDR = byte;
+ 73a:	82 e7       	ldi	r24, 0x72	; 114
+ 73c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 73e:	5d 9b       	sbis	0x0b, 5	; 11
+ 740:	fe cf       	rjmp	.-4      	; 0x73e <setup_team_status+0xa>
+	UDR = byte;
+ 742:	85 e6       	ldi	r24, 0x65	; 101
+ 744:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 746:	5d 9b       	sbis	0x0b, 5	; 11
+ 748:	fe cf       	rjmp	.-4      	; 0x746 <setup_team_status+0x12>
+	UDR = byte;
+ 74a:	81 e6       	ldi	r24, 0x61	; 97
+ 74c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 74e:	5d 9b       	sbis	0x0b, 5	; 11
+ 750:	fe cf       	rjmp	.-4      	; 0x74e <setup_team_status+0x1a>
+	UDR = byte;
+ 752:	84 e6       	ldi	r24, 0x64	; 100
+ 754:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 756:	5d 9b       	sbis	0x0b, 5	; 11
+ 758:	fe cf       	rjmp	.-4      	; 0x756 <setup_team_status+0x22>
+	UDR = byte;
+ 75a:	89 e7       	ldi	r24, 0x79	; 121
+ 75c:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 75e:	5d 9b       	sbis	0x0b, 5	; 11
+ 760:	fe cf       	rjmp	.-4      	; 0x75e <setup_team_status+0x2a>
+	UDR = byte;
+ 762:	8a e3       	ldi	r24, 0x3A	; 58
+ 764:	8c b9       	out	0x0c, r24	; 12
+	usart_transmit('e');
+	usart_transmit('a');
+	usart_transmit('d');
+	usart_transmit('y');
+	usart_transmit(':');
+	if(flag == 'T'){
+ 766:	94 35       	cpi	r25, 0x54	; 84
+ 768:	79 f4       	brne	.+30     	; 0x788 <setup_team_status+0x54>
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 76a:	5d 9b       	sbis	0x0b, 5	; 11
+ 76c:	fe cf       	rjmp	.-4      	; 0x76a <setup_team_status+0x36>
+	UDR = byte;
+ 76e:	84 e7       	ldi	r24, 0x74	; 116
+ 770:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 772:	5d 9b       	sbis	0x0b, 5	; 11
+ 774:	fe cf       	rjmp	.-4      	; 0x772 <setup_team_status+0x3e>
+	UDR = byte;
+ 776:	82 e7       	ldi	r24, 0x72	; 114
+ 778:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 77a:	5d 9b       	sbis	0x0b, 5	; 11
+ 77c:	fe cf       	rjmp	.-4      	; 0x77a <setup_team_status+0x46>
+	UDR = byte;
+ 77e:	85 e7       	ldi	r24, 0x75	; 117
+ 780:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 782:	5d 9b       	sbis	0x0b, 5	; 11
+ 784:	fe cf       	rjmp	.-4      	; 0x782 <setup_team_status+0x4e>
+ 786:	12 c0       	rjmp	.+36     	; 0x7ac <setup_team_status+0x78>
+	UDR = byte;
+ 788:	5d 9b       	sbis	0x0b, 5	; 11
+ 78a:	fe cf       	rjmp	.-4      	; 0x788 <setup_team_status+0x54>
+ 78c:	86 e6       	ldi	r24, 0x66	; 102
+ 78e:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 790:	5d 9b       	sbis	0x0b, 5	; 11
+ 792:	fe cf       	rjmp	.-4      	; 0x790 <setup_team_status+0x5c>
+	UDR = byte;
+ 794:	81 e6       	ldi	r24, 0x61	; 97
+ 796:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 798:	5d 9b       	sbis	0x0b, 5	; 11
+ 79a:	fe cf       	rjmp	.-4      	; 0x798 <setup_team_status+0x64>
+	UDR = byte;
+ 79c:	8c e6       	ldi	r24, 0x6C	; 108
+ 79e:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 7a0:	5d 9b       	sbis	0x0b, 5	; 11
+ 7a2:	fe cf       	rjmp	.-4      	; 0x7a0 <setup_team_status+0x6c>
+	UDR = byte;
+ 7a4:	83 e7       	ldi	r24, 0x73	; 115
+ 7a6:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 7a8:	5d 9b       	sbis	0x0b, 5	; 11
+ 7aa:	fe cf       	rjmp	.-4      	; 0x7a8 <setup_team_status+0x74>
+	UDR = byte;
+ 7ac:	85 e6       	ldi	r24, 0x65	; 101
+ 7ae:	8c b9       	out	0x0c, r24	; 12
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+}
+
+void usart_transmit(unsigned char byte){
+	while(!(UCSRA & (1 << UDRE)));
+ 7b0:	5d 9b       	sbis	0x0b, 5	; 11
+ 7b2:	fe cf       	rjmp	.-4      	; 0x7b0 <setup_team_status+0x7c>
+	UDR = byte;
+ 7b4:	8a e0       	ldi	r24, 0x0A	; 10
+ 7b6:	8c b9       	out	0x0c, r24	; 12
+	usart_transmit('s');
+	usart_transmit('e');
+	}
+	usart_transmit('\n');
+	return;
+}
+ 7b8:	08 95       	ret
+
+000007ba <main>:
+	TCNT1H = 0XFF;
+	TCNT1L = 0XFB;
+	sei();
+}
+int main(void)
+{   unsigned char sign,magnitude,sign_ext;
+ 7ba:	df 92       	push	r13
+ 7bc:	ef 92       	push	r14
+ 7be:	ff 92       	push	r15
+ 7c0:	0f 93       	push	r16
+ 7c2:	1f 93       	push	r17
+ 7c4:	df 93       	push	r29
+ 7c6:	cf 93       	push	r28
+ 7c8:	cd b7       	in	r28, 0x3d	; 61
+ 7ca:	de b7       	in	r29, 0x3e	; 62
+ 7cc:	c4 56       	subi	r28, 0x64	; 100
+ 7ce:	d0 40       	sbci	r29, 0x00	; 0
+ 7d0:	0f b6       	in	r0, 0x3f	; 63
+ 7d2:	f8 94       	cli
+ 7d4:	de bf       	out	0x3e, r29	; 62
+ 7d6:	0f be       	out	0x3f, r0	; 63
+ 7d8:	cd bf       	out	0x3d, r28	; 61
+	char input_buffer[100];
+	char team_number;
+	int temp;
+	//input_buffer = temp_buffer;
+	//char temp_buffer[100];	
+	DDRD=0XFF;
+ 7da:	8f ef       	ldi	r24, 0xFF	; 255
+ 7dc:	81 bb       	out	0x11, r24	; 17
+	DDRC = 0xF0;
+ 7de:	80 ef       	ldi	r24, 0xF0	; 240
+ 7e0:	84 bb       	out	0x14, r24	; 20
+	return 0x00;
+	
+}
+
+void usart_init(void){
+	UCSRA = 0; //Initialize USCRA as 0
+ 7e2:	1b b8       	out	0x0b, r1	; 11
+	// Activate transmitter receiver
+	UCSRB = (1 << RXEN) | (1<< TXEN);
+ 7e4:	88 e1       	ldi	r24, 0x18	; 24
+ 7e6:	8a b9       	out	0x0a, r24	; 10
+	//Baud rate = 9600
+	UBRRH = 0;
+ 7e8:	10 bc       	out	0x20, r1	; 32
+	UBRRL = 51;
+ 7ea:	83 e3       	ldi	r24, 0x33	; 51
+ 7ec:	89 b9       	out	0x09, r24	; 9
+	// 8 bit character size 1 stop bit
+	UCSRC = (1 << URSEL) | (3 << UCSZ0);
+ 7ee:	86 e8       	ldi	r24, 0x86	; 134
+ 7f0:	80 bd       	out	0x20, r24	; 32
+	//input_buffer = temp_buffer;
+	//char temp_buffer[100];	
+	DDRD=0XFF;
+	DDRC = 0xF0;
+	usart_init();
+	lcd_init();
+ 7f2:	0e 94 1c 01 	call	0x238	; 0x238 <lcd_init>
+	setup_teamname();
+ 7f6:	0e 94 58 02 	call	0x4b0	; 0x4b0 <setup_teamname>
+	memset(input_buffer,0,sizeof(input_buffer));
+ 7fa:	8e 01       	movw	r16, r28
+ 7fc:	0f 5f       	subi	r16, 0xFF	; 255
+ 7fe:	1f 4f       	sbci	r17, 0xFF	; 255
+ 800:	84 e6       	ldi	r24, 0x64	; 100
+ 802:	d8 01       	movw	r26, r16
+ 804:	1d 92       	st	X+, r1
+ 806:	8a 95       	dec	r24
+ 808:	e9 f7       	brne	.-6      	; 0x804 <main+0x4a>
+	usart_receive_string(input_buffer);
+ 80a:	c8 01       	movw	r24, r16
+ 80c:	0e 94 4e 02 	call	0x49c	; 0x49c <usart_receive_string>
+	if(strcmp(input_buffer,"Success") == 0){
+ 810:	c8 01       	movw	r24, r16
+ 812:	60 e6       	ldi	r22, 0x60	; 96
+ 814:	70 e0       	ldi	r23, 0x00	; 0
+ 816:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 81a:	00 97       	sbiw	r24, 0x00	; 0
+ 81c:	21 f4       	brne	.+8      	; 0x826 <main+0x6c>
+		lcd_success('1');
+ 81e:	81 e3       	ldi	r24, 0x31	; 49
+ 820:	0e 94 aa 02 	call	0x554	; 0x554 <lcd_success>
+ 824:	0a c0       	rjmp	.+20     	; 0x83a <main+0x80>
+	}
+	else if(strcmp(input_buffer,"Fail") == 0){
+ 826:	c8 01       	movw	r24, r16
+ 828:	68 e6       	ldi	r22, 0x68	; 104
+ 82a:	70 e0       	ldi	r23, 0x00	; 0
+ 82c:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 830:	00 97       	sbiw	r24, 0x00	; 0
+ 832:	19 f4       	brne	.+6      	; 0x83a <main+0x80>
+		lcd_fail('1');
+ 834:	81 e3       	ldi	r24, 0x31	; 49
+ 836:	0e 94 cc 02 	call	0x598	; 0x598 <lcd_fail>
+ 83a:	80 e1       	ldi	r24, 0x10	; 16
+ 83c:	97 e2       	ldi	r25, 0x27	; 39
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+ 83e:	28 ec       	ldi	r18, 0xC8	; 200
+ 840:	30 e0       	ldi	r19, 0x00	; 0
+ 842:	f9 01       	movw	r30, r18
+ 844:	31 97       	sbiw	r30, 0x01	; 1
+ 846:	f1 f7       	brne	.-4      	; 0x844 <main+0x8a>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 848:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 84a:	d9 f7       	brne	.-10     	; 0x842 <main+0x88>
+	}
+	_delay_ms(1000);
+	memset(input_buffer,0,sizeof(input_buffer));
+ 84c:	8e 01       	movw	r16, r28
+ 84e:	0f 5f       	subi	r16, 0xFF	; 255
+ 850:	1f 4f       	sbci	r17, 0xFF	; 255
+ 852:	84 e6       	ldi	r24, 0x64	; 100
+ 854:	f8 01       	movw	r30, r16
+ 856:	11 92       	st	Z+, r1
+ 858:	8a 95       	dec	r24
+ 85a:	e9 f7       	brne	.-6      	; 0x856 <main+0x9c>
+	setup_connection();
+ 85c:	0e 94 89 02 	call	0x512	; 0x512 <setup_connection>
+	usart_receive_string(input_buffer);
+ 860:	c8 01       	movw	r24, r16
+ 862:	0e 94 4e 02 	call	0x49c	; 0x49c <usart_receive_string>
+	if(strcmp(input_buffer,"Success")== 0){
+ 866:	c8 01       	movw	r24, r16
+ 868:	60 e6       	ldi	r22, 0x60	; 96
+ 86a:	70 e0       	ldi	r23, 0x00	; 0
+ 86c:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 870:	00 97       	sbiw	r24, 0x00	; 0
+ 872:	21 f4       	brne	.+8      	; 0x87c <main+0xc2>
+		lcd_success('2');
+ 874:	82 e3       	ldi	r24, 0x32	; 50
+ 876:	0e 94 aa 02 	call	0x554	; 0x554 <lcd_success>
+ 87a:	0a c0       	rjmp	.+20     	; 0x890 <main+0xd6>
+	}
+	else if(strcmp(input_buffer,"Fail")== 0){
+ 87c:	c8 01       	movw	r24, r16
+ 87e:	68 e6       	ldi	r22, 0x68	; 104
+ 880:	70 e0       	ldi	r23, 0x00	; 0
+ 882:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 886:	00 97       	sbiw	r24, 0x00	; 0
+ 888:	19 f4       	brne	.+6      	; 0x890 <main+0xd6>
+		lcd_fail('2');
+ 88a:	82 e3       	ldi	r24, 0x32	; 50
+ 88c:	0e 94 cc 02 	call	0x598	; 0x598 <lcd_fail>
+ 890:	80 e1       	ldi	r24, 0x10	; 16
+ 892:	97 e2       	ldi	r25, 0x27	; 39
+ 894:	28 ec       	ldi	r18, 0xC8	; 200
+ 896:	30 e0       	ldi	r19, 0x00	; 0
+ 898:	f9 01       	movw	r30, r18
+ 89a:	31 97       	sbiw	r30, 0x01	; 1
+ 89c:	f1 f7       	brne	.-4      	; 0x89a <main+0xe0>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 89e:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 8a0:	d9 f7       	brne	.-10     	; 0x898 <main+0xde>
+	}
+	_delay_ms(1000);
+	memset(input_buffer,0,sizeof(input_buffer));
+ 8a2:	fe 01       	movw	r30, r28
+ 8a4:	31 96       	adiw	r30, 0x01	; 1
+ 8a6:	84 e6       	ldi	r24, 0x64	; 100
+ 8a8:	df 01       	movw	r26, r30
+ 8aa:	1d 92       	st	X+, r1
+ 8ac:	8a 95       	dec	r24
+ 8ae:	e9 f7       	brne	.-6      	; 0x8aa <main+0xf0>
+				magnitude = ~(magnitude);
+				magnitude = magnitude + 1;
+			}
+			get_digits(magnitude); 
+			trasmit_temp_usart(dec+0x30,mon+0x30);
+			memset(input_buffer,0,sizeof(input_buffer));
+ 8b0:	a4 e6       	ldi	r26, 0x64	; 100
+ 8b2:	da 2e       	mov	r13, r26
+ 8b4:	8f 01       	movw	r16, r30
+ 8b6:	f8 ec       	ldi	r31, 0xC8	; 200
+ 8b8:	ef 2e       	mov	r14, r31
+ 8ba:	f1 2c       	mov	r15, r1
+	TCNT1L = 0XFB;
+	sei();
+	insert this after execution of volatile insturcions
+	*/
+     while (1) {
+		_tmp_=0x0000;
+ 8bc:	10 92 6f 00 	sts	0x006F, r1
+ 8c0:	10 92 6e 00 	sts	0x006E, r1
+	//Comment this out if you use interrupts
+		cli();
+ 8c4:	f8 94       	cli
+		hun=0;
+ 8c6:	10 92 71 00 	sts	0x0071, r1
+		mon=0;
+ 8ca:	10 92 72 00 	sts	0x0072, r1
+		dec=0;
+ 8ce:	10 92 73 00 	sts	0x0073, r1
+		sign = '+';
+		temp = return_temp();
+ 8d2:	0e 94 b8 01 	call	0x370	; 0x370 <return_temp>
+ 8d6:	9c 01       	movw	r18, r24
+		if(temp == 0x8000){
+ 8d8:	b0 e8       	ldi	r27, 0x80	; 128
+ 8da:	80 30       	cpi	r24, 0x00	; 0
+ 8dc:	9b 07       	cpc	r25, r27
+ 8de:	19 f4       	brne	.+6      	; 0x8e6 <main+0x12c>
+			no_device();
+ 8e0:	0e 94 e3 01 	call	0x3c6	; 0x3c6 <no_device>
+ 8e4:	30 c0       	rjmp	.+96     	; 0x946 <main+0x18c>
+		}
+		else{
+			sign_ext  = (temp >> 8) & 0x00FF;
+			if(sign_ext ==  0xff){
+ 8e6:	9f 3f       	cpi	r25, 0xFF	; 255
+ 8e8:	11 f4       	brne	.+4      	; 0x8ee <main+0x134>
+ 8ea:	9d e2       	ldi	r25, 0x2D	; 45
+ 8ec:	01 c0       	rjmp	.+2      	; 0x8f0 <main+0x136>
+ 8ee:	9b e2       	ldi	r25, 0x2B	; 43
+				sign = '-';
+			}
+			magnitude = temp & 0x00FF;
+ 8f0:	82 2f       	mov	r24, r18
+			if(sign == '-'){
+ 8f2:	9d 32       	cpi	r25, 0x2D	; 45
+ 8f4:	09 f4       	brne	.+2      	; 0x8f8 <main+0x13e>
+				magnitude = ~(magnitude);
+				magnitude = magnitude + 1;
+ 8f6:	81 95       	neg	r24
+			}
+			get_digits(magnitude); 
+ 8f8:	0e 94 36 02 	call	0x46c	; 0x46c <get_digits>
+			trasmit_temp_usart(dec+0x30,mon+0x30);
+ 8fc:	80 91 73 00 	lds	r24, 0x0073
+ 900:	60 91 72 00 	lds	r22, 0x0072
+ 904:	60 5d       	subi	r22, 0xD0	; 208
+ 906:	80 5d       	subi	r24, 0xD0	; 208
+ 908:	0e 94 ee 02 	call	0x5dc	; 0x5dc <trasmit_temp_usart>
+			memset(input_buffer,0,sizeof(input_buffer));
+ 90c:	f8 01       	movw	r30, r16
+ 90e:	8d 2d       	mov	r24, r13
+ 910:	11 92       	st	Z+, r1
+ 912:	8a 95       	dec	r24
+ 914:	e9 f7       	brne	.-6      	; 0x910 <main+0x156>
+			usart_receive_string(input_buffer);
+ 916:	c8 01       	movw	r24, r16
+ 918:	0e 94 4e 02 	call	0x49c	; 0x49c <usart_receive_string>
+			if(strcmp(input_buffer,"Success")== 0){
+ 91c:	c8 01       	movw	r24, r16
+ 91e:	60 e6       	ldi	r22, 0x60	; 96
+ 920:	70 e0       	ldi	r23, 0x00	; 0
+ 922:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 926:	00 97       	sbiw	r24, 0x00	; 0
+ 928:	21 f4       	brne	.+8      	; 0x932 <main+0x178>
+				lcd_success('3');
+ 92a:	83 e3       	ldi	r24, 0x33	; 51
+ 92c:	0e 94 aa 02 	call	0x554	; 0x554 <lcd_success>
+ 930:	0a c0       	rjmp	.+20     	; 0x946 <main+0x18c>
+			}
+			else if(strcmp(input_buffer,"Fail")== 0){
+ 932:	c8 01       	movw	r24, r16
+ 934:	68 e6       	ldi	r22, 0x68	; 104
+ 936:	70 e0       	ldi	r23, 0x00	; 0
+ 938:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 93c:	00 97       	sbiw	r24, 0x00	; 0
+ 93e:	19 f4       	brne	.+6      	; 0x946 <main+0x18c>
+				lcd_fail('3');
+ 940:	83 e3       	ldi	r24, 0x33	; 51
+ 942:	0e 94 cc 02 	call	0x598	; 0x598 <lcd_fail>
+ 946:	80 e1       	ldi	r24, 0x10	; 16
+ 948:	97 e2       	ldi	r25, 0x27	; 39
+ 94a:	f7 01       	movw	r30, r14
+ 94c:	31 97       	sbiw	r30, 0x01	; 1
+ 94e:	f1 f7       	brne	.-4      	; 0x94c <main+0x192>
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 950:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 952:	d9 f7       	brne	.-10     	; 0x94a <main+0x190>
+			}	 	 
+		} 
+		_delay_ms(1000);
+		//Comment the following lines out if you use interrupts
+		sei();
+ 954:	78 94       	sei
+		 
+		team_number = keypad_to_ascii(scan_keypad_rising_edge());
+ 956:	0e 94 8a 00 	call	0x114	; 0x114 <scan_keypad_rising_edge>
+ 95a:	0e 94 ac 00 	call	0x158	; 0x158 <keypad_to_ascii>
+		if(team_number=='9'){
+ 95e:	89 33       	cpi	r24, 0x39	; 57
+ 960:	11 f4       	brne	.+4      	; 0x966 <main+0x1ac>
+			setup_team_status('T');
+ 962:	84 e5       	ldi	r24, 0x54	; 84
+ 964:	01 c0       	rjmp	.+2      	; 0x968 <main+0x1ae>
+		}
+		else{
+			setup_team_status('F');
+ 966:	86 e4       	ldi	r24, 0x46	; 70
+ 968:	0e 94 9a 03 	call	0x734	; 0x734 <setup_team_status>
+		}
+		memset(input_buffer,0,sizeof(input_buffer));
+ 96c:	d8 01       	movw	r26, r16
+ 96e:	ed 2d       	mov	r30, r13
+ 970:	1d 92       	st	X+, r1
+ 972:	ea 95       	dec	r30
+ 974:	e9 f7       	brne	.-6      	; 0x970 <main+0x1b6>
+		usart_receive_string(input_buffer);
+ 976:	c8 01       	movw	r24, r16
+ 978:	0e 94 4e 02 	call	0x49c	; 0x49c <usart_receive_string>
+		if(strcmp(input_buffer,"Success")== 0){
+ 97c:	c8 01       	movw	r24, r16
+ 97e:	60 e6       	ldi	r22, 0x60	; 96
+ 980:	70 e0       	ldi	r23, 0x00	; 0
+ 982:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 986:	00 97       	sbiw	r24, 0x00	; 0
+ 988:	21 f4       	brne	.+8      	; 0x992 <main+0x1d8>
+			lcd_success('4');
+ 98a:	84 e3       	ldi	r24, 0x34	; 52
+ 98c:	0e 94 aa 02 	call	0x554	; 0x554 <lcd_success>
+ 990:	95 cf       	rjmp	.-214    	; 0x8bc <main+0x102>
+		}
+		else if(strcmp(input_buffer,"Fail")== 0){
+ 992:	c8 01       	movw	r24, r16
+ 994:	68 e6       	ldi	r22, 0x68	; 104
+ 996:	70 e0       	ldi	r23, 0x00	; 0
+ 998:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ 99c:	00 97       	sbiw	r24, 0x00	; 0
+ 99e:	09 f0       	breq	.+2      	; 0x9a2 <main+0x1e8>
+ 9a0:	8d cf       	rjmp	.-230    	; 0x8bc <main+0x102>
+			lcd_fail('4');
+ 9a2:	84 e3       	ldi	r24, 0x34	; 52
+ 9a4:	0e 94 cc 02 	call	0x598	; 0x598 <lcd_fail>
+ 9a8:	89 cf       	rjmp	.-238    	; 0x8bc <main+0x102>
+
+000009aa <__vector_8>:
+	}
+	usart_transmit('\n');
+	return;
+}
+ISR(TIMER1_OVF_vect)
+{   //Timer ISR when timer interrupts is set disable timer interrupts and turn off the leds of portb
+ 9aa:	1f 92       	push	r1
+ 9ac:	0f 92       	push	r0
+ 9ae:	0f b6       	in	r0, 0x3f	; 63
+ 9b0:	0f 92       	push	r0
+ 9b2:	11 24       	eor	r1, r1
+ 9b4:	0f 93       	push	r16
+ 9b6:	1f 93       	push	r17
+ 9b8:	2f 93       	push	r18
+ 9ba:	3f 93       	push	r19
+ 9bc:	4f 93       	push	r20
+ 9be:	5f 93       	push	r21
+ 9c0:	6f 93       	push	r22
+ 9c2:	7f 93       	push	r23
+ 9c4:	8f 93       	push	r24
+ 9c6:	9f 93       	push	r25
+ 9c8:	af 93       	push	r26
+ 9ca:	bf 93       	push	r27
+ 9cc:	ef 93       	push	r30
+ 9ce:	ff 93       	push	r31
+ 9d0:	df 93       	push	r29
+ 9d2:	cf 93       	push	r28
+ 9d4:	cd b7       	in	r28, 0x3d	; 61
+ 9d6:	de b7       	in	r29, 0x3e	; 62
+ 9d8:	c4 56       	subi	r28, 0x64	; 100
+ 9da:	d0 40       	sbci	r29, 0x00	; 0
+ 9dc:	de bf       	out	0x3e, r29	; 62
+ 9de:	cd bf       	out	0x3d, r28	; 61
+	cli();
+ 9e0:	f8 94       	cli
+	char input_buffer[100];
+	char team_number = keypad_to_ascii(scan_keypad_rising_edge());
+ 9e2:	0e 94 8a 00 	call	0x114	; 0x114 <scan_keypad_rising_edge>
+ 9e6:	0e 94 ac 00 	call	0x158	; 0x158 <keypad_to_ascii>
+	if(team_number=='9'){
+ 9ea:	89 33       	cpi	r24, 0x39	; 57
+ 9ec:	11 f4       	brne	.+4      	; 0x9f2 <__vector_8+0x48>
+		setup_team_status('T');
+ 9ee:	84 e5       	ldi	r24, 0x54	; 84
+ 9f0:	01 c0       	rjmp	.+2      	; 0x9f4 <__vector_8+0x4a>
+	}
+	else{
+		setup_team_status('F');
+ 9f2:	86 e4       	ldi	r24, 0x46	; 70
+ 9f4:	0e 94 9a 03 	call	0x734	; 0x734 <setup_team_status>
+	}
+	memset(input_buffer,0,sizeof(input_buffer));
+ 9f8:	8e 01       	movw	r16, r28
+ 9fa:	0f 5f       	subi	r16, 0xFF	; 255
+ 9fc:	1f 4f       	sbci	r17, 0xFF	; 255
+ 9fe:	84 e6       	ldi	r24, 0x64	; 100
+ a00:	f8 01       	movw	r30, r16
+ a02:	11 92       	st	Z+, r1
+ a04:	8a 95       	dec	r24
+ a06:	e9 f7       	brne	.-6      	; 0xa02 <__vector_8+0x58>
+	usart_receive_string(input_buffer);
+ a08:	c8 01       	movw	r24, r16
+ a0a:	0e 94 4e 02 	call	0x49c	; 0x49c <usart_receive_string>
+	if(strcmp(input_buffer,"Success")!= 0){
+ a0e:	c8 01       	movw	r24, r16
+ a10:	60 e6       	ldi	r22, 0x60	; 96
+ a12:	70 e0       	ldi	r23, 0x00	; 0
+ a14:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ a18:	00 97       	sbiw	r24, 0x00	; 0
+ a1a:	21 f0       	breq	.+8      	; 0xa24 <__vector_8+0x7a>
+		lcd_success('4');
+ a1c:	84 e3       	ldi	r24, 0x34	; 52
+ a1e:	0e 94 aa 02 	call	0x554	; 0x554 <lcd_success>
+ a22:	0a c0       	rjmp	.+20     	; 0xa38 <__vector_8+0x8e>
+	}
+	else if(strcmp(input_buffer,"Fail")!= 0){
+ a24:	c8 01       	movw	r24, r16
+ a26:	68 e6       	ldi	r22, 0x68	; 104
+ a28:	70 e0       	ldi	r23, 0x00	; 0
+ a2a:	0e 94 4a 05 	call	0xa94	; 0xa94 <strcmp>
+ a2e:	00 97       	sbiw	r24, 0x00	; 0
+ a30:	19 f0       	breq	.+6      	; 0xa38 <__vector_8+0x8e>
+		lcd_fail('4');
+ a32:	84 e3       	ldi	r24, 0x34	; 52
+ a34:	0e 94 cc 02 	call	0x598	; 0x598 <lcd_fail>
+	}
+	TIMSK = (1<<TOIE1);
+ a38:	84 e0       	ldi	r24, 0x04	; 4
+ a3a:	89 bf       	out	0x39, r24	; 57
+	TCCR1B = ((0<<CS12)|(1<<CS11)|(0<<CS10));
+ a3c:	82 e0       	ldi	r24, 0x02	; 2
+ a3e:	8e bd       	out	0x2e, r24	; 46
+	TCNT1H = 0XFF;
+ a40:	8f ef       	ldi	r24, 0xFF	; 255
+ a42:	8d bd       	out	0x2d, r24	; 45
+	TCNT1L = 0XFB;
+ a44:	8b ef       	ldi	r24, 0xFB	; 251
+ a46:	8c bd       	out	0x2c, r24	; 44
+	sei();
+ a48:	78 94       	sei
+}
+ a4a:	cc 59       	subi	r28, 0x9C	; 156
+ a4c:	df 4f       	sbci	r29, 0xFF	; 255
+ a4e:	de bf       	out	0x3e, r29	; 62
+ a50:	cd bf       	out	0x3d, r28	; 61
+ a52:	cf 91       	pop	r28
+ a54:	df 91       	pop	r29
+ a56:	ff 91       	pop	r31
+ a58:	ef 91       	pop	r30
+ a5a:	bf 91       	pop	r27
+ a5c:	af 91       	pop	r26
+ a5e:	9f 91       	pop	r25
+ a60:	8f 91       	pop	r24
+ a62:	7f 91       	pop	r23
+ a64:	6f 91       	pop	r22
+ a66:	5f 91       	pop	r21
+ a68:	4f 91       	pop	r20
+ a6a:	3f 91       	pop	r19
+ a6c:	2f 91       	pop	r18
+ a6e:	1f 91       	pop	r17
+ a70:	0f 91       	pop	r16
+ a72:	0f 90       	pop	r0
+ a74:	0f be       	out	0x3f, r0	; 63
+ a76:	0f 90       	pop	r0
+ a78:	1f 90       	pop	r1
+ a7a:	18 95       	reti
+
+00000a7c <__udivmodqi4>:
+ a7c:	99 1b       	sub	r25, r25
+ a7e:	79 e0       	ldi	r23, 0x09	; 9
+ a80:	04 c0       	rjmp	.+8      	; 0xa8a <__udivmodqi4_ep>
+
+00000a82 <__udivmodqi4_loop>:
+ a82:	99 1f       	adc	r25, r25
+ a84:	96 17       	cp	r25, r22
+ a86:	08 f0       	brcs	.+2      	; 0xa8a <__udivmodqi4_ep>
+ a88:	96 1b       	sub	r25, r22
+
+00000a8a <__udivmodqi4_ep>:
+ a8a:	88 1f       	adc	r24, r24
+ a8c:	7a 95       	dec	r23
+ a8e:	c9 f7       	brne	.-14     	; 0xa82 <__udivmodqi4_loop>
+ a90:	80 95       	com	r24
+ a92:	08 95       	ret
+
+00000a94 <strcmp>:
+ a94:	fb 01       	movw	r30, r22
+ a96:	dc 01       	movw	r26, r24
+ a98:	8d 91       	ld	r24, X+
+ a9a:	01 90       	ld	r0, Z+
+ a9c:	80 19       	sub	r24, r0
+ a9e:	01 10       	cpse	r0, r1
+ aa0:	d9 f3       	breq	.-10     	; 0xa98 <strcmp+0x4>
+ aa2:	99 0b       	sbc	r25, r25
+ aa4:	08 95       	ret
+
+00000aa6 <_exit>:
+ aa6:	f8 94       	cli
+
+00000aa8 <__stop_program>:
+ aa8:	ff cf       	rjmp	.-2      	; 0xaa8 <__stop_program>

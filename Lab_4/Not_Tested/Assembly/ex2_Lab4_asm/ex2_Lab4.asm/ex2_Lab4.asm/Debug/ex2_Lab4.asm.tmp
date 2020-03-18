@@ -1,0 +1,54 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega16"</DEVICE>
+ <WORKING_DIR>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\Debug\ex2_Lab4.asm.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>ex2_Lab4.asm.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>ex2_Lab4.asm.map</FILE>
+  <FILE>ex2_Lab4.asm.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>16</LINE></reset>
+  <lcd_init><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>241</LINE></lcd_init>
+  <main><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>25</LINE></main>
+  <return_temp><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>109</LINE></return_temp>
+  <no_device_connected><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>56</LINE></no_device_connected>
+  <get_digits><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>82</LINE></get_digits>
+  <lcd_command><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>303</LINE></lcd_command>
+  <its_getting_hot_in_here><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>52</LINE></its_getting_hot_in_here>
+  <so_take_off_all_your_clothes><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>38</LINE></so_take_off_all_your_clothes>
+  <lcd_data><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>296</LINE></lcd_data>
+  <no_device_detected><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>60</LINE></no_device_detected>
+  <negative><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>103</LINE></negative>
+  <flag><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>88</LINE></flag>
+  <tenths><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>94</LINE></tenths>
+  <hund><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>91</LINE></hund>
+  <monads><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>100</LINE></monads>
+  <one_wire_reset><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>217</LINE></one_wire_reset>
+  <no_device><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>134</LINE></no_device>
+  <one_wire_transmit_byte><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>178</LINE></one_wire_transmit_byte>
+  <not_finished><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>116</LINE></not_finished>
+  <one_wire_receive_bit><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>153</LINE></one_wire_receive_bit>
+  <one_wire_receive_byte><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>139</LINE></one_wire_receive_byte>
+  <loop_><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>142</LINE></loop_>
+  <wait_usec><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>322</LINE></wait_usec>
+  <_one_more_><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>181</LINE></_one_more_>
+  <one_wire_transmit_bit><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>191</LINE></one_wire_transmit_bit>
+  <wait_msec><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>311</LINE></wait_msec>
+  <write_2_nibbles><FILE>C:\Users\Miniala\Documents\Microlab\Lab_4\Assembly\ex2_Lab4_asm\ex2_Lab4.asm\ex2_Lab4.asm\main.asm</FILE><LINE>278</LINE></write_2_nibbles>
+ </LABELS>
+</ASSEMBLER_INFO>

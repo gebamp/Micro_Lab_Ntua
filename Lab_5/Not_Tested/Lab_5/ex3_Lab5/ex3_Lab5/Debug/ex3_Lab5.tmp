@@ -1,0 +1,39 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega16"</DEVICE>
+ <WORKING_DIR>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc</DIR>
+  <DIR>C:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\avrasm\inc\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\Debug\ex3_Lab5.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>ex3_Lab5.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>ex3_Lab5.map</FILE>
+  <FILE>ex3_Lab5.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>28</LINE></reset>
+  <ADC_routine><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>50</LINE></ADC_routine>
+  <usart_init><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>119</LINE></usart_init>
+  <ADC_init><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>109</LINE></ADC_init>
+  <counter_reset><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>37</LINE></counter_reset>
+  <main><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>39</LINE></main>
+  <wait_msec><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>144</LINE></wait_msec>
+  <usart_transmit><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>132</LINE></usart_transmit>
+  <keep_rolling><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>70</LINE></keep_rolling>
+  <not_yet_again><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>79</LINE></not_yet_again>
+  <not_yet><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>84</LINE></not_yet>
+  <usart_receive><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>138</LINE></usart_receive>
+  <wait_usec><FILE>C:\Users\superminiala\Desktop\Lab_5\ex3_Lab5\ex3_Lab5\main.asm</FILE><LINE>156</LINE></wait_usec>
+ </LABELS>
+</ASSEMBLER_INFO>

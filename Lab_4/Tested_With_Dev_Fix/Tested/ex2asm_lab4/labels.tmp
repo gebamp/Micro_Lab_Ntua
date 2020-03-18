@@ -1,0 +1,53 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>16</LINE></reset>
+  <lcd_init><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>262</LINE></lcd_init>
+  <main><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>26</LINE></main>
+  <return_temp><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>118</LINE></return_temp>
+  <no_device_connected><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>65</LINE></no_device_connected>
+  <pos><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>34</LINE></pos>
+  <get_digits><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>91</LINE></get_digits>
+  <lcd_command><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>324</LINE></lcd_command>
+  <lcd_data><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>317</LINE></lcd_data>
+  <its_getting_hot_in_here><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>58</LINE></its_getting_hot_in_here>
+  <so_take_off_all_your_clothes><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>43</LINE></so_take_off_all_your_clothes>
+  <print_space><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>149</LINE></print_space>
+  <no_device_detected><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>69</LINE></no_device_detected>
+  <negative><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>112</LINE></negative>
+  <flag><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>97</LINE></flag>
+  <tenths><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>103</LINE></tenths>
+  <hund><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>100</LINE></hund>
+  <monads><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>109</LINE></monads>
+  <one_wire_reset><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>238</LINE></one_wire_reset>
+  <no_device><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>144</LINE></no_device>
+  <one_wire_transmit_byte><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>199</LINE></one_wire_transmit_byte>
+  <not_finished><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>126</LINE></not_finished>
+  <one_wire_receive_bit><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>174</LINE></one_wire_receive_bit>
+  <one_wire_receive_byte><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>160</LINE></one_wire_receive_byte>
+  <loop_><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>163</LINE></loop_>
+  <wait_usec><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>343</LINE></wait_usec>
+  <_one_more_><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>202</LINE></_one_more_>
+  <one_wire_transmit_bit><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>212</LINE></one_wire_transmit_bit>
+  <wait_msec><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>332</LINE></wait_msec>
+  <write_2_nibbles><FILE>C:\Documents and Settings\mlab.STUDENTVM\Desktop\Tested\ex2asm_lab4\ex2asm_lab4.asm</FILE><LINE>299</LINE></write_2_nibbles>
+ </LABELS>
+</ASSEMBLER_INFO>

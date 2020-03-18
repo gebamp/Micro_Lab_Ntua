@@ -1,0 +1,32 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>E:\Lab_3\avr_lab_3_dec</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <reset><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>10</LINE></reset>
+  <main><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>16</LINE></main>
+  <get_digits><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>19</LINE></get_digits>
+  <negative><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>43</LINE></negative>
+  <flag><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>28</LINE></flag>
+  <tenths><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>34</LINE></tenths>
+  <hund><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>31</LINE></hund>
+  <monads><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>40</LINE></monads>
+  <end><FILE>E:\Lab_3\avr_lab_3_dec\avr_lab_3_dec.asm</FILE><LINE>50</LINE></end>
+ </LABELS>
+</ASSEMBLER_INFO>
