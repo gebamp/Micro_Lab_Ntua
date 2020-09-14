@@ -1,0 +1,41 @@
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\definecolor{celestialblue}{rgb}{0.29, 0.59, 0.82}
+
+\lstdefinelanguage{AVR_ASM}{
+morekeywords={mov,movw,lds,ld,ldd,sts,st,std,
+lp,elpm,spm,push,pop,xch,las,lac,lat,rol,ror,
+asr,swap,sbi,cbi,bst,bld,bset,bclr,sec,clc,sen,
+sez,clz,cli,ses,cls,sev,clv,set,clt,seh,clh,break,
+nop,sleep,wdr,brcs,brcc,brsh,brlo,brmi,brpl,brge,
+grlt,brhs,brhc,brts,brtc,ijmp,eijmp,icall,eical,
+cpse,cpc,sbic,sbis,brbs,brbc,fmul,fmuls,fmulsu,
+des,add,adc,adiw,sub,subi,sbc,sbci,sbiw,and,andi,
+or,ori,eor,com,neg,sbr,cbr,dec,mul,muls,mulsu,ldi,
+reti,rcall,clr,brne,sbrc,dec,nop,sbr,jmp,sbrs,lsr,
+lsl,tst,low,high,inc,rjmp,sei,ser,ret,rcal,cpi,breq,or},
+morekeywords=[2]{in,out,r10,r11,r12,r13,r14,r15,r16,r17,r18
+,r19,r20,r21,r22,r23,r24,r25,r26,r27,r28,r28,r29,r30,r31},
+morekeywords=[3]{include,org,def},
+morekeywords=[4]{SREG,STACK,SP,GIFR,SPH,SPL,MCUCR,GICR,TOIE1
+,DDRB,DDRC,DDRA,DDRD,TCNT1H,TCNT1L,CS10,CS11,CS00,CS01
+,CS12,TIMSK,TCCR1B,PORTA,PORTB,PORTC,PORTD,PINA,PINB,PINC,
+PIND,porta,portb,portc,portd,INTF0,pina,pinb,pinc,pind,RAMEND,
+ISC11,ISC10,INT1,INT0,INTF1,GIFR,,ISC01,ISC00,INT0,Portb}, 
+morecomment = [l]{;}
+ }
+
+ \lstset{language=AVR_ASM, 
+        frame=single, 
+        basicstyle=\small\ttfamily, 
+        keywordstyle=\color{blue}\bf, 
+        keywordstyle=[2]\color{orange}, 
+        keywordstyle=[3]\color{purple}, 
+        keywordstyle=[4]\color{celestialblue},
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small,
+        tabsize=5, 
+        numbers=left,
+        firstnumber=1, 
+        numberstyle=\tiny\color{blue},
+        stepnumber=1, 
+        sensitive=false
+        }
