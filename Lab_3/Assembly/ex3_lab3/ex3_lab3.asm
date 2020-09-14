@@ -45,54 +45,47 @@ main:
     clr minutes_first_digit
     clr seconds_second_digit
     clr minutes_second_digit
-    ;ldi r24,0x01
-    ;rcall lcd_commad
-    rcall lcd_init
+    ldi r24,0x02
+    rcall lcd_command
     rcall print_time
 timer_loop:
-    ;ldi r24,0x01
-    ;rcall lcd_command
-    rcall lcd_init
+    ldi   r24,0x02
+    rcall lcd_command
     rcall print_time
     in  button,PINB
-    ;ldi r24,0x01
-    ;rcall lcd_command
     sbrc button,7
-	  jmp  main
+	jmp  main
     sbrs button,0
-	  jmp timer_loop
+	jmp timer_loop
   
-    ;rcall print_time
-     
-    ldi r24,low(840)
-	  ldi r25,high(840)
-	  rcall wait_msec
-    ;1st_Adition
-    ;ldi r24,low (950)
+    
+  
+     ;1st_Adition
+     ;ldi r24,low (950)
 	  ;ldi r25,high(950)
 	  ;rcall wait_msec
     
-;     ldi  r28,0
-;     ldi  r29,249
-;     jmp  keep_checking
-; 250_ms:
-;     inc r28
-;     cpi r28,3
-;     breq 1_second_has_passed
-; keep_checking:
-;     in   r30,PINB
-;     sbrc r30,7
-;     jmp   main
-;     sbrs r30,0
-;     jmp timer_loop
-;     ldi r24,low(1)
-;     ldi r25,high(1)
-;     rcall wait_msec
-;     dec r29
-;     breq r29,250_ms
-;     jmp keep_checking
-; 1_second_has_passed:
-;     ;
+     ldi  r28,0
+     ldi  r29,249
+     jmp  keep_checking
+ _ms:
+     inc r28
+     cpi r28,3
+     breq _second_has_passed
+ keep_checking:
+     in   r30,PINB
+     sbrc r30,7
+     jmp   main
+     sbrs r30,0
+     jmp timer_loop
+     ldi r24,low(1)
+     ldi r25,high(1)
+     rcall wait_msec
+     dec r29
+     breq _ms
+     jmp keep_checking
+ _second_has_passed:
+     ;
 	  inc   seconds_second_digit
     cpi   seconds_second_digit,10
 	  brne  dont_increment_something

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.42  Z:\Micro_Lab\Lab_3\Assembly\ex3_lab3\ex3_lab3.asm Sun Nov 17 19:28:57 2019
+AVRASM ver. 2.1.42  E:\Microlab\Lab_3\Not_Tested\Lab_3\Assembly\ex3_lab3\ex3_lab3.asm Mon Nov 18 11:34:47 2019
 
 
 EQU  SIGNATURE_000 0000001e
@@ -607,19 +607,22 @@ EQU  INT_VECTORS_SIZE 0000002a
 DSEG _tmp_        00000060
 CSEG reset        00000001
 CSEG main         0000000c
-CSEG lcd_init     0000004e
-CSEG print_time   0000002f
-CSEG timer_loop   00000012
-CSEG wait_msec    00000125
-CSEG dont_increment_something 0000002b
-CSEG end          0000002b
-CSEG lcd_data     00000082
-CSEG wait_usec    0000012f
-CSEG lcd_command  00000088
-CSEG write_2_nibbles 00000072
-CSEG scan_keypad_rising_edge 0000008e
-CSEG scan_keypad  000000af
-CSEG scan_row     000000a5
-CSEG back         000000a6
-CSEG keypad_to_ascii 000000bf
-CSEG keypad_to_hex 000000f2
+CSEG lcd_command  0000009c
+CSEG print_time   00000043
+CSEG timer_loop   00000013
+CSEG keep_checking 00000024
+CSEG _ms          00000021
+CSEG _second_has_passed 00000032
+CSEG wait_msec    00000139
+CSEG dont_increment_something 0000003f
+CSEG end          0000003f
+CSEG lcd_data     00000096
+CSEG lcd_init     00000062
+CSEG wait_usec    00000143
+CSEG write_2_nibbles 00000086
+CSEG scan_keypad_rising_edge 000000a2
+CSEG scan_keypad  000000c3
+CSEG scan_row     000000b9
+CSEG back         000000ba
+CSEG keypad_to_ascii 000000d3
+CSEG keypad_to_hex 00000106
